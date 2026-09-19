@@ -22,7 +22,7 @@ const destacados = proyectos.filter((p) => p.destacado);
   <section class="portada banda">
     <div class="envoltura">
       <p class="micro portada__kicker">{perfil.nombreCompleto}</p>
-      <h1 class="serif portada__titular">{perfil.titular[idioma]}</h1>
+      <h1 class="portada__titular">{perfil.titular[idioma]}</h1>
       <p class="grande lectura portada__entradilla">{perfil.entradilla[idioma]}</p>
       <p class="portada__acciones">
         <a class="boton boton--lleno" href={ruta('cv', idioma)}>{ui.verCv}</a>
@@ -37,7 +37,7 @@ const destacados = proyectos.filter((p) => p.destacado);
     <div class="envoltura">
       <div class="encabezado-seccion">
         <span class="micro">{ui.seleccion}</span>
-        <h2 id="titulo-seleccion" class="serif">{ui.seleccionPie}</h2>
+        <h2 id="titulo-seleccion">{ui.seleccionPie}</h2>
       </div>
 
       <div class="mosaico">
@@ -58,9 +58,10 @@ const destacados = proyectos.filter((p) => p.destacado);
   .portada__kicker { color: var(--acento-texto); margin: 0 0 var(--e3); }
   .portada__titular {
     font-size: var(--h0);
-    font-weight: 300;
-    line-height: 1.02;
-    max-width: 18ch;
+    font-weight: 700;
+    line-height: 1.0;
+    letter-spacing: -0.035em;
+    max-width: 19ch;
     margin: 0 0 var(--e4);
   }
   .portada__entradilla { color: var(--gris); margin-bottom: var(--e4); }

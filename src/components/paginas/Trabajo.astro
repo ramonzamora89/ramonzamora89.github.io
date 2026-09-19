@@ -23,7 +23,7 @@ const etiquetas = [...new Set(proyectos.map((p) => p.etiqueta[idioma]))].sort();
       <div class="encabezado-seccion">
         <span class="micro">{ui.navTrabajo}</span>
         {/* El filtro es una frase, no una barra de facetas. */}
-        <h1 class="serif filtro__frase">
+        <h1 class="filtro__frase">
           <span>{ui.meInteresa}</span>
           <span class="filtro" data-filtro>
             <button type="button" class="filtro__boton" aria-haspopup="listbox" aria-expanded="false" data-filtro-boton>
@@ -107,7 +107,7 @@ const etiquetas = [...new Set(proyectos.map((p) => p.etiqueta[idioma]))].sort();
 </script>
 
 <style>
-  .filtro__frase { font-size: var(--h1); font-weight: 300; margin-bottom: var(--e3); }
+  .filtro__frase { font-size: var(--h1); font-weight: 700; letter-spacing: -0.03em; margin-bottom: var(--e3); }
   .filtro { position: relative; display: inline-block; }
   .filtro__boton {
     font: inherit;

@@ -25,18 +25,20 @@
   --borde: var(--linea);
 
   /* --- Tipografía ------------------------------------------------------ */
+  /* Titulares. Cambiar solo esta línea cambia todos los títulos del sitio. */
+  --display: 'Poppins', 'Futura', 'Century Gothic', 'Avenir Next', sans-serif;
   --sans: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
   --serif: 'Newsreader', Georgia, 'Times New Roman', serif;
 
-  --h0: clamp(2.6rem, 1.2rem + 6vw, 6.25rem);
-  --h1: clamp(2.1rem, 1.3rem + 3.6vw, 4.2rem);
-  --h2: clamp(1.7rem, 1.3rem + 1.8vw, 2.75rem);
+  --h0: clamp(2.05rem, 1.1rem + 3.1vw, 3.5rem);
+  --h1: clamp(1.8rem, 1.2rem + 2.2vw, 2.8rem);
+  --h2: clamp(1.5rem, 1.2rem + 1.3vw, 2.15rem);
   --h3: clamp(1.25rem, 1.1rem + 0.7vw, 1.6rem);
   --texto: 1.0625rem;
   --texto-grande: clamp(1.15rem, 1.05rem + 0.5vw, 1.4rem);
   --micro: 0.7rem;          /* versalitas: kickers, etiquetas, metadatos */
 
-  --peso-titulo: 800;
+  --peso-titulo: 700;
   --peso-cuerpo: 400;
   --peso-ligero: 300;
   --tracking-micro: 0.15em; /* el detalle que hace legibles las versalitas */

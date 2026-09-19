@@ -27,15 +27,15 @@
       "id": "labetnografico",
       "organizacion": "LabEtnográfico",
       "cargo": "Co-founder / Consultant",
-      "periodo": "2025–present",
+      "periodo": "2018–present",
       "tramos": [
         [
-          2025,
+          2018,
           2026
         ]
       ],
       "puntos": [
-        "Co-founded a consultancy focused on qualitative research, strategic communication, innovation, experience design and organizational strategy.",
+        "Co-founded, with his partners, a consultancy focused on qualitative research, strategic communication, innovation, experience design and organizational strategy.",
         "Has worked with organizations including IDB Invest, BAM, Radio Selva and Prensa Comunitaria.",
         "Designs research, workshops, sprints, sustainability models, audience strategies and organizational transformation processes.",
         "Has advised projects on leadership, organizational culture, psychological safety, organizational structure and performance.",
@@ -69,10 +69,11 @@
       "corto": "Population Council"
     },
     {
-      "id": "uvg-docencia",
+      "id": "uvg",
       "organizacion": "Universidad del Valle de Guatemala",
-      "cargo": "Lecturer",
-      "periodo": "2017–present",
+      "corto": "UVG",
+      "cargo": "Lecturer · Coordinator, Social Innovation Lab",
+      "periodo": "2017–present · Social Innovation Lab, 2020–2023",
       "tramos": [
         [
           2017,
@@ -82,27 +83,11 @@
       "puntos": [
         "Has taught global citizenship, sociology of communication, communication and technology, digital methods, visual anthropology, qualitative methods and strategic communication.",
         "Designs curricula that combine digital tools with qualitative and quantitative methodologies.",
-        "Has taught at both undergraduate and graduate level."
-      ],
-      "corto": "UVG"
-    },
-    {
-      "id": "uvg-lab",
-      "organizacion": "Universidad del Valle de Guatemala",
-      "cargo": "Coordinator, Social Innovation Lab",
-      "periodo": "2020–2023",
-      "tramos": [
-        [
-          2020,
-          2023
-        ]
-      ],
-      "puntos": [
-        "Coordinated projects in social innovation, applied research, civic participation and digital methodologies.",
+        "Has taught at both undergraduate and graduate level.",
+        "Between 2020 and 2023 coordinated the Social Innovation Lab: projects in social innovation, applied research, civic participation and digital methodologies.",
         "Contributed to the redesign of the anthropology curriculum.",
         "Facilitated collaborative processes on civic technology, public discourse, access to rights and citizen participation."
-      ],
-      "corto": "UVG · Social Innovation Lab"
+      ]
     },
     {
       "id": "elperiodico",

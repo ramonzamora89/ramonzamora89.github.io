@@ -8,7 +8,7 @@ import { RUTAS, UI } from '../i18n';
       {(['en', 'es'] as const).map((idioma) => (
         <div class="perdido" lang={idioma}>
           <p class="micro perdido__codigo">404</p>
-          <h1 class="serif">{UI[idioma].noEncontrado}</h1>
+          <h1>{UI[idioma].noEncontrado}</h1>
           <p class="grande tenue">{UI[idioma].noEncontradoTexto}</p>
           <ul class="perdido__enlaces">
             <li><a href={RUTAS.inicio[idioma]}>{UI[idioma].navInicio}</a></li>
@@ -25,6 +25,6 @@ import { RUTAS, UI } from '../i18n';
 <style>
   .perdido + .perdido { margin-top: var(--e5); padding-top: var(--e5); border-top: var(--borde-fino) solid var(--linea); }
   .perdido__codigo { color: var(--acento-texto); margin: 0 0 var(--e2); }
-  .perdido h1 { font-size: var(--h2); font-weight: 300; }
+  .perdido h1 { font-size: var(--h2); }
   .perdido__enlaces { display: flex; flex-wrap: wrap; gap: var(--e3); list-style: none; margin: var(--e3) 0 0; padding: 0; }
 </style>

@@ -36,7 +36,7 @@ const parrafos = idioma === 'es'
     <div class="envoltura sobre">
       <div class="sobre__texto">
         <span class="micro sobre__kicker">{ui.navSobre}</span>
-        <h1 class="serif sobre__titular">{perfil.titular[idioma]}</h1>
+        <h1 class="sobre__titular">{perfil.titular[idioma]}</h1>
         {parrafos.map((p) => <p class="grande">{p}</p>)}
 
         <h2 class="micro sobre__rotulo">{ui.idiomas}</h2>
@@ -64,7 +64,7 @@ const parrafos = idioma === 'es'
     .sobre__figura { position: sticky; top: calc(var(--alto-cabecera) + var(--e3)); }
   }
   .sobre__kicker { color: var(--acento-texto); display: block; margin-bottom: var(--e2); }
-  .sobre__titular { font-size: var(--h1); font-weight: 300; margin-bottom: var(--e4); max-width: 20ch; }
+  .sobre__titular { font-size: var(--h1); font-weight: 700; letter-spacing: -0.03em; margin-bottom: var(--e4); max-width: 19ch; }
   .sobre__texto .grande { color: var(--gris); }
   .sobre__rotulo { color: var(--acento-texto); margin: var(--e5) 0 var(--e3); }
   .sobre__idiomas { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--e3); }

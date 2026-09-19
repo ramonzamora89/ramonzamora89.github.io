@@ -27,15 +27,15 @@
       "id": "labetnografico",
       "organizacion": "LabEtnográfico",
       "cargo": "Cofundador / Consultor",
-      "periodo": "2025–presente",
+      "periodo": "2018–presente",
       "tramos": [
         [
-          2025,
+          2018,
           2026
         ]
       ],
       "puntos": [
-        "Cofundó una consultora enfocada en investigación cualitativa, comunicación estratégica, innovación, diseño de experiencias y estrategia organizacional.",
+        "Cofundó con sus socios una consultora enfocada en investigación cualitativa, comunicación estratégica, innovación, diseño de experiencias y estrategia organizacional.",
         "Ha trabajado con organizaciones como BID Invest, BAM, Radio Selva y Prensa Comunitaria.",
         "Diseña investigaciones, talleres, sprints, modelos de sostenibilidad, estrategias de audiencia y procesos de transformación organizacional.",
         "Ha asesorado proyectos relacionados con liderazgo, cultura organizacional, seguridad psicológica, estructuras organizacionales y desempeño.",
@@ -69,10 +69,11 @@
       "corto": "Population Council"
     },
     {
-      "id": "uvg-docencia",
+      "id": "uvg",
       "organizacion": "Universidad del Valle de Guatemala",
-      "cargo": "Docente",
-      "periodo": "2017–presente",
+      "corto": "UVG",
+      "cargo": "Docente · Coordinador del Laboratorio de Innovación Social",
+      "periodo": "2017–presente · Laboratorio de Innovación Social, 2020–2023",
       "tramos": [
         [
           2017,
@@ -82,27 +83,11 @@
       "puntos": [
         "Ha impartido cursos de ciudadanía global, sociología de la comunicación, comunicación y tecnología, métodos digitales, antropología visual, métodos cualitativos y comunicación estratégica.",
         "Diseña currículos que integran herramientas digitales con metodologías cualitativas y cuantitativas.",
-        "Ha enseñado en programas de pregrado y posgrado."
-      ],
-      "corto": "UVG"
-    },
-    {
-      "id": "uvg-lab",
-      "organizacion": "Universidad del Valle de Guatemala",
-      "cargo": "Coordinador, Laboratorio de Innovación Social",
-      "periodo": "2020–2023",
-      "tramos": [
-        [
-          2020,
-          2023
-        ]
-      ],
-      "puntos": [
-        "Coordinó proyectos de innovación social, investigación aplicada, participación cívica y metodologías digitales.",
+        "Ha enseñado en programas de pregrado y posgrado.",
+        "Entre 2020 y 2023 coordinó el Laboratorio de Innovación Social: proyectos de innovación social, investigación aplicada, participación cívica y metodologías digitales.",
         "Contribuyó al rediseño curricular de antropología.",
         "Facilitó procesos colaborativos relacionados con tecnología cívica, discurso público, acceso a derechos y participación ciudadana."
-      ],
-      "corto": "UVG · Lab de Innovación Social"
+      ]
     },
     {
       "id": "elperiodico",

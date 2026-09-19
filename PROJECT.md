@@ -103,6 +103,26 @@ Chrome headless a veces no termina solo: si se queda colgado tras escribir el
 archivo, se corta con Ctrl-C. El botón «Imprimir / guardar en PDF» de la página
 hace lo mismo desde el navegador y no depende de esto.
 
+### Cambiar la tipografía de los títulos
+
+Todos los titulares salen de `--display`, en `src/styles/tokens.css`. Cambiarla
+es una línea, más las caras `@font-face` en `src/styles/fonts.css` y la
+precarga en `src/layouts/Base.astro`.
+
+Hoy es **Poppins** (600 y 700, estáticas, autoalojadas): geométrica de bowls
+circulares, lo más cercano a Bauhaus 93 que existe con licencia libre. No es un
+clon: Bauhaus 93 tiene ascendentes mucho más cortas. Las otras candidatas que
+probé fueron Comfortaa (más redonda, terminaciones suaves), Unbounded (más
+display y ancha) y Jost (revival de Futura, más sobrio).
+
+Si se cambia, hay que revisar la escala: la escala de `--h0`/`--h1`/`--h2` está
+calibrada para una geométrica en peso 700, que pesa bastante más que una serif
+ligera al mismo cuerpo. Con otra fuente casi seguro habrá que reajustarla.
+
+El serif (Newsreader) se quedó donde es texto editorial —resúmenes de las
+piezas, el resultado de cada ficha, el valor del filtro de `/work/`— y Archivo
+en interfaz, versalitas y cuerpo.
+
 ### Añadir un idioma o una página
 
 Las rutas viven en `RUTAS`, dentro de `src/i18n.ts`, y los textos de interfaz en
@@ -114,6 +134,9 @@ una, el sitio compila y el texto sale vacío, que es peor que un error.
 - **La foto de perfil es de 400×400** (`public/img/ramon-zamora.jpg`). Se ve
   suave en pantallas retina. Hay una de 1744×1736 en
   `~/Documents/UNFPA/CVs/Ramón Zamora.jpg`.
+- **La línea de tiempo ya no muestra por separado** la coordinación del
+  Laboratorio de Innovación Social (2020–2023): está unificada dentro del puesto
+  de UVG, que va de 2017 a hoy, por decisión de Moncho.
 - **Kronika tiene la ficha más floja** del portafolio: solo lleva el resumen de
   su propio sitio, sin «lo que hice» ni resultado.
 - **CAIMA:** el CV habla de ~20 medios aliados y elarchivo.media dice «11 media

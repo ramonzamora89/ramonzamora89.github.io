@@ -1,0 +1,14 @@
+---
+import Pieza from '../../../components/paginas/Pieza.astro';
+import proyectos from '../../../data/proyectos.json';
+
+export function getStaticPaths() {
+  return proyectos.map((pieza, i) => ({
+    params: { slug: pieza.slug.es },
+    props: { pieza, siguiente: proyectos[(i + 1) % proyectos.length] },
+  }));
+}
+
+const { pieza, siguiente } = Astro.props;
+---
+<Pieza idioma="es" pieza={pieza} siguiente={siguiente} />

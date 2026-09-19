@@ -1,0 +1,89 @@
+/* Tokens del sitio. Regla dura: no se escribe ningún hex fuera de este archivo.
+   Contrastes verificados por cálculo (WCAG 2.1) contra --crema y --tinta:
+     tinta/crema 16.63 AAA · acento-texto/crema 5.96 AA
+     acento/crema 4.44 (solo texto grande ≥24px o ≥19px bold, y elementos gráficos)
+     acento-claro/tinta 6.07 AA · gris/crema 6.77 AA · gris-tenue/tinta 8.28 AAA */
+
+:root {
+  /* --- Color base ------------------------------------------------------ */
+  --crema: #fcfcf7;         /* fondo del sitio: crema, no blanco */
+  --crema-calido: #f7f3e8;  /* bandas alternas */
+  --tinta: #1f1c06;         /* texto: negro oliva, no negro puro */
+  --acento: #d1452a;        /* bermellón: SOLO gráfico — bordes, filetes, duotono, texto grande */
+  --acento-fondo: #9c2c16;  /* el rojo como fondo de banda: crema encima da 7.33 AAA */
+  --acento-texto: #b3341c;  /* el mismo rojo, oscurecido para texto chico sobre claro */
+  --acento-claro: #ff6b4a;  /* rojo para texto sobre fondo oscuro */
+  --gris: #5c5a4a;          /* texto secundario sobre claro */
+  --gris-tenue: #b8b5a0;    /* texto secundario sobre oscuro */
+  --linea: #dedbcc;         /* filetes y bordes decorativos */
+
+  /* --- Variables de tema (las remapea [data-theme]) --------------------- */
+  --bg: var(--crema);
+  --fg: var(--tinta);
+  --fg-suave: var(--gris);
+  --enlace: var(--acento-texto);
+  --borde: var(--linea);
+
+  /* --- Tipografía ------------------------------------------------------ */
+  --sans: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  --serif: 'Newsreader', Georgia, 'Times New Roman', serif;
+
+  --h0: clamp(2.6rem, 1.2rem + 6vw, 6.25rem);
+  --h1: clamp(2.1rem, 1.3rem + 3.6vw, 4.2rem);
+  --h2: clamp(1.7rem, 1.3rem + 1.8vw, 2.75rem);
+  --h3: clamp(1.25rem, 1.1rem + 0.7vw, 1.6rem);
+  --texto: 1.0625rem;
+  --texto-grande: clamp(1.15rem, 1.05rem + 0.5vw, 1.4rem);
+  --micro: 0.7rem;          /* versalitas: kickers, etiquetas, metadatos */
+
+  --peso-titulo: 800;
+  --peso-cuerpo: 400;
+  --peso-ligero: 300;
+  --tracking-micro: 0.15em; /* el detalle que hace legibles las versalitas */
+
+  /* --- Medidas --------------------------------------------------------- */
+  --ancho-maximo: 1220px;
+  --ancho-lectura: 42rem;
+  --gutter: clamp(16px, 4vw, 40px);
+  --alto-cabecera: 60px;
+  --radio: 5px;
+  --radio-pastilla: 48px;
+  --borde-fino: 1px;
+
+  /* Escala de espaciado, base 1.25rem (la de la d.school) */
+  --e1: 0.3125rem;
+  --e2: 0.625rem;
+  --e3: 1.25rem;
+  --e4: 1.875rem;
+  --e5: 3.125rem;
+  --e6: 5.3125rem;
+
+  --transicion: 0.3s ease;
+}
+
+/* --- Temas por sección. Un atributo cambia toda la banda. --------------- */
+[data-theme='oscuro'] {
+  --bg: var(--tinta);
+  --fg: var(--crema);
+  --fg-suave: var(--gris-tenue);
+  --enlace: var(--acento-claro);
+  --borde: #3a3722;
+}
+
+[data-theme='crema'] {
+  --bg: var(--crema-calido);
+  --fg: var(--tinta);
+  --fg-suave: var(--gris);
+  --enlace: var(--acento-texto);
+  --borde: var(--linea);
+}
+
+/* Banda roja. Usa --acento-fondo, no --acento: sobre #d1452a el texto chico
+   en crema se queda en 4.44 y no alcanza AA. */
+[data-theme='acento'] {
+  --bg: var(--acento-fondo);
+  --fg: var(--crema);
+  --fg-suave: #f7d9d2;      /* 5.68 sobre --acento-fondo: AA */
+  --enlace: var(--crema);
+  --borde: #c26a56;
+}

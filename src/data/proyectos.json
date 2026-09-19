@@ -1,0 +1,477 @@
+[
+  {
+    "id": "caima",
+    "destacado": true,
+    "slug": {
+      "es": "caima",
+      "en": "caima"
+    },
+    "titulo": {
+      "es": "CAIMA — Archivo de Medios Independientes de Centroamérica",
+      "en": "CAIMA — Central America Independent Media Archive"
+    },
+    "tipo": {
+      "es": "Archivo",
+      "en": "Archive"
+    },
+    "etiqueta": {
+      "es": "Preservación",
+      "en": "Preservation"
+    },
+    "periodo": "2023–",
+    "rol": {
+      "es": "Coordinador y cofundador",
+      "en": "Coordinator and co-founder"
+    },
+    "organizaciones": [
+      "CAIMA"
+    ],
+    "resumen": {
+      "es": "Una iniciativa regional para preservar los archivos del periodismo independiente centroamericano y darles acceso seguro para investigación y memoria histórica.",
+      "en": "A regional initiative to preserve the archives of Central American independent journalism and make them securely accessible for research and historical memory."
+    },
+    "problema": {
+      "es": "Cuando un medio independiente cierra o es forzado al exilio, su archivo desaparece con él. En Centroamérica eso ha dejado huecos de décadas en el registro público.",
+      "en": "When an independent outlet closes or is forced into exile, its archive disappears with it. In Central America that has left decades-long gaps in the public record."
+    },
+    "trabajo": {
+      "es": [
+        "Construyó alianzas con medios, universidades y organizaciones especializadas en preservación digital.",
+        "Coordina digitalización, almacenamiento, investigación y vinculación con redacciones.",
+        "El proyecto surgió, en parte, de preservar cuatro terabytes del archivo histórico de elPeriódico."
+      ],
+      "en": [
+        "Built partnerships with news outlets, universities and digital preservation specialists.",
+        "Coordinates digitization, storage, research and newsroom liaison.",
+        "The project grew, in part, out of preserving four terabytes of elPeriódico's historical archive."
+      ]
+    },
+    "resultado": {
+      "es": "La meta inicial era sumar 13 organizaciones aliadas. El proyecto incorporó alrededor de 20 medios.",
+      "en": "The initial target was 13 partner organizations. The project brought in around 20 outlets."
+    },
+    "enlaces": [
+      {
+        "etiqueta": "elarchivo.media",
+        "href": "https://elarchivo.media"
+      }
+    ],
+    "captura": true
+  },
+  {
+    "id": "kronika",
+    "destacado": false,
+    "slug": {
+      "es": "kronika",
+      "en": "kronika"
+    },
+    "titulo": {
+      "es": "Kronika",
+      "en": "Kronika"
+    },
+    "tipo": {
+      "es": "Tecnología cívica",
+      "en": "Civic technology"
+    },
+    "etiqueta": {
+      "es": "Preservación",
+      "en": "Preservation"
+    },
+    "periodo": "2026",
+    "rol": {
+      "es": "Cofundador",
+      "en": "Co-founder"
+    },
+    "organizaciones": [
+      "Kronika"
+    ],
+    "resumen": {
+      "es": "Un proyecto de tecnología cívica dedicado a preservar el periodismo independiente bajo amenaza.",
+      "en": "A civic technology project dedicated to preserving independent journalism under threat."
+    },
+    "problema": {
+      "es": "Preservar un archivo no basta: hay que sostener la infraestructura que lo mantiene accesible cuando la redacción que lo produjo ya no puede hacerlo.",
+      "en": "Preserving an archive is not enough: the infrastructure that keeps it accessible has to outlast the newsroom that produced it."
+    },
+    "trabajo": {
+      "es": [],
+      "en": []
+    },
+    "resultado": {
+      "es": "",
+      "en": ""
+    },
+    "enlaces": [
+      {
+        "etiqueta": "kronika.technology",
+        "href": "https://kronika.technology"
+      }
+    ],
+    "captura": true
+  },
+  {
+    "id": "zamoralibre",
+    "destacado": true,
+    "slug": {
+      "es": "zamoralibre",
+      "en": "zamoralibre"
+    },
+    "titulo": {
+      "es": "#ZamoraLibre / #FreeZamora",
+      "en": "#FreeZamora / #ZamoraLibre"
+    },
+    "tipo": {
+      "es": "Campaña",
+      "en": "Campaign"
+    },
+    "etiqueta": {
+      "es": "Libertad de prensa",
+      "en": "Press freedom"
+    },
+    "periodo": "2022–",
+    "rol": {
+      "es": "Coordinación de campaña",
+      "en": "Campaign coordination"
+    },
+    "organizaciones": [
+      "Amnesty International",
+      "CIVICUS",
+      "NoNosCallarán"
+    ],
+    "resumen": {
+      "es": "Campaña internacional de comunicación e incidencia para promover la liberación del periodista José Rubén Zamora.",
+      "en": "International communication and advocacy campaign for the release of journalist José Rubén Zamora."
+    },
+    "problema": {
+      "es": "Un caso de persecución judicial contra un periodista necesita sostenerse en la agenda internacional durante años, no semanas.",
+      "en": "A case of judicial persecution against a journalist has to stay on the international agenda for years, not weeks."
+    },
+    "trabajo": {
+      "es": [
+        "Coordinación con redes de libertad de prensa en Estados Unidos y América Latina.",
+        "Relaciones con medios, acciones digitales y presenciales.",
+        "Trabajo con organizaciones como Amnesty International, CIVICUS y NoNosCallarán."
+      ],
+      "en": [
+        "Coordination with press freedom networks in the United States and Latin America.",
+        "Media relations, digital and in-person actions.",
+        "Work with organizations including Amnesty International, CIVICUS and NoNosCallarán."
+      ]
+    },
+    "resultado": {
+      "es": "",
+      "en": ""
+    },
+    "enlaces": [
+      {
+        "etiqueta": "zamoralibre.com",
+        "href": "https://zamoralibre.com"
+      },
+      {
+        "etiqueta": "Código",
+        "href": "https://github.com/ramonzamora89/zamoralibre"
+      }
+    ],
+    "captura": true
+  },
+  {
+    "id": "luisgaleano",
+    "destacado": false,
+    "slug": {
+      "es": "libertad-para-luis-galeano",
+      "en": "free-luis-galeano"
+    },
+    "titulo": {
+      "es": "#LibertadParaLuisGaleano",
+      "en": "#FreeLuisGaleano"
+    },
+    "tipo": {
+      "es": "Campaña",
+      "en": "Campaign"
+    },
+    "etiqueta": {
+      "es": "Libertad de prensa",
+      "en": "Press freedom"
+    },
+    "periodo": "2026",
+    "rol": {
+      "es": "Diseño y desarrollo del sitio",
+      "en": "Site design and development"
+    },
+    "organizaciones": [
+      "CPJ",
+      "SIP"
+    ],
+    "resumen": {
+      "es": "Sitio bilingüe de la campaña por la liberación del periodista nicaragüense exiliado Luis Galeano, director de Café con Voz.",
+      "en": "Bilingual campaign site for the release of exiled Nicaraguan journalist Luis Galeano, director of Café con Voz."
+    },
+    "problema": {
+      "es": "Una campaña de detención urgente necesita un sitio que se levante en días, cargue en cualquier conexión y diga exactamente lo mismo en dos idiomas.",
+      "en": "An urgent-detention campaign needs a site that goes up in days, loads on any connection, and says exactly the same thing in two languages."
+    },
+    "trabajo": {
+      "es": [
+        "Doce páginas — seis en español, seis en inglés — sin dependencias ni proceso de compilación.",
+        "Cronología con fuente citada en cada entrada y contador de días de detención.",
+        "Carrusel con los logotipos de las organizaciones aliadas, cada uno con autorización registrada."
+      ],
+      "en": [
+        "Twelve pages — six in Spanish, six in English — with no dependencies and no build step.",
+        "A timeline citing a source for every entry, plus a detention day counter.",
+        "A carousel of partner organization logos, each with its permission on record."
+      ]
+    },
+    "resultado": {
+      "es": "Reúne los pronunciamientos de 15 organizaciones de libertad de prensa.",
+      "en": "Gathers the statements of 15 press freedom organizations."
+    },
+    "enlaces": [
+      {
+        "etiqueta": "libertadparaluisgaleano.com",
+        "href": "https://libertadparaluisgaleano.com"
+      },
+      {
+        "etiqueta": "Código",
+        "href": "https://github.com/ramonzamora89/libertadparaluisgaleano"
+      }
+    ],
+    "captura": true
+  },
+  {
+    "id": "elfeed",
+    "destacado": true,
+    "slug": {
+      "es": "el-feed",
+      "en": "the-feed"
+    },
+    "titulo": {
+      "es": "El Feed: Libertad de Prensa en las Américas",
+      "en": "The Feed: Press Freedom in the Americas"
+    },
+    "tipo": {
+      "es": "Herramienta",
+      "en": "Tool"
+    },
+    "etiqueta": {
+      "es": "Datos",
+      "en": "Data"
+    },
+    "periodo": "2026",
+    "rol": {
+      "es": "Diseño y desarrollo",
+      "en": "Design and development"
+    },
+    "organizaciones": [],
+    "resumen": {
+      "es": "Agregador bilingüe que reúne en un solo lugar lo que se publica sobre libertad de prensa en el continente.",
+      "en": "A bilingual aggregator that brings everything published on press freedom in the Americas into one place."
+    },
+    "problema": {
+      "es": "Quien sigue la libertad de prensa en la región revisa a diario una docena de fuentes dispersas y aun así se le escapan cosas.",
+      "en": "Anyone tracking press freedom in the region checks a dozen scattered sources daily and still misses things."
+    },
+    "trabajo": {
+      "es": [
+        "Combina RSS del CPJ, RSF, Artículo 19, IPYS, Reuters Institute y JSK Stanford con 20 alertas de Google.",
+        "Deduplicación difusa y clasificación temática automática.",
+        "Filtro de doble señal, documentado con su justificación metodológica en el README.",
+        "Publicación estática automatizada con GitHub Actions dos veces al día."
+      ],
+      "en": [
+        "Combines RSS from CPJ, RSF, Article 19, IPYS, Reuters Institute and JSK Stanford with 20 Google Alerts.",
+        "Fuzzy deduplication and automatic topic classification.",
+        "A double-signal filter, documented with its methodological rationale in the README.",
+        "Static publishing automated with GitHub Actions, twice a day."
+      ]
+    },
+    "resultado": {
+      "es": "",
+      "en": ""
+    },
+    "enlaces": [
+      {
+        "etiqueta": "Ver el feed",
+        "href": "https://ramonzamora89.github.io/periodistas-americas-feed/"
+      },
+      {
+        "etiqueta": "Código",
+        "href": "https://github.com/ramonzamora89/periodistas-americas-feed"
+      }
+    ],
+    "captura": true
+  },
+  {
+    "id": "interrogar",
+    "destacado": false,
+    "slug": {
+      "es": "interrogar-el-archivo",
+      "en": "interrogating-the-archive"
+    },
+    "titulo": {
+      "es": "Interrogar el archivo",
+      "en": "Interrogating the Archive"
+    },
+    "tipo": {
+      "es": "Método",
+      "en": "Method"
+    },
+    "etiqueta": {
+      "es": "Investigación",
+      "en": "Research"
+    },
+    "periodo": "2026",
+    "rol": {
+      "es": "Autor y ponente",
+      "en": "Author and speaker"
+    },
+    "organizaciones": [
+      "19.º Coloquio Iberoamericano de Periodismo"
+    ],
+    "resumen": {
+      "es": "Una charla sobre cómo se interroga un archivo de prensa de 27 años, presentada como un lienzo con cámara en vez de diapositivas.",
+      "en": "A talk on how to interrogate a 27-year newspaper archive, presented as a camera-driven canvas rather than slides."
+    },
+    "problema": {
+      "es": "Explicar un método de archivo con diapositivas obliga a hablar de los documentos sin mostrarlos.",
+      "en": "Explaining an archival method with slides forces you to talk about documents without showing them."
+    },
+    "trabajo": {
+      "es": [
+        "Un lienzo único donde la cámara hace zoom sobre los documentos reales, en 21 pasos.",
+        "Funciona sin conexión después de la primera carga.",
+        "Declara explícitamente que no nombra a las personas investigadas."
+      ],
+      "en": [
+        "A single canvas where the camera zooms into the actual documents, in 21 steps.",
+        "Works offline after the first load.",
+        "States explicitly that it does not name the people under investigation."
+      ]
+    },
+    "resultado": {
+      "es": "",
+      "en": ""
+    },
+    "enlaces": [
+      {
+        "etiqueta": "Ver la charla",
+        "href": "https://ramonzamora89.github.io/interrogar-el-archivo/"
+      },
+      {
+        "etiqueta": "Código",
+        "href": "https://github.com/ramonzamora89/interrogar-el-archivo"
+      }
+    ],
+    "captura": true
+  },
+  {
+    "id": "elperiodico",
+    "destacado": true,
+    "slug": {
+      "es": "elperiodico",
+      "en": "elperiodico"
+    },
+    "titulo": {
+      "es": "elPeriódico: producto digital",
+      "en": "elPeriódico: digital product"
+    },
+    "tipo": {
+      "es": "Producto",
+      "en": "Product"
+    },
+    "etiqueta": {
+      "es": "Medios",
+      "en": "Media"
+    },
+    "periodo": "2016–2023",
+    "rol": {
+      "es": "Product Manager",
+      "en": "Product Manager"
+    },
+    "organizaciones": [
+      "elPeriódico de Guatemala"
+    ],
+    "resumen": {
+      "es": "Siete años de transformación digital en un diario de investigación, durante los años en que el medio fue perseguido judicialmente hasta su cierre.",
+      "en": "Seven years of digital transformation at an investigative daily, through the years it was judicially persecuted until it closed."
+    },
+    "problema": {
+      "es": "Un diario impreso con ingresos publicitarios en caída tenía que aprender a cobrar por su periodismo antes de quedarse sin tiempo.",
+      "en": "A print daily with collapsing ad revenue had to learn to charge for its journalism before it ran out of time."
+    },
+    "trabajo": {
+      "es": [
+        "Lanzó el modelo de suscripción digital, newsletters y aplicaciones móviles.",
+        "Coordinó cinco líderes de equipo entre redacción, IT, ventas, finanzas, marketing y suscripciones.",
+        "Impulsó analítica, búsqueda y automatización para lectores y periodistas.",
+        "Lideró el desarrollo de productos digitales para anunciantes."
+      ],
+      "en": [
+        "Launched the digital subscription model, newsletters and mobile apps.",
+        "Coordinated five team leads across newsroom, IT, sales, finance, marketing and subscriptions.",
+        "Drove analytics, search and automation for both readers and journalists.",
+        "Led the development of digital products for advertisers."
+      ]
+    },
+    "resultado": {
+      "es": "Un registro profesional reporta crecimiento sostenido cercano al 10% mensual en suscripciones durante una etapa del proyecto.",
+      "en": "A professional record reports sustained growth of close to 10% month over month in subscriptions during one stage of the project."
+    },
+    "enlaces": [],
+    "captura": false
+  },
+  {
+    "id": "makerbox",
+    "destacado": false,
+    "slug": {
+      "es": "makerbox",
+      "en": "makerbox"
+    },
+    "titulo": {
+      "es": "Makerbox / Abriendo Oportunidades",
+      "en": "Makerbox / Abriendo Oportunidades"
+    },
+    "tipo": {
+      "es": "Programa",
+      "en": "Program"
+    },
+    "etiqueta": {
+      "es": "Educación",
+      "en": "Education"
+    },
+    "periodo": "2018–2022",
+    "rol": {
+      "es": "Diseño y coordinación",
+      "en": "Design and coordination"
+    },
+    "organizaciones": [
+      "Population Council"
+    ],
+    "resumen": {
+      "es": "Programa de alfabetización digital y STEAM para niñas y jóvenes indígenas, sobre todo en Sololá.",
+      "en": "A digital literacy and STEAM program for Indigenous girls and young women, mainly in Sololá."
+    },
+    "problema": {
+      "es": "Los programas STEAM llegan traducidos, no pensados desde el idioma y el contexto de quienes los reciben.",
+      "en": "STEAM programs arrive translated, not designed from the language and context of the people receiving them."
+    },
+    "trabajo": {
+      "es": [
+        "Talleres y actividades maker, con un Makerfaire como cierre.",
+        "Una comunidad de práctica sostenida con sitio web y canal de WhatsApp para docentes y estudiantes.",
+        "Una Wiki Hackathon en la que las participantes tradujeron artículos de Wikipedia del español al k'iche' y al kaqchikel."
+      ],
+      "en": [
+        "Workshops and maker activities, closing with a Makerfaire.",
+        "A community of practice sustained through a website and a WhatsApp channel for teachers and students.",
+        "A Wiki Hackathon where participants translated Wikipedia articles from Spanish into K'iche' and Kaqchikel."
+      ]
+    },
+    "resultado": {
+      "es": "",
+      "en": ""
+    },
+    "enlaces": [],
+    "captura": false
+  }
+]

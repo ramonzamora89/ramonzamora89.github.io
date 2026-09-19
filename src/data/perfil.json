@@ -1,0 +1,19 @@
+{
+  "nombre": "Ramón Zamora",
+  "nombreCompleto": "Ramón Ignacio Zamora Marroquín",
+  "foto": "/img/ramon-zamora.jpg",
+  "contacto": [
+    { "tipo": "email", "etiqueta": "ramon@labetnografico.com", "href": "mailto:ramon@labetnografico.com" },
+    { "tipo": "email", "etiqueta": "ramon@kronika.technology", "href": "mailto:ramon@kronika.technology" },
+    { "tipo": "linkedin", "etiqueta": "linkedin.com/in/ramonzamoramarroquin", "href": "https://www.linkedin.com/in/ramonzamoramarroquin" },
+    { "tipo": "github", "etiqueta": "github.com/ramonzamora89", "href": "https://github.com/ramonzamora89" }
+  ],
+  "titular": {
+    "es": "Periodista, investigador y profesional de producto en la intersección de medios, tecnología e investigación social.",
+    "en": "Journalist, researcher and product lead working where media, technology and social research meet."
+  },
+  "entradilla": {
+    "es": "Más de diez años entre redacciones, universidades y organizaciones de derechos: transformación digital en un diario de investigación bajo presión política, un laboratorio de innovación social, y ahora la preservación de los archivos del periodismo independiente centroamericano.",
+    "en": "More than ten years across newsrooms, universities and rights organizations: digital transformation at an investigative daily under political pressure, a social innovation lab, and now preserving the archives of Central American independent journalism."
+  }
+}

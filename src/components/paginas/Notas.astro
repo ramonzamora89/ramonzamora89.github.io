@@ -1,0 +1,54 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import { type Idioma, ruta, t } from '../../i18n';
+
+interface Props { idioma: Idioma; }
+const { idioma } = Astro.props;
+const ui = t(idioma);
+
+const notas = (await getCollection('notas', (n) => n.data.idioma === idioma))
+  .sort((a, b) => b.data.fecha.valueOf() - a.data.fecha.valueOf());
+
+const formato = new Intl.DateTimeFormat(idioma === 'es' ? 'es-GT' : 'en-US', {
+  year: 'numeric', month: 'long', day: 'numeric',
+});
+---
+<Base
+  idioma={idioma}
+  titulo={`${ui.navNotas} — Ramón Zamora`}
+  descripcion={notas.length ? `${notas.length}` : ui.notasVacio}
+  alterna={ruta('notas', idioma === 'en' ? 'es' : 'en')}
+>
+  <section class="banda">
+    <div class="envoltura">
+      <div class="encabezado-seccion">
+        <span class="micro">{ui.navNotas}</span>
+        <h1 class="serif">{ui.navNotas}</h1>
+      </div>
+
+      {notas.length === 0
+        ? <p class="grande tenue lectura">{ui.notasVacio}</p>
+        : (
+          <ul class="notas">
+            {notas.map((n) => (
+              <li class="nota">
+                <p class="micro tenue"><time datetime={n.data.fecha.toISOString().slice(0, 10)}>{formato.format(n.data.fecha)}</time></p>
+                <h2 class="nota__titulo">
+                  <a class="limpio" href={`${ruta('notas', idioma)}${n.id.replace(/^(es|en)\//, '')}/`}>{n.data.titulo}</a>
+                </h2>
+                {n.data.resumen && <p class="serif tenue">{n.data.resumen}</p>}
+              </li>
+            ))}
+          </ul>
+        )}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .notas { list-style: none; margin: 0; padding: 0; max-width: var(--ancho-lectura); }
+  .nota { padding-bottom: var(--e4); margin-bottom: var(--e4); border-bottom: var(--borde-fino) solid var(--linea); }
+  .nota:last-child { border-bottom: 0; }
+  .nota__titulo { font-size: var(--h3); margin: var(--e1) 0 var(--e2); }
+</style>

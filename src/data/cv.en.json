@@ -1,0 +1,244 @@
+{
+  "perfil": "Journalist, researcher and product and strategic-operations professional with more than 10 years of experience in journalism, research, digital innovation and strategic communication. Trained in anthropology, sociology, communication, culture and technology. Experience leading multidisciplinary teams, designing digital products, conducting qualitative research, building sustainability strategies for news organizations, and coordinating projects where technology, culture, journalism and social innovation meet.",
+  "experiencia": [
+    {
+      "id": "caima",
+      "organizacion": "Central America Independent Media Archive (CAIMA)",
+      "cargo": "Coordinator / Co-founder",
+      "periodo": "2023–present",
+      "tramos": [
+        [
+          2023,
+          2026
+        ]
+      ],
+      "enlace": "https://elarchivo.media",
+      "pieza": "caima",
+      "puntos": [
+        "Coordinates a regional initiative to preserve the archives of Central American independent media and make them securely accessible for research, historical memory and journalistic work.",
+        "Built partnerships with news organizations, universities and digital preservation specialists.",
+        "Exceeded an initial target of 13 partner organizations, bringing around 20 outlets into the project.",
+        "Coordinates digitization, storage, research and newsroom liaison.",
+        "The project grew, in part, out of preserving four terabytes of elPeriódico's historical archive."
+      ],
+      "corto": "CAIMA"
+    },
+    {
+      "id": "labetnografico",
+      "organizacion": "LabEtnográfico",
+      "cargo": "Co-founder / Consultant",
+      "periodo": "2025–present",
+      "tramos": [
+        [
+          2025,
+          2026
+        ]
+      ],
+      "puntos": [
+        "Co-founded a consultancy focused on qualitative research, strategic communication, innovation, experience design and organizational strategy.",
+        "Has worked with organizations including IDB Invest, BAM, Radio Selva and Prensa Comunitaria.",
+        "Designs research, workshops, sprints, sustainability models, audience strategies and organizational transformation processes.",
+        "Has advised projects on leadership, organizational culture, psychological safety, organizational structure and performance.",
+        "Has supported independent media in redesigning sustainability models, developing products and mapping audience and funding opportunities."
+      ],
+      "corto": "LabEtnográfico"
+    },
+    {
+      "id": "popcouncil",
+      "organizacion": "Population Council / Abriendo Oportunidades",
+      "cargo": "Consultant / Program Manager",
+      "periodo": "2018–2019; 2025–present",
+      "tramos": [
+        [
+          2018,
+          2019
+        ],
+        [
+          2025,
+          2026
+        ]
+      ],
+      "pieza": "makerbox",
+      "puntos": [
+        "Designed and coordinated digital literacy, STEAM and participation activities for Indigenous girls and young women.",
+        "Ran workshops in Sololá and activities tied to Makerfaire and hands-on learning.",
+        "Built a community of practice through a website and a WhatsApp channel for teachers and students.",
+        "Has supported data collection and analysis to inform public policy on economic development, technology adoption and innovation.",
+        "Has worked alongside government actors and development organizations."
+      ],
+      "corto": "Population Council"
+    },
+    {
+      "id": "uvg-docencia",
+      "organizacion": "Universidad del Valle de Guatemala",
+      "cargo": "Lecturer",
+      "periodo": "2017–present",
+      "tramos": [
+        [
+          2017,
+          2026
+        ]
+      ],
+      "puntos": [
+        "Has taught global citizenship, sociology of communication, communication and technology, digital methods, visual anthropology, qualitative methods and strategic communication.",
+        "Designs curricula that combine digital tools with qualitative and quantitative methodologies.",
+        "Has taught at both undergraduate and graduate level."
+      ],
+      "corto": "UVG"
+    },
+    {
+      "id": "uvg-lab",
+      "organizacion": "Universidad del Valle de Guatemala",
+      "cargo": "Coordinator, Social Innovation Lab",
+      "periodo": "2020–2023",
+      "tramos": [
+        [
+          2020,
+          2023
+        ]
+      ],
+      "puntos": [
+        "Coordinated projects in social innovation, applied research, civic participation and digital methodologies.",
+        "Contributed to the redesign of the anthropology curriculum.",
+        "Facilitated collaborative processes on civic technology, public discourse, access to rights and citizen participation."
+      ],
+      "corto": "UVG · Social Innovation Lab"
+    },
+    {
+      "id": "elperiodico",
+      "organizacion": "elPeriódico de Guatemala",
+      "cargo": "Product Manager",
+      "periodo": "2016–2023",
+      "tramos": [
+        [
+          2016,
+          2023
+        ]
+      ],
+      "pieza": "elperiodico",
+      "puntos": [
+        "Led the newspaper's digital transformation and the development of new editorial and commercial products.",
+        "Launched the digital subscription model, newsletters and mobile apps.",
+        "Coordinated newsroom, IT, sales, finance, marketing and subscription teams.",
+        "Led the development of digital products for advertisers.",
+        "Drove analytics, search, automation and digital tooling to improve the experience of both readers and journalists.",
+        "A professional record reports sustained growth of close to 10% month over month in subscriptions during one stage of the project.",
+        "Coordinated five team leads and set up cross-departmental working groups to launch new services and products."
+      ],
+      "corto": "elPeriódico"
+    }
+  ],
+  "educacion": [
+    {
+      "institucion": "Georgetown University",
+      "titulo": "M.A. in Communication, Culture, and Technology",
+      "periodo": "2014–2016",
+      "tramos": [
+        [
+          2014,
+          2016
+        ]
+      ],
+      "corto": "Georgetown"
+    },
+    {
+      "institucion": "Universidad del Valle de Guatemala",
+      "titulo": "B.A. in Anthropology & Sociology",
+      "periodo": "2010–2014",
+      "tramos": [
+        [
+          2010,
+          2014
+        ]
+      ],
+      "corto": "UVG"
+    }
+  ],
+  "formacionAdicional": [
+    {
+      "titulo": "GNI Fundamentals Lab",
+      "detalle": "Google News Initiative, with Blue Engine — audience development, reader revenue and advertising revenue",
+      "periodo": "2022–2023"
+    },
+    {
+      "titulo": "Academic exchange",
+      "detalle": "University of Saskatchewan, Emerging Leaders of the Americas Program (ELAP) scholarship",
+      "periodo": "2013"
+    },
+    {
+      "titulo": "Secondary education",
+      "detalle": "German School at Guatemala",
+      "periodo": "2008"
+    }
+  ],
+  "publicaciones": [
+    {
+      "cita": "E. Barba and R. Zamora Marroquín, \"A Primer on Spatial Scale and Its Application to Mixed Reality,\" 2017 IEEE International Symposium on Mixed and Augmented Reality (ISMAR), Nantes, France, 2018, pp. 100–110.",
+      "doi": "10.1109/ISMAR.2017.27",
+      "href": "https://doi.org/10.1109/ISMAR.2017.27"
+    },
+    {
+      "cita": "A. Martínez, A. del Valle and R. Zamora, \"Lack of opportunities for indigenous young women in Guatemala: forced mobility and absence of social protection systems,\" The Elgar Companion to Gender and Global Migration, 2022.",
+      "doi": "10.4337/9781802201260.00017",
+      "href": "https://doi.org/10.4337/9781802201260.00017"
+    }
+  ],
+  "audiovisual": [
+    {
+      "titulo": "Stairs",
+      "detalle": "Short film (3:05). Director and editor.",
+      "href": "https://vimeo.com/148501977"
+    },
+    {
+      "titulo": "Ring Ring For Liberty: The Missing Mossler",
+      "detalle": "Short documentary (4:58). Co-director and editor.",
+      "href": "https://vimeo.com/148311810"
+    }
+  ],
+  "especializacion": [
+    "Journalism and digital media",
+    "Qualitative research",
+    "Anthropology and sociology",
+    "Strategic communication",
+    "Product management",
+    "Strategic operations",
+    "Digital transformation",
+    "Social innovation",
+    "Experience and workshop design",
+    "Audience development",
+    "Media sustainability",
+    "Multidisciplinary team coordination",
+    "Indicator and KPI design",
+    "Crisis communications",
+    "Civic technology",
+    "Digital archives and journalism preservation",
+    "Artificial intelligence applied to research, communication and journalism"
+  ],
+  "herramientas": [
+    "Python",
+    "D3.js",
+    "Power BI",
+    "Dedoose",
+    "MAXQDA",
+    "Airtable",
+    "Asana",
+    "Notion",
+    "Dashboards and analytics",
+    "Generative AI tools"
+  ],
+  "idiomas": [
+    {
+      "idioma": "Spanish",
+      "nivel": "Native"
+    },
+    {
+      "idioma": "English",
+      "nivel": "Professional working proficiency"
+    },
+    {
+      "idioma": "German",
+      "nivel": "Intermediate"
+    }
+  ],
+  "intereses": "Technology and society, independent journalism, artificial intelligence, media innovation, applied research, digital culture, civic participation, archives, memory preservation, and the design of people-centered technology."
+}

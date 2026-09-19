@@ -1,0 +1,244 @@
+{
+  "perfil": "Periodista, investigador y profesional de producto y operaciones estratégicas con más de 10 años de experiencia en periodismo, investigación, innovación digital y comunicación estratégica. Formación en antropología, sociología, comunicación, cultura y tecnología. Experiencia liderando equipos multidisciplinarios, diseñando productos digitales, desarrollando investigaciones cualitativas, creando estrategias de sostenibilidad para medios y coordinando proyectos en la intersección entre tecnología, cultura, periodismo e innovación social.",
+  "experiencia": [
+    {
+      "id": "caima",
+      "organizacion": "Central America Independent Media Archive (CAIMA)",
+      "cargo": "Coordinador / Cofundador",
+      "periodo": "2023–presente",
+      "tramos": [
+        [
+          2023,
+          2026
+        ]
+      ],
+      "enlace": "https://elarchivo.media",
+      "pieza": "caima",
+      "puntos": [
+        "Coordina una iniciativa regional para preservar archivos de medios independientes de Centroamérica y facilitar su acceso seguro para investigación, memoria histórica y trabajo periodístico.",
+        "Desarrolló alianzas con medios, universidades y organizaciones especializadas en preservación digital.",
+        "Superó una meta inicial de 13 organizaciones aliadas al incorporar alrededor de 20 medios al proyecto.",
+        "Coordina procesos de digitalización, almacenamiento, investigación y vinculación con redacciones.",
+        "El proyecto surgió, en parte, a partir de la preservación de cuatro terabytes del archivo histórico de elPeriódico."
+      ],
+      "corto": "CAIMA"
+    },
+    {
+      "id": "labetnografico",
+      "organizacion": "LabEtnográfico",
+      "cargo": "Cofundador / Consultor",
+      "periodo": "2025–presente",
+      "tramos": [
+        [
+          2025,
+          2026
+        ]
+      ],
+      "puntos": [
+        "Cofundó una consultora enfocada en investigación cualitativa, comunicación estratégica, innovación, diseño de experiencias y estrategia organizacional.",
+        "Ha trabajado con organizaciones como BID Invest, BAM, Radio Selva y Prensa Comunitaria.",
+        "Diseña investigaciones, talleres, sprints, modelos de sostenibilidad, estrategias de audiencia y procesos de transformación organizacional.",
+        "Ha asesorado proyectos relacionados con liderazgo, cultura organizacional, seguridad psicológica, estructuras organizacionales y desempeño.",
+        "Ha acompañado a medios independientes en el rediseño de modelos de sostenibilidad, desarrollo de productos y mapeo de oportunidades de audiencia y financiamiento."
+      ],
+      "corto": "LabEtnográfico"
+    },
+    {
+      "id": "popcouncil",
+      "organizacion": "Population Council / Abriendo Oportunidades",
+      "cargo": "Consultor / Program Manager",
+      "periodo": "2018–2019; 2025–presente",
+      "tramos": [
+        [
+          2018,
+          2019
+        ],
+        [
+          2025,
+          2026
+        ]
+      ],
+      "pieza": "makerbox",
+      "puntos": [
+        "Diseñó y coordinó actividades de alfabetización digital, STEAM y participación para niñas y jóvenes indígenas.",
+        "Organizó talleres en Sololá y actividades vinculadas a Makerfaire y aprendizaje práctico.",
+        "Desarrolló una comunidad de práctica mediante sitio web y canal de WhatsApp para docentes y estudiantes.",
+        "Ha apoyado procesos de recopilación de datos y análisis para informar políticas públicas relacionadas con desarrollo económico, adopción tecnológica e innovación.",
+        "Ha trabajado en colaboración con actores gubernamentales y organizaciones de desarrollo."
+      ],
+      "corto": "Population Council"
+    },
+    {
+      "id": "uvg-docencia",
+      "organizacion": "Universidad del Valle de Guatemala",
+      "cargo": "Docente",
+      "periodo": "2017–presente",
+      "tramos": [
+        [
+          2017,
+          2026
+        ]
+      ],
+      "puntos": [
+        "Ha impartido cursos de ciudadanía global, sociología de la comunicación, comunicación y tecnología, métodos digitales, antropología visual, métodos cualitativos y comunicación estratégica.",
+        "Diseña currículos que integran herramientas digitales con metodologías cualitativas y cuantitativas.",
+        "Ha enseñado en programas de pregrado y posgrado."
+      ],
+      "corto": "UVG"
+    },
+    {
+      "id": "uvg-lab",
+      "organizacion": "Universidad del Valle de Guatemala",
+      "cargo": "Coordinador, Laboratorio de Innovación Social",
+      "periodo": "2020–2023",
+      "tramos": [
+        [
+          2020,
+          2023
+        ]
+      ],
+      "puntos": [
+        "Coordinó proyectos de innovación social, investigación aplicada, participación cívica y metodologías digitales.",
+        "Contribuyó al rediseño curricular de antropología.",
+        "Facilitó procesos colaborativos relacionados con tecnología cívica, discurso público, acceso a derechos y participación ciudadana."
+      ],
+      "corto": "UVG · Lab de Innovación Social"
+    },
+    {
+      "id": "elperiodico",
+      "organizacion": "elPeriódico de Guatemala",
+      "cargo": "Product Manager",
+      "periodo": "2016–2023",
+      "tramos": [
+        [
+          2016,
+          2023
+        ]
+      ],
+      "pieza": "elperiodico",
+      "puntos": [
+        "Lideró la transformación digital del medio y el desarrollo de nuevos productos periodísticos y comerciales.",
+        "Lanzó el modelo de suscripción digital, newsletters y aplicaciones móviles.",
+        "Coordinó equipos de redacción, IT, ventas, finanzas, marketing y suscripciones.",
+        "Lideró el desarrollo de productos digitales para anunciantes.",
+        "Impulsó iniciativas de analítica, búsqueda, automatización y herramientas digitales para mejorar la experiencia de usuarios y periodistas.",
+        "Un registro profesional reporta crecimiento sostenido cercano al 10% mensual en suscripciones durante una etapa del proyecto.",
+        "Coordinó cinco líderes de equipo y creó grupos de trabajo interdepartamentales para lanzar nuevos servicios y productos."
+      ],
+      "corto": "elPeriódico"
+    }
+  ],
+  "educacion": [
+    {
+      "institucion": "Georgetown University",
+      "titulo": "M.A. in Communication, Culture, and Technology",
+      "periodo": "2014–2016",
+      "tramos": [
+        [
+          2014,
+          2016
+        ]
+      ],
+      "corto": "Georgetown"
+    },
+    {
+      "institucion": "Universidad del Valle de Guatemala",
+      "titulo": "B.A. in Anthropology & Sociology",
+      "periodo": "2010–2014",
+      "tramos": [
+        [
+          2010,
+          2014
+        ]
+      ],
+      "corto": "UVG"
+    }
+  ],
+  "formacionAdicional": [
+    {
+      "titulo": "GNI Fundamentals Lab",
+      "detalle": "Google News Initiative, con Blue Engine — desarrollo de audiencias, ingresos por lectores y publicidad",
+      "periodo": "2022–2023"
+    },
+    {
+      "titulo": "Intercambio académico",
+      "detalle": "University of Saskatchewan, beca Emerging Leaders of the Americas Program (ELAP)",
+      "periodo": "2013"
+    },
+    {
+      "titulo": "Bachillerato",
+      "detalle": "Colegio Alemán de Guatemala",
+      "periodo": "2008"
+    }
+  ],
+  "publicaciones": [
+    {
+      "cita": "E. Barba y R. Zamora Marroquín, «A Primer on Spatial Scale and Its Application to Mixed Reality», 2017 IEEE International Symposium on Mixed and Augmented Reality (ISMAR), Nantes, Francia, 2018, pp. 100–110.",
+      "doi": "10.1109/ISMAR.2017.27",
+      "href": "https://doi.org/10.1109/ISMAR.2017.27"
+    },
+    {
+      "cita": "A. Martínez, A. del Valle y R. Zamora, «Lack of opportunities for indigenous young women in Guatemala: forced mobility and absence of social protection systems», The Elgar Companion to Gender and Global Migration, 2022.",
+      "doi": "10.4337/9781802201260.00017",
+      "href": "https://doi.org/10.4337/9781802201260.00017"
+    }
+  ],
+  "audiovisual": [
+    {
+      "titulo": "Stairs",
+      "detalle": "Cortometraje (3:05). Director y editor.",
+      "href": "https://vimeo.com/148501977"
+    },
+    {
+      "titulo": "Ring Ring For Liberty: The Missing Mossler",
+      "detalle": "Cortodocumental (4:58). Codirector y editor.",
+      "href": "https://vimeo.com/148311810"
+    }
+  ],
+  "especializacion": [
+    "Periodismo y medios digitales",
+    "Investigación cualitativa",
+    "Antropología y sociología",
+    "Comunicación estratégica",
+    "Gestión de producto",
+    "Operaciones estratégicas",
+    "Transformación digital",
+    "Innovación social",
+    "Diseño de experiencias y talleres",
+    "Desarrollo de audiencias",
+    "Sostenibilidad de medios",
+    "Coordinación de equipos multidisciplinarios",
+    "Diseño de indicadores y KPIs",
+    "Comunicación de crisis",
+    "Tecnología cívica",
+    "Archivos digitales y preservación periodística",
+    "Inteligencia artificial aplicada a investigación, comunicación y periodismo"
+  ],
+  "herramientas": [
+    "Python",
+    "D3.js",
+    "Power BI",
+    "Dedoose",
+    "MAXQDA",
+    "Airtable",
+    "Asana",
+    "Notion",
+    "Dashboards y analítica",
+    "Herramientas de IA generativa"
+  ],
+  "idiomas": [
+    {
+      "idioma": "Español",
+      "nivel": "Nativo"
+    },
+    {
+      "idioma": "Inglés",
+      "nivel": "Competencia profesional"
+    },
+    {
+      "idioma": "Alemán",
+      "nivel": "Intermedio"
+    }
+  ],
+  "intereses": "Tecnología y sociedad, periodismo independiente, inteligencia artificial, innovación en medios, investigación aplicada, cultura digital, participación cívica, archivos, preservación de la memoria y diseño de tecnologías centradas en las personas."
+}

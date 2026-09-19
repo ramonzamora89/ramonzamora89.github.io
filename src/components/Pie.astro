@@ -1,0 +1,68 @@
+---
+import perfil from '../data/perfil.json';
+import { type Idioma, ruta, t } from '../i18n';
+
+interface Props { idioma: Idioma; }
+const { idioma } = Astro.props;
+const ui = t(idioma);
+const anio = new Date().getFullYear();
+---
+<footer class="pie" data-theme="oscuro" id="contacto">
+  <div class="envoltura banda--corta">
+    <div class="pie__rejilla">
+      <div class="lectura">
+        <p class="micro pie__kicker">{ui.contacto}</p>
+        <p class="grande">{ui.contactoTexto}</p>
+      </div>
+
+      <ul class="pie__enlaces">
+        {perfil.contacto.map((c) => (
+          <li><a href={c.href}>{c.etiqueta}</a></li>
+        ))}
+      </ul>
+    </div>
+
+    <p class="pie__legal tenue">
+      <span>© {anio} {perfil.nombreCompleto}</span>
+      <a href={ruta('inicio', idioma)}>{ui.navInicio}</a>
+    </p>
+  </div>
+</footer>
+
+<style>
+  .pie { background: var(--bg); color: var(--fg); margin-top: var(--e6); }
+  .pie__kicker { color: var(--acento-claro); margin-bottom: var(--e2); }
+  .pie__rejilla {
+    display: grid;
+    gap: var(--e4);
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+  @media (min-width: 48rem) {
+    .pie__rejilla { grid-template-columns: 1.4fr 1fr; gap: var(--e5); }
+  }
+  .pie__enlaces {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--e2);
+    font-size: var(--texto);
+  }
+  .pie__enlaces a { color: var(--fg); text-decoration-color: var(--acento-claro); }
+  .pie__enlaces a:hover { color: var(--acento-claro); }
+  .pie__legal {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--e3);
+    justify-content: space-between;
+    margin: var(--e5) 0 0;
+    padding-top: var(--e3);
+    border-top: var(--borde-fino) solid var(--borde);
+    font-size: var(--micro);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-micro);
+  }
+  .pie__legal a { color: var(--fg-suave); }
+</style>

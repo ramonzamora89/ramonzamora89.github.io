@@ -1,0 +1,128 @@
+---
+import Base from '../../layouts/Base.astro';
+import { type Idioma, ruta, t } from '../../i18n';
+
+interface Props { idioma: Idioma; pieza: any; siguiente: any; }
+const { idioma, pieza, siguiente } = Astro.props;
+const ui = t(idioma);
+const otro: Idioma = idioma === 'en' ? 'es' : 'en';
+const alterna = `${ruta('trabajo', otro)}${pieza.slug[otro]}/`;
+const imagen = `/img/piezas/${pieza.id}.webp`;
+const hrefSiguiente = `${ruta('trabajo', idioma)}${siguiente.slug[idioma]}/`;
+const trabajo = pieza.trabajo[idioma] as string[];
+---
+<Base
+  idioma={idioma}
+  titulo={`${pieza.titulo[idioma]} — Ramón Zamora`}
+  descripcion={pieza.resumen[idioma]}
+  alterna={alterna}
+>
+  <article>
+    <header class="ficha__cabeza banda banda--corta" data-theme="crema">
+      <div class="envoltura">
+        <p class="ficha__migas micro">
+          <a href={ruta('trabajo', idioma)}>{ui.volverTrabajo}</a>
+        </p>
+        <p class="micro ficha__tipo">{pieza.tipo[idioma]}</p>
+        <h1>{pieza.titulo[idioma]}</h1>
+        <p class="serif grande lectura">{pieza.resumen[idioma]}</p>
+
+        <dl class="ficha__datos">
+          <div><dt class="micro">{ui.rol}</dt><dd>{pieza.rol[idioma]}</dd></div>
+          <div><dt class="micro">{ui.periodo}</dt><dd>{pieza.periodo.replace(/–$/, `–${ui.presente}`)}</dd></div>
+          {pieza.organizaciones.length > 0 && (
+            <div><dt class="micro">{ui.organizaciones}</dt><dd>{pieza.organizaciones.join(' · ')}</dd></div>
+          )}
+        </dl>
+
+        {pieza.enlaces.length > 0 && (
+          <p class="ficha__enlaces">
+            {pieza.enlaces.map((e: any, i: number) => (
+              <a class:list={['boton', { 'boton--lleno': i === 0 }]} href={e.href} target="_blank" rel="noopener">{e.etiqueta}</a>
+            ))}
+          </p>
+        )}
+      </div>
+    </header>
+
+    <div class="envoltura ficha__cuerpo">
+      {pieza.captura
+        ? <img class="ficha__imagen" src={imagen} alt="" width="1200" height="675" loading="lazy" decoding="async" />
+        : (
+          <div class="ficha__imagen ficha__marca" aria-hidden="true">
+            <span class="serif">{pieza.periodo.replace(/–$/, '– ')}</span>
+          </div>
+        )}
+
+      <div class="ficha__texto lectura">
+        <h2 class="micro ficha__rotulo">{ui.elProblema}</h2>
+        <p class="grande">{pieza.problema[idioma]}</p>
+
+        {trabajo.length > 0 && (
+          <>
+            <h2 class="micro ficha__rotulo">{ui.loQueHice}</h2>
+            <ul class="ficha__lista">{trabajo.map((x) => <li>{x}</li>)}</ul>
+          </>
+        )}
+
+        {pieza.resultado[idioma] && (
+          <>
+            <h2 class="micro ficha__rotulo">{ui.elResultado}</h2>
+            <p class="serif ficha__resultado">{pieza.resultado[idioma]}</p>
+          </>
+        )}
+      </div>
+    </div>
+
+    <nav class="envoltura ficha__siguiente" aria-label={ui.siguientePieza}>
+      <a class="limpio" href={hrefSiguiente}>
+        <span class="micro tenue">{ui.siguientePieza}</span>
+        <span class="ficha__siguiente-titulo serif">{siguiente.titulo[idioma]} →</span>
+      </a>
+    </nav>
+  </article>
+</Base>
+
+<style>
+  .ficha__migas { margin: 0 0 var(--e3); }
+  .ficha__tipo { color: var(--acento-texto); margin: 0 0 var(--e2); }
+  .ficha__cabeza h1 { max-width: 20ch; }
+
+  .ficha__datos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--e3) var(--e5);
+    margin: var(--e4) 0 var(--e3);
+  }
+  .ficha__datos dt { color: var(--gris); margin-bottom: 0.2em; }
+  .ficha__datos dd { margin: 0; font-weight: 600; }
+  .ficha__enlaces { display: flex; flex-wrap: wrap; gap: var(--e2); margin: var(--e3) 0 0; }
+
+  .ficha__cuerpo { padding-top: var(--e5); }
+  .ficha__imagen {
+    width: 100%;
+    border-radius: var(--radio);
+    border: var(--borde-fino) solid var(--linea);
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    object-position: left top;
+    margin-bottom: var(--e5);
+  }
+  .ficha__marca {
+    display: grid;
+    place-items: center;
+    background: var(--tinta);
+    color: var(--crema);
+    border-color: var(--tinta);
+  }
+  .ficha__marca span { font-size: clamp(3rem, 10vw, 7rem); font-weight: 300; letter-spacing: -0.03em; }
+  .ficha__rotulo { color: var(--acento-texto); margin: var(--e5) 0 var(--e3); }
+  .ficha__texto > .ficha__rotulo:first-child { margin-top: 0; }
+  .ficha__lista { margin: 0; padding-left: 1.1em; }
+  .ficha__lista li { margin-bottom: var(--e2); }
+  .ficha__resultado { font-size: var(--texto-grande); border-left: 3px solid var(--acento); padding-left: var(--e3); }
+
+  .ficha__siguiente { margin-top: var(--e6); padding-top: var(--e3); border-top: var(--borde-fino) solid var(--linea); }
+  .ficha__siguiente a { display: flex; flex-direction: column; gap: var(--e1); }
+  .ficha__siguiente-titulo { font-size: var(--h3); color: var(--acento-texto); }
+</style>

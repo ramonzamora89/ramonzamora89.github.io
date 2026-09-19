@@ -1,0 +1,89 @@
+---
+import perfil from '../data/perfil.json';
+import { getCollection } from 'astro:content';
+import { type Idioma, ruta, t, NOMBRE_IDIOMA } from '../i18n';
+
+interface Props { idioma: Idioma; hrefAlterna: string; }
+const { idioma, hrefAlterna } = Astro.props;
+const ui = t(idioma);
+const otro: Idioma = idioma === 'en' ? 'es' : 'en';
+const actual = Astro.url.pathname;
+
+// Notas solo aparece cuando hay algo publicado en ese idioma: un menú que
+// lleva a una página vacía es peor que un menú más corto.
+const hayNotas = (await getCollection('notas', (n) => n.data.idioma === idioma)).length > 0;
+
+const enlaces = [
+  { href: ruta('cv', idioma), texto: ui.navCv },
+  { href: ruta('trabajo', idioma), texto: ui.navTrabajo },
+  ...(hayNotas ? [{ href: ruta('notas', idioma), texto: ui.navNotas }] : []),
+  { href: ruta('sobre', idioma), texto: ui.navSobre },
+];
+const esActual = (href: string) => actual === href || actual.startsWith(href) && href !== ruta('inicio', idioma);
+---
+<header class="cabecera">
+  <div class="cabecera__interior envoltura">
+    <a class="cabecera__marca limpio" href={ruta('inicio', idioma)}>{perfil.nombre}</a>
+
+    <nav class="cabecera__nav" aria-label={ui.menu}>
+      <ul class="cabecera__lista">
+        {enlaces.map((e) => (
+          <li>
+            <a href={e.href} aria-current={esActual(e.href) ? 'page' : undefined}>{e.texto}</a>
+          </li>
+        ))}
+        <li class="cabecera__idioma">
+          <a href={hrefAlterna} hreflang={otro} lang={otro} title={ui.cambiarIdioma}>
+            {NOMBRE_IDIOMA[otro]}
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .cabecera {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--crema);
+    border-bottom: var(--borde-fino) solid var(--linea);
+  }
+  .cabecera__interior {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--e3);
+    min-height: var(--alto-cabecera);
+    flex-wrap: wrap;
+  }
+  .cabecera__marca {
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    font-size: 1.05rem;
+  }
+  .cabecera__lista {
+    display: flex;
+    align-items: center;
+    gap: var(--e3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: var(--micro);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-micro);
+  }
+  .cabecera__lista a { color: var(--tinta); }
+  .cabecera__lista a[aria-current='page'] { text-decoration-color: var(--acento); }
+
+  /* El idioma se separa del resto: no es una sección, es un interruptor. */
+  .cabecera__idioma { padding-left: var(--e3); border-left: var(--borde-fino) solid var(--linea); }
+  .cabecera__idioma a { color: var(--gris); }
+
+  @media (max-width: 26rem) {
+    .cabecera__interior { padding-block: var(--e2); }
+    .cabecera__lista { gap: var(--e2) var(--e3); flex-wrap: wrap; }
+  }
+</style>

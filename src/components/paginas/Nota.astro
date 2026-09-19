@@ -1,0 +1,49 @@
+---
+import Base from '../../layouts/Base.astro';
+import { render } from 'astro:content';
+import { type Idioma, ruta, t } from '../../i18n';
+
+interface Props { idioma: Idioma; nota: any; }
+const { idioma, nota } = Astro.props;
+const ui = t(idioma);
+const { Content } = await render(nota);
+
+const formato = new Intl.DateTimeFormat(idioma === 'es' ? 'es-GT' : 'en-US', {
+  year: 'numeric', month: 'long', day: 'numeric',
+});
+---
+<Base
+  idioma={idioma}
+  titulo={`${nota.data.titulo} — Ramón Zamora`}
+  descripcion={nota.data.resumen ?? nota.data.titulo}
+  alterna={ruta('notas', idioma === 'en' ? 'es' : 'en')}
+>
+  <article class="banda">
+    <div class="envoltura">
+      <p class="micro"><a href={ruta('notas', idioma)}>{ui.navNotas}</a></p>
+      <header class="lectura nota__cabeza">
+        <p class="micro tenue"><time datetime={nota.data.fecha.toISOString().slice(0, 10)}>{formato.format(nota.data.fecha)}</time></p>
+        <h1 class="serif">{nota.data.titulo}</h1>
+      </header>
+      <div class="lectura prosa"><Content /></div>
+    </div>
+  </article>
+</Base>
+
+<style>
+  .nota__cabeza { margin: var(--e3) 0 var(--e5); }
+  .nota__cabeza h1 { font-size: var(--h1); font-weight: 300; }
+  .prosa :global(h2) { font-size: var(--h3); margin-top: var(--e5); }
+  .prosa :global(h3) { font-size: 1.15rem; margin-top: var(--e4); }
+  .prosa :global(img) { border-radius: var(--radio); margin: var(--e4) 0; }
+  .prosa :global(blockquote) {
+    margin: var(--e4) 0; padding-left: var(--e3);
+    border-left: 3px solid var(--acento);
+    font-family: var(--serif); font-size: var(--texto-grande);
+  }
+  .prosa :global(pre) {
+    background: var(--crema-calido); padding: var(--e3);
+    border-radius: var(--radio); overflow-x: auto; font-size: 0.9rem;
+  }
+  .prosa :global(hr) { border: 0; border-top: var(--borde-fino) solid var(--linea); margin: var(--e5) 0; }
+</style>

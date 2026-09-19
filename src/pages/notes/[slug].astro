@@ -1,0 +1,12 @@
+---
+import Nota from '../../components/paginas/Nota.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const notas = await getCollection('notas', (n) => n.data.idioma === 'en');
+  return notas.map((nota) => ({ params: { slug: nota.id.replace(/^en\//, '') }, props: { nota } }));
+}
+
+const { nota } = Astro.props;
+---
+<Nota idioma="en" nota={nota} />

@@ -1,0 +1,85 @@
+---
+import { type Idioma, ruta, t } from '../i18n';
+
+interface Props { idioma: Idioma; pieza: any; ancha?: boolean; }
+const { idioma, pieza, ancha = false } = Astro.props;
+const ui = t(idioma);
+const href = `${ruta('trabajo', idioma)}${pieza.slug[idioma]}/`;
+const imagen = `/img/piezas/${pieza.id}.webp`;
+---
+<article class:list={['pieza', { ancha }]} data-etiqueta={pieza.etiqueta[idioma]}>
+  <div class="pieza__cabeza">
+    <span class="kicker">{pieza.tipo[idioma]}</span>
+    <div class="pieza__cuerpo">
+      <p class="micro tenue pieza__periodo">{pieza.periodo}</p>
+      <h3 class="pieza__titulo">
+        <a class="pieza__enlace limpio" href={href}>{pieza.titulo[idioma]}</a>
+      </h3>
+      <p class="serif pieza__resumen">{pieza.resumen[idioma]}</p>
+    </div>
+  </div>
+
+  {pieza.captura
+    ? <img class="pieza__imagen" src={imagen} alt="" width="1200" height="675" loading="lazy" decoding="async" />
+    : (
+      <div class="pieza__imagen pieza__marca" aria-hidden="true">
+        <span class="serif">{pieza.periodo.replace(/–$/, '– ')}</span>
+      </div>
+    )}
+
+  <p class="empuja pieza__pie">
+    <span class="pastilla">{pieza.etiqueta[idioma]}</span>
+    <span class="micro pieza__ver">{ui.verPieza} →</span>
+  </p>
+</article>
+
+<style>
+  .pieza__cabeza { display: flex; gap: var(--e3); align-items: stretch; }
+  .kicker { color: var(--acento-texto); flex: none; }
+  .pieza__cuerpo { min-width: 0; }
+  .pieza__periodo { margin: 0 0 var(--e1); }
+  .pieza__titulo { font-size: var(--h3); margin: 0 0 var(--e2); }
+  .pieza__resumen { margin: 0; font-size: 1.05rem; line-height: 1.5; color: var(--gris); }
+
+  .pieza__imagen {
+    width: 100%;
+    margin: var(--e3) 0;
+    border-radius: var(--radio);
+    border: var(--borde-fino) solid var(--linea);
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    object-position: left top;
+    background: var(--crema);
+  }
+
+  /* Las piezas sin sitio vivo no llevan captura prestada: llevan su propio
+     panel, con el periodo en grande. */
+  .pieza__marca {
+    display: grid;
+    place-items: center;
+    background: var(--tinta);
+    color: var(--crema);
+    border-color: var(--tinta);
+  }
+  .pieza__marca span { font-size: clamp(2rem, 6vw, 3.5rem); font-weight: 300; letter-spacing: -0.03em; }
+
+  .pieza__pie {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--e2);
+    margin: 0;
+    padding-top: var(--e3);
+    border-top: var(--borde-fino) solid var(--linea);
+  }
+  .pieza__ver { color: var(--acento-texto); }
+
+  /* La pieza ancha reparte texto e imagen en dos columnas. */
+  @media (min-width: 55rem) {
+    .ancha:not([hidden]) { display: grid; grid-template-columns: 1fr 1fr; gap: var(--e4); align-items: start; }
+    .ancha .pieza__imagen { margin: 0; grid-row: span 2; aspect-ratio: 16 / 9; height: auto; }
+    .ancha .pieza__titulo { font-size: var(--h2); }
+    .ancha .pieza__resumen { font-size: var(--texto-grande); }
+    .ancha .pieza__pie { grid-column: 1; align-self: end; }
+  }
+</style>

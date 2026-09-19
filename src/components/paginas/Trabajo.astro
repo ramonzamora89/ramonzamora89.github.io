@@ -1,0 +1,145 @@
+---
+import Base from '../../layouts/Base.astro';
+import TarjetaPieza from '../TarjetaPieza.astro';
+import proyectos from '../../data/proyectos.json';
+import { type Idioma, ruta, t } from '../../i18n';
+
+interface Props { idioma: Idioma; }
+const { idioma } = Astro.props;
+const ui = t(idioma);
+
+// Las etiquetas salen de los datos: si se añade una pieza con etiqueta nueva,
+// el filtro la recoge sin tocar nada más.
+const etiquetas = [...new Set(proyectos.map((p) => p.etiqueta[idioma]))].sort();
+---
+<Base
+  idioma={idioma}
+  titulo={`${ui.navTrabajo} — Ramón Zamora`}
+  descripcion={ui.seleccionPie}
+  alterna={ruta('trabajo', idioma === 'en' ? 'es' : 'en')}
+>
+  <section class="banda">
+    <div class="envoltura">
+      <div class="encabezado-seccion">
+        <span class="micro">{ui.navTrabajo}</span>
+        {/* El filtro es una frase, no una barra de facetas. */}
+        <h1 class="serif filtro__frase">
+          <span>{ui.meInteresa}</span>
+          <span class="filtro" data-filtro>
+            <button type="button" class="filtro__boton" aria-haspopup="listbox" aria-expanded="false" data-filtro-boton>
+              <em data-filtro-valor>{ui.todo}</em>
+            </button>
+            <ul class="filtro__lista" role="listbox" hidden data-filtro-lista>
+              <li role="option" tabindex="-1" data-valor="" aria-selected="true">{ui.todo}</li>
+              {etiquetas.map((e) => (
+                <li role="option" tabindex="-1" data-valor={e} aria-selected="false">{e}</li>
+              ))}
+            </ul>
+          </span>
+        </h1>
+        <p class="tenue">{ui.seleccionPie}</p>
+      </div>
+
+      <div class="mosaico" data-piezas>
+        {proyectos.map((p, i) => (
+          <TarjetaPieza idioma={idioma} pieza={p} ancha={i === 0} />
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  // Filtro: sin JS se ven las ocho piezas, que es el estado correcto.
+  const raiz = document.querySelector<HTMLElement>('[data-filtro]');
+  const boton = document.querySelector<HTMLButtonElement>('[data-filtro-boton]');
+  const lista = document.querySelector<HTMLElement>('[data-filtro-lista]');
+  const valor = document.querySelector<HTMLElement>('[data-filtro-valor]');
+  const piezas = Array.from(document.querySelectorAll<HTMLElement>('.pieza[data-etiqueta]'));
+
+  if (raiz && boton && lista && valor) {
+    const abrir = (estado: boolean) => {
+      lista.hidden = !estado;
+      boton.setAttribute('aria-expanded', String(estado));
+      if (estado) (lista.querySelector('[aria-selected="true"]') as HTMLElement)?.focus();
+    };
+
+    const elegir = (opcion: HTMLElement) => {
+      const etiqueta = opcion.dataset.valor ?? '';
+      valor.textContent = opcion.textContent;
+      lista.querySelectorAll('[role="option"]').forEach((o) =>
+        o.setAttribute('aria-selected', String(o === opcion)),
+      );
+      piezas.forEach((pieza) => {
+        pieza.hidden = !(!etiqueta || pieza.dataset.etiqueta === etiqueta);
+      });
+      abrir(false);
+      boton.focus();
+    };
+
+    boton.addEventListener('click', () => abrir(lista.hidden));
+
+    lista.addEventListener('click', (e) => {
+      const opcion = (e.target as HTMLElement).closest<HTMLElement>('[role="option"]');
+      if (opcion) elegir(opcion);
+    });
+
+    lista.addEventListener('keydown', (e) => {
+      const opciones = Array.from(lista.querySelectorAll<HTMLElement>('[role="option"]'));
+      const i = opciones.indexOf(document.activeElement as HTMLElement);
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        const paso = e.key === 'ArrowDown' ? 1 : -1;
+        opciones[(i + paso + opciones.length) % opciones.length]?.focus();
+      } else if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        if (i >= 0) elegir(opciones[i]);
+      } else if (e.key === 'Escape') {
+        abrir(false);
+        boton.focus();
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!raiz.contains(e.target as Node)) abrir(false);
+    });
+  }
+</script>
+
+<style>
+  .filtro__frase { font-size: var(--h1); font-weight: 300; margin-bottom: var(--e3); }
+  .filtro { position: relative; display: inline-block; }
+  .filtro__boton {
+    font: inherit;
+    font-style: italic;
+    font-weight: 600;
+    color: var(--acento-texto);
+    background: none;
+    border: 0;
+    border-bottom: 2px solid currentColor;
+    padding: 0 0.1em;
+    cursor: pointer;
+  }
+  .filtro__boton::after { content: ' ▾'; font-style: normal; font-size: 0.6em; }
+  .filtro__lista {
+    position: absolute;
+    left: 0;
+    top: calc(100% + var(--e2));
+    z-index: 50;
+    min-width: 14rem;
+    margin: 0;
+    padding: var(--e1);
+    list-style: none;
+    background: var(--crema);
+    border: var(--borde-fino) solid var(--tinta);
+    border-radius: var(--radio);
+    font-family: var(--sans);
+    font-size: var(--texto);
+    font-style: normal;
+    font-weight: 400;
+    box-shadow: 0 8px 24px rgb(31 28 6 / 0.12);
+  }
+  .filtro__lista li { padding: 0.5em 0.8em; border-radius: 3px; cursor: pointer; }
+  .filtro__lista li:hover, .filtro__lista li:focus-visible { background: var(--crema-calido); }
+  .filtro__lista li[aria-selected='true'] { color: var(--acento-texto); font-weight: 600; }
+</style>

@@ -1,0 +1,81 @@
+---
+import Base from '../../layouts/Base.astro';
+import perfil from '../../data/perfil.json';
+import cvEs from '../../data/cv.es.json';
+import cvEn from '../../data/cv.en.json';
+import { type Idioma, ruta, t } from '../../i18n';
+
+interface Props { idioma: Idioma; }
+const { idioma } = Astro.props;
+const ui = t(idioma);
+const cv = idioma === 'es' ? cvEs : cvEn;
+
+const parrafos = idioma === 'es'
+  ? [
+      'Soy antropólogo y sociólogo por la Universidad del Valle de Guatemala y magíster en Comunicación, Cultura y Tecnología por Georgetown. Ese cruce —ciencias sociales de un lado, tecnología del otro— explica casi todo lo que he hecho desde entonces.',
+      'Entre 2016 y 2023 dirigí el producto digital de elPeriódico de Guatemala: lancé su modelo de suscripción, sus newsletters y sus aplicaciones, y coordiné equipos de redacción, tecnología, ventas y finanzas. Fueron también los años en que el medio fue perseguido judicialmente hasta cerrar.',
+      'En paralelo he enseñado en la Universidad del Valle desde 2017 y coordiné su Laboratorio de Innovación Social entre 2020 y 2023, acompañando investigación aplicada, tecnología cívica y metodologías participativas.',
+      'Hoy coordino CAIMA, una iniciativa regional para preservar los archivos del periodismo independiente centroamericano, y cofundé LabEtnográfico, una consultora de investigación cualitativa y estrategia organizacional.',
+      'Trabajo en español y en inglés, y escribo código cuando el problema lo pide: sitios estáticos, análisis en Python, herramientas de monitoreo. La mayoría está abierta en GitHub.',
+    ]
+  : [
+      'I am an anthropologist and sociologist trained at Universidad del Valle de Guatemala, with a master’s in Communication, Culture and Technology from Georgetown. That crossing — social science on one side, technology on the other — explains almost everything I have done since.',
+      'Between 2016 and 2023 I led digital product at elPeriódico de Guatemala: I launched its subscription model, its newsletters and its apps, and coordinated newsroom, technology, sales and finance teams. Those were also the years the paper was judicially persecuted until it closed.',
+      'Alongside that I have taught at Universidad del Valle since 2017, and coordinated its Social Innovation Lab between 2020 and 2023, supporting applied research, civic technology and participatory methods.',
+      'Today I coordinate CAIMA, a regional initiative preserving the archives of Central American independent journalism, and I co-founded LabEtnográfico, a qualitative research and organizational strategy consultancy.',
+      'I work in Spanish and English, and I write code when the problem calls for it: static sites, Python analysis, monitoring tools. Most of it is open on GitHub.',
+    ];
+---
+<Base
+  idioma={idioma}
+  titulo={`${ui.navSobre} — ${perfil.nombre}`}
+  descripcion={perfil.entradilla[idioma]}
+  alterna={ruta('sobre', idioma === 'en' ? 'es' : 'en')}
+>
+  <section class="banda">
+    <div class="envoltura sobre">
+      <div class="sobre__texto">
+        <span class="micro sobre__kicker">{ui.navSobre}</span>
+        <h1 class="serif sobre__titular">{perfil.titular[idioma]}</h1>
+        {parrafos.map((p) => <p class="grande">{p}</p>)}
+
+        <h2 class="micro sobre__rotulo">{ui.idiomas}</h2>
+        <ul class="sobre__idiomas">
+          {cv.idiomas.map((i) => <li><strong>{i.idioma}</strong> <span class="tenue">— {i.nivel}</span></li>)}
+        </ul>
+
+        <p class="sobre__acciones">
+          <a class="boton boton--lleno" href={ruta('cv', idioma)}>{ui.verCv}</a>
+          <a class="boton" href={ruta('trabajo', idioma)}>{ui.verTrabajo}</a>
+        </p>
+      </div>
+
+      <figure class="sobre__figura">
+        <img src={perfil.foto} alt={perfil.nombreCompleto} width="800" height="800" loading="lazy" />
+      </figure>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .sobre { display: grid; gap: var(--e5); grid-template-columns: 1fr; }
+  @media (min-width: 55rem) {
+    .sobre { grid-template-columns: 1.5fr 1fr; gap: var(--e6); align-items: start; }
+    .sobre__figura { position: sticky; top: calc(var(--alto-cabecera) + var(--e3)); }
+  }
+  .sobre__kicker { color: var(--acento-texto); display: block; margin-bottom: var(--e2); }
+  .sobre__titular { font-size: var(--h1); font-weight: 300; margin-bottom: var(--e4); max-width: 20ch; }
+  .sobre__texto .grande { color: var(--gris); }
+  .sobre__rotulo { color: var(--acento-texto); margin: var(--e5) 0 var(--e3); }
+  .sobre__idiomas { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--e3); }
+  .sobre__acciones { display: flex; flex-wrap: wrap; gap: var(--e2); margin-top: var(--e5); }
+
+  /* Un par de grados de inclinación y la página deja de parecer una plantilla. */
+  .sobre__figura { margin: 0; }
+  .sobre__figura img {
+    width: 100%;
+    border-radius: var(--radio);
+    transform: rotate(-2deg);
+    border: var(--borde-fino) solid var(--linea);
+  }
+</style>

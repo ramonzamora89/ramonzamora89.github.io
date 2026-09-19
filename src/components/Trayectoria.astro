@@ -1,0 +1,214 @@
+---
+import { type Idioma, ruta, t } from '../i18n';
+
+interface Tramo { organizacion?: string; institucion?: string; cargo?: string; titulo?: string;
+  corto?: string; periodo: string; tramos: number[][]; id?: string; }
+interface Props { idioma: Idioma; experiencia: Tramo[]; educacion: Tramo[]; }
+
+const { idioma, experiencia, educacion } = Astro.props;
+const ui = t(idioma);
+
+// Una fila por puesto: primero lo más reciente, la educación al final.
+const filas = [
+  ...experiencia.map((e) => ({
+    clave: e.id ?? '',
+    titulo: e.corto ?? e.organizacion ?? '',
+    completo: e.organizacion ?? '',
+    subtitulo: e.cargo ?? '',
+    periodo: e.periodo,
+    tramos: e.tramos,
+    tipo: 'trabajo' as const,
+  })),
+  ...educacion.map((e) => ({
+    clave: '',
+    titulo: e.corto ?? e.institucion ?? '',
+    completo: e.institucion ?? '',
+    subtitulo: e.titulo ?? '',
+    periodo: e.periodo,
+    tramos: e.tramos,
+    tipo: 'estudio' as const,
+  })),
+];
+
+const todosLosAnios = filas.flatMap((f) => f.tramos.flat());
+const primerAnio = Math.min(...todosLosAnios);
+const ultimoAnio = Math.max(...todosLosAnios);
+const anios = Array.from({ length: ultimoAnio - primerAnio + 1 }, (_, i) => primerAnio + i);
+
+// grid-column es 1-indexado y el final es exclusivo: de ahí el +1 y el +2.
+const columna = (a: number, b: number) => `${a - primerAnio + 1} / ${b - primerAnio + 2}`;
+const hrefCv = ruta('cv', idioma);
+---
+<section class="banda" data-theme="crema" aria-labelledby="titulo-trayectoria">
+  <div class="envoltura">
+    <div class="encabezado-seccion">
+      <span class="micro">{ui.trayectoria}</span>
+      <h2 id="titulo-trayectoria" class="solo-lectores">{ui.trayectoria}</h2>
+      <p class="grande lectura">{ui.trayectoriaPie}</p>
+    </div>
+
+    <div class="linea">
+      {/* Una línea por año. Es la retícula y, a la vez, la textura de fondo. */}
+      <div class="linea__rejilla" aria-hidden="true">
+        {anios.map(() => <span class="linea__guia"></span>)}
+      </div>
+
+      <ol class="linea__filas">
+        {filas.map((fila, i) => (
+          <li class={`linea__fila linea__fila--${fila.tipo}`}>
+            {fila.tramos.map((tramo, j) => (
+              <div class="tramo revelar" title={`${fila.completo} · ${fila.subtitulo}`}
+                   style={`grid-column:${columna(tramo[0], tramo[1])};--retraso:${i * 60}ms`}>
+                {j === 0 ? (
+                  fila.clave ? (
+                    <a class="tramo__texto limpio" href={`${hrefCv}#${fila.clave}`}>
+                      <span class="tramo__titulo">{fila.titulo}</span>
+                      <span class="tramo__cargo">{fila.subtitulo}</span>
+                    </a>
+                  ) : (
+                    <span class="tramo__texto">
+                      <span class="tramo__titulo">{fila.titulo}</span>
+                      <span class="tramo__cargo">{fila.subtitulo}</span>
+                    </span>
+                  )
+                ) : (
+                  <span class="tramo__texto tramo__texto--continua">
+                    <span class="tramo__titulo">{fila.titulo}</span>
+                    <span class="solo-lectores">{fila.subtitulo}</span>
+                  </span>
+                )}
+              </div>
+            ))}
+            <p class="linea__periodo micro">{fila.periodo}</p>
+          </li>
+        ))}
+      </ol>
+
+      <ul class="linea__anios" aria-hidden="true">
+        {anios.map((anio) => (
+          <li class="micro">{anio % 2 === 0 ? anio : ''}</li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style define:vars={{ columnas: anios.length }}>
+  .linea { margin-top: var(--e4); }
+
+  /* ---------- Escritorio: retícula de un año por columna ---------- */
+  @media (min-width: 48rem) {
+    .linea { position: relative; }
+
+    .linea__rejilla {
+      position: absolute;
+      inset: 0 0 1.6rem;
+      display: grid;
+      grid-template-columns: repeat(var(--columnas), 1fr);
+      pointer-events: none;
+    }
+    .linea__guia { border-left: var(--borde-fino) solid var(--linea); }
+    .linea__guia:last-child { border-right: var(--borde-fino) solid var(--linea); }
+
+    .linea__filas {
+      position: relative;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: var(--e2);
+    }
+    .linea__fila {
+      display: grid;
+      grid-template-columns: repeat(var(--columnas), 1fr);
+      align-items: stretch;
+      min-height: 3.1rem;
+    }
+    .linea__periodo { display: none; }
+
+    .linea__anios {
+      display: grid;
+      grid-template-columns: repeat(var(--columnas), 1fr);
+      list-style: none;
+      margin: var(--e2) 0 0;
+      padding: 0;
+      color: var(--gris);
+      height: 1.6rem;
+    }
+    .linea__anios li { padding-left: 0.35em; }
+  }
+
+  /* ---------- El tramo ---------- */
+  .tramo {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    padding: 0.45rem 0.7rem;
+    border-radius: var(--radio);
+    background: var(--tinta);
+    color: var(--crema);
+    transition: background var(--transicion), color var(--transicion);
+  }
+  .linea__fila--estudio .tramo {
+    background: transparent;
+    color: var(--tinta);
+    border: 2px solid var(--tinta);
+  }
+
+  .tramo__texto { display: flex; flex-direction: column; min-width: 0; line-height: 1.25; }
+  .tramo__titulo {
+    font-weight: 700;
+    font-size: 0.82rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .tramo__texto--continua { justify-content: center; }
+  .tramo__cargo {
+    font-size: var(--micro);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-micro);
+    opacity: 0.75;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  @media (hover: hover) {
+    .tramo:has(a):hover { background: var(--acento); color: var(--crema); }
+    .linea__fila--estudio .tramo:hover { border-color: var(--acento); color: var(--acento-texto); }
+  }
+  .tramo:has(a:focus-visible) { background: var(--acento); color: var(--crema); }
+
+  /* El enlace cubre el tramo entero. */
+  .tramo a.limpio::after { content: ''; position: absolute; inset: 0; }
+
+  /* ---------- Móvil: la retícula gira y se vuelve una cronología ---------- */
+  @media (max-width: 47.99rem) {
+    .linea__rejilla, .linea__anios { display: none; }
+    .linea__filas {
+      list-style: none;
+      margin: 0;
+      padding: 0 0 0 var(--e3);
+      border-left: 2px solid var(--linea);
+      display: flex;
+      flex-direction: column;
+      gap: var(--e3);
+    }
+    .linea__fila { position: relative; }
+    .linea__fila::before {
+      content: '';
+      position: absolute;
+      left: calc(-1 * var(--e3) - 6px);
+      top: 0.9rem;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--acento);
+    }
+    .tramo { display: inline-flex; }
+    .tramo + .tramo { display: none; }   /* el periodo ya dice los dos rangos */
+    .tramo__titulo, .tramo__cargo { white-space: normal; overflow: visible; }
+    .linea__periodo { margin: var(--e1) 0 0; color: var(--gris); }
+  }
+</style>

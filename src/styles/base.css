@@ -1,0 +1,297 @@
+@import url('./fonts.css');
+@import url('./tokens.css');
+
+/* ===== Base ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--alto-cabecera) + 1rem);
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--crema);
+  color: var(--tinta);
+  font-family: var(--sans);
+  font-size: var(--texto);
+  font-weight: var(--peso-cuerpo);
+  line-height: 1.6;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+img, svg { max-width: 100%; height: auto; display: block; }
+
+/* ===== Tipografía ====================================================== */
+h1, h2, h3, h4 {
+  font-family: var(--sans);
+  font-weight: var(--peso-titulo);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin: 0 0 var(--e3);
+  text-wrap: balance;
+}
+
+h1 { font-size: var(--h1); }
+h2 { font-size: var(--h2); }
+h3 { font-size: var(--h3); letter-spacing: -0.01em; }
+
+/* Titulares en serif: el otro registro. El énfasis va en bold italic,
+   no en color — como hace la d.school. */
+.serif {
+  font-family: var(--serif);
+  font-weight: var(--peso-ligero);
+  letter-spacing: -0.015em;
+}
+.serif em, .serif i { font-style: italic; font-weight: 600; }
+
+p { margin: 0 0 var(--e3); text-wrap: pretty; }
+p:last-child { margin-bottom: 0; }
+
+.grande { font-size: var(--texto-grande); font-weight: var(--peso-ligero); line-height: 1.45; }
+
+/* Versalitas. El letter-spacing no es decorativo: sin él son ilegibles. */
+.micro {
+  font-size: var(--micro);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-micro);
+  line-height: 1.4;
+}
+
+/* Kicker vertical en el borde izquierdo de una tarjeta. */
+.kicker {
+  writing-mode: vertical-rl;
+  display: flex;
+  align-items: center;
+  gap: var(--e2);
+  font-size: var(--micro);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-micro);
+}
+.kicker::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  flex: none;
+}
+
+/* Etiqueta en pastilla. */
+.pastilla {
+  display: inline-block;
+  padding: 0.28em 0.85em;
+  border: var(--borde-fino) solid currentColor;
+  border-radius: var(--radio-pastilla);
+  font-size: var(--micro);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-micro);
+}
+
+/* ===== Enlaces ========================================================= */
+/* El subrayado siempre está: solo se le transiciona el color.
+   Así no hay salto de layout al pasar el ratón. */
+a {
+  color: var(--enlace);
+  text-decoration: underline 2px transparent;
+  text-underline-offset: 0.35em;
+  transition: text-decoration-color var(--transicion), color var(--transicion);
+}
+a:hover { text-decoration-color: currentColor; }
+
+a.limpio { color: inherit; text-decoration: none; }
+
+:focus-visible {
+  outline: 3px solid var(--acento);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ===== Secciones y retícula ============================================ */
+section { background: var(--bg); color: var(--fg); }
+
+.banda { padding-block: clamp(var(--e5), 8vw, var(--e6)); }
+.banda--corta { padding-block: var(--e5); }
+
+.envoltura {
+  width: 100%;
+  max-width: var(--ancho-maximo);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.lectura { max-width: var(--ancho-lectura); }
+
+/* Mosaico: la jerarquía sale de que una pieza ocupe la fila entera,
+   no de inventar tamaños. */
+.mosaico {
+  display: grid;
+  gap: var(--e3);
+  grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+}
+.mosaico > .ancha { grid-column: 1 / -1; }
+
+/* Encabezado de sección: kicker en versalitas + titular. */
+.encabezado-seccion { margin-bottom: var(--e4); }
+.encabezado-seccion .micro { color: var(--acento-texto); display: block; margin-bottom: var(--e2); }
+[data-theme='oscuro'] .encabezado-seccion .micro { color: var(--acento-claro); }
+[data-theme='acento'] .encabezado-seccion .micro { color: var(--fg-suave); }
+
+/* ===== Tarjeta de pieza: el duotono ==================================== */
+.pieza {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  min-height: 23rem;
+  padding: var(--e3);
+  border: var(--borde-fino) solid var(--borde);
+  border-radius: var(--radio);
+  background: var(--crema-calido);
+  color: var(--tinta);
+  overflow: hidden;
+  transition: border-color var(--transicion);
+}
+
+/* Tiñe la tarjeta entera, foto incluida, sin preparar las imágenes.
+   mix-blend-mode: color conserva la luminosidad e impone el tono. */
+.pieza::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 10;            /* por encima de la foto y del texto: tiñe la tarjeta entera */
+  background: var(--acento);
+  mix-blend-mode: color;
+  opacity: 0;
+  pointer-events: none;   /* no intercepta el clic */
+  transition: opacity var(--transicion);
+}
+
+.pieza[hidden] { display: none; }
+.pieza:focus-within { border-color: var(--acento); }
+.pieza:focus-within::before { opacity: 1; }
+
+@media (hover: hover) {
+  .pieza:hover { border-color: var(--acento); }
+  .pieza:hover::before { opacity: 1; }
+}
+
+/* El enlace cubre la tarjeta entera, pero el título sigue siendo el
+   destino real para lectores de pantalla. */
+.pieza__enlace::after { content: ''; position: absolute; inset: 0; z-index: 5; }
+
+@supports not (mix-blend-mode: color) {
+  .pieza::before { background: var(--acento); mix-blend-mode: normal; }
+  .pieza:hover::before, .pieza:focus-within::before { opacity: 0.12; }
+}
+
+/* ===== Utilidades ====================================================== */
+.pila { display: flex; flex-direction: column; gap: var(--e3); }
+.fila { display: flex; flex-wrap: wrap; gap: var(--e3); align-items: baseline; }
+.empuja { margin-top: auto; }
+.tenue { color: var(--fg-suave); }
+
+.solo-lectores {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap; border: 0;
+}
+
+.saltar {
+  position: absolute; left: var(--gutter); top: -100%;
+  z-index: 200; padding: var(--e2) var(--e3);
+  background: var(--tinta); color: var(--crema);
+  border-radius: var(--radio); text-decoration: none;
+}
+.saltar:focus { top: var(--e2); }
+
+.boton {
+  display: inline-block;
+  padding: 0.75em 1.6em;
+  border: 2px solid var(--fg);
+  border-radius: var(--radio-pastilla);
+  background: transparent;
+  color: var(--fg);
+  font: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background var(--transicion), color var(--transicion), border-color var(--transicion);
+}
+.boton:hover { background: var(--fg); color: var(--bg); }
+.boton--lleno { background: var(--acento-fondo); border-color: var(--acento-fondo); color: var(--crema); }
+.boton--lleno:hover { background: var(--tinta); border-color: var(--tinta); color: var(--crema); }
+
+/* ===== Movimiento ====================================================== */
+/* Todo lo animado entra ya visible si el navegador no puede o el usuario
+   no quiere movimiento. La clase la quita el JS al entrar en viewport. */
+/* Sin JS el contenido se ve. El <html> nace con .sin-js y un script en el
+   <head> se la quita antes de pintar; solo entonces se esconde para revelar. */
+html:not(.sin-js) .revelar {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+html:not(.sin-js) .revelar.visible { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html:not(.sin-js) .revelar { opacity: 1; transform: none; }
+}
+
+/* ===== Línea de tiempo: revelado de izquierda a derecha =================
+   clip-path en vez de scaleX: descubre la barra sin deformar el texto.
+   Gana por especificidad a la regla genérica de .revelar de arriba. */
+html:not(.sin-js) .tramo.revelar {
+  opacity: 1;
+  transform: none;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 0.55s ease var(--retraso, 0ms);
+}
+html:not(.sin-js) .tramo.revelar.visible { clip-path: inset(0 0 0 0); }
+
+@media (prefers-reduced-motion: reduce) {
+  html:not(.sin-js) .tramo.revelar { clip-path: none; }
+}
+
+/* ===== Impresión =======================================================
+   El CV en papel: sin cromo de navegación, sin fondos de color, y las URL
+   de los enlaces externos impresas al lado para que el papel no pierda el dato. */
+@media print {
+  @page { margin: 14mm 14mm 16mm; }
+
+  html, body { background: #fff !important; color: #000 !important; font-size: 10.5pt; }
+  body { overflow-x: visible; }
+
+  header, footer, .saltar, .boton { display: none !important; }
+
+  section, [data-theme] {
+    background: #fff !important;
+    color: #000 !important;
+    padding-block: 0 !important;
+  }
+
+  .envoltura { max-width: none; padding-inline: 0; }
+  .banda, .banda--corta { padding-block: 0 !important; }
+
+  h1 { font-size: 20pt; }
+  h2 { font-size: 12pt; }
+  h3 { font-size: 11.5pt; }
+  .grande { font-size: 11pt; }
+
+  a { color: #000 !important; text-decoration: none; }
+  a[href^='http']::after { content: ' (' attr(href) ')'; font-size: 8.5pt; color: #555; word-break: break-all; }
+  a[href^='mailto']::after, a[href^='#']::after { content: ''; }
+
+  .pastilla { border-color: #888; }
+  .revelar, html:not(.sin-js) .revelar { opacity: 1 !important; transform: none !important; clip-path: none !important; }
+}

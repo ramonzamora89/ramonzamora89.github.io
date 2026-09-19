@@ -1,0 +1,162 @@
+---
+import Base from '../../layouts/Base.astro';
+import perfil from '../../data/perfil.json';
+import cvEs from '../../data/cv.es.json';
+import cvEn from '../../data/cv.en.json';
+import { type Idioma, ruta, t } from '../../i18n';
+
+interface Props { idioma: Idioma; }
+const { idioma } = Astro.props;
+const ui = t(idioma);
+const cv = idioma === 'es' ? cvEs : cvEn;
+const pdf = `/cv/ramon-zamora-cv-${idioma}.pdf`;
+---
+<Base
+  idioma={idioma}
+  titulo={`CV — ${perfil.nombreCompleto}`}
+  descripcion={cv.perfil.slice(0, 180)}
+  alterna={ruta('cv', idioma === 'en' ? 'es' : 'en')}
+  claseMain="cv"
+>
+  <section class="banda banda--corta">
+    <div class="envoltura">
+      <div class="cv__cabeza">
+        <div>
+          <span class="micro cv__kicker">{ui.navCv}</span>
+          <h1>{perfil.nombreCompleto}</h1>
+          <p class="grande lectura">{cv.perfil}</p>
+        </div>
+
+        <aside class="cv__contacto">
+          <ul>
+            {perfil.contacto.map((c) => <li><a href={c.href}>{c.etiqueta}</a></li>)}
+          </ul>
+          <p class="cv__descargas">
+            <a class="boton boton--lleno" href={pdf} download>{ui.descargarCv}</a>
+            <button type="button" class="boton cv__imprimir" data-imprimir>{ui.imprimirCv}</button>
+          </p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <div class="envoltura cv__cuerpo">
+    <section class="cv__bloque" aria-labelledby="h-experiencia">
+      <h2 id="h-experiencia" class="cv__titulo">{ui.experiencia}</h2>
+      {cv.experiencia.map((e) => (
+        <article class="entrada" id={e.id}>
+          <p class="entrada__periodo micro">{e.periodo}</p>
+          <div class="entrada__cuerpo">
+            <h3 class="entrada__cargo">{e.cargo}</h3>
+            <p class="entrada__org">
+              {'enlace' in e && e.enlace
+                ? <a href={e.enlace} target="_blank" rel="noopener">{e.organizacion}</a>
+                : e.organizacion}
+            </p>
+            <ul class="entrada__puntos">
+              {e.puntos.map((p) => <li>{p}</li>)}
+            </ul>
+          </div>
+        </article>
+      ))}
+    </section>
+
+    <section class="cv__bloque" aria-labelledby="h-educacion">
+      <h2 id="h-educacion" class="cv__titulo">{ui.educacion}</h2>
+      {cv.educacion.map((e) => (
+        <article class="entrada">
+          <p class="entrada__periodo micro">{e.periodo}</p>
+          <div class="entrada__cuerpo">
+            <h3 class="entrada__cargo">{e.titulo}</h3>
+            <p class="entrada__org">{e.institucion}</p>
+          </div>
+        </article>
+      ))}
+      {cv.formacionAdicional.map((f) => (
+        <article class="entrada">
+          <p class="entrada__periodo micro">{f.periodo}</p>
+          <div class="entrada__cuerpo">
+            <h3 class="entrada__cargo entrada__cargo--menor">{f.titulo}</h3>
+            <p class="entrada__org tenue">{f.detalle}</p>
+          </div>
+        </article>
+      ))}
+    </section>
+
+    <section class="cv__bloque" aria-labelledby="h-publicaciones">
+      <h2 id="h-publicaciones" class="cv__titulo">{ui.publicaciones}</h2>
+      <ol class="cv__citas">
+        {cv.publicaciones.map((p) => (
+          <li>{p.cita} <a href={p.href} target="_blank" rel="noopener">doi:{p.doi}</a></li>
+        ))}
+      </ol>
+
+      <h3 class="cv__subtitulo">{ui.audiovisual}</h3>
+      <ul class="cv__citas">
+        {cv.audiovisual.map((a) => (
+          <li><a href={a.href} target="_blank" rel="noopener">{a.titulo}</a> — {a.detalle}</li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="cv__bloque" aria-labelledby="h-habilidades">
+      <h2 id="h-habilidades" class="cv__titulo">{ui.especializacion}</h2>
+      <ul class="nube">{cv.especializacion.map((x) => <li class="pastilla">{x}</li>)}</ul>
+
+      <h3 class="cv__subtitulo">{ui.herramientas}</h3>
+      <ul class="nube">{cv.herramientas.map((x) => <li class="pastilla">{x}</li>)}</ul>
+
+      <h3 class="cv__subtitulo">{ui.idiomas}</h3>
+      <ul class="cv__idiomas">
+        {cv.idiomas.map((i) => <li><strong>{i.idioma}</strong> <span class="tenue">— {i.nivel}</span></li>)}
+      </ul>
+
+      <h3 class="cv__subtitulo">{ui.intereses}</h3>
+      <p class="lectura">{cv.intereses}</p>
+    </section>
+  </div>
+</Base>
+
+<script>
+  document.querySelector('[data-imprimir]')?.addEventListener('click', () => window.print());
+</script>
+
+<style>
+  .cv__kicker { color: var(--acento-texto); display: block; margin-bottom: var(--e2); }
+  .cv__cabeza { display: grid; gap: var(--e4); grid-template-columns: 1fr; }
+  @media (min-width: 55rem) { .cv__cabeza { grid-template-columns: 1.6fr 1fr; gap: var(--e5); } }
+
+  .cv__contacto ul { list-style: none; margin: 0 0 var(--e3); padding: 0; display: flex; flex-direction: column; gap: var(--e1); font-size: 0.95rem; }
+  .cv__descargas { display: flex; flex-wrap: wrap; gap: var(--e2); margin: 0; }
+  .cv__imprimir { font-size: 0.95rem; }
+
+  .cv__cuerpo { padding-bottom: var(--e5); }
+  .cv__bloque { padding-top: var(--e5); border-top: var(--borde-fino) solid var(--linea); margin-top: var(--e5); }
+  .cv__titulo { font-size: var(--h3); text-transform: uppercase; letter-spacing: var(--tracking-micro); font-size: 0.8rem; color: var(--acento-texto); margin-bottom: var(--e4); }
+  .cv__subtitulo { font-size: 1rem; text-transform: uppercase; letter-spacing: var(--tracking-micro); margin: var(--e4) 0 var(--e3); }
+
+  /* Periodo a la izquierda, contenido a la derecha: se escanea en vertical. */
+  .entrada { display: grid; grid-template-columns: 1fr; gap: var(--e2); padding-bottom: var(--e4); }
+  @media (min-width: 48rem) {
+    .entrada { grid-template-columns: 9rem 1fr; gap: var(--e4); }
+  }
+  .entrada__periodo { color: var(--gris); margin: 0; padding-top: 0.35em; }
+  .entrada__cargo { font-size: 1.25rem; margin: 0 0 0.15em; }
+  .entrada__cargo--menor { font-size: 1.05rem; }
+  .entrada__org { font-family: var(--serif); font-size: 1.15rem; margin: 0 0 var(--e2); }
+  .entrada__puntos { margin: 0; padding-left: 1.1em; color: var(--gris); }
+  .entrada__puntos li { margin-bottom: 0.4em; }
+
+  .cv__citas { margin: 0; padding-left: 1.2em; color: var(--gris); }
+  .cv__citas li { margin-bottom: var(--e2); }
+  .nube { display: flex; flex-wrap: wrap; gap: var(--e1) var(--e2); list-style: none; margin: 0; padding: 0; color: var(--gris); }
+  .cv__idiomas { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--e3); }
+
+  /* ---------- Impresión: el mismo contenido, en papel ---------- */
+  @media print {
+    .cv__descargas, .cv__imprimir { display: none !important; }
+    .cv__bloque { border-top: 1pt solid #999; break-inside: auto; }
+    .entrada { break-inside: avoid; page-break-inside: avoid; }
+    .cv__cabeza { grid-template-columns: 1.6fr 1fr; }
+  }
+</style>

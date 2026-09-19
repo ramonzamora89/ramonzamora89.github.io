@@ -1,0 +1,88 @@
+---
+import '../styles/base.css';
+import Cabecera from '../components/Cabecera.astro';
+import Pie from '../components/Pie.astro';
+import perfil from '../data/perfil.json';
+import { type Idioma, rutaAlterna, t } from '../i18n';
+
+interface Props {
+  idioma: Idioma;
+  titulo: string;
+  descripcion: string;
+  /** Ruta equivalente en el otro idioma. Si no se pasa, se deduce del mapa. */
+  alterna?: string;
+  claseMain?: string;
+}
+
+const { idioma, titulo, descripcion, alterna, claseMain = '' } = Astro.props;
+const ui = t(idioma);
+const otro: Idioma = idioma === 'en' ? 'es' : 'en';
+
+const ruta = Astro.url.pathname;
+const canonical = new URL(ruta, Astro.site).href;
+const hrefAlterna = alterna ?? rutaAlterna(ruta, otro);
+const urlAlterna = new URL(hrefAlterna, Astro.site).href;
+const ogImagen = new URL('/img/og.png', Astro.site).href;
+---
+<!doctype html>
+<html lang={idioma} class="sin-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{titulo}</title>
+    <meta name="description" content={descripcion} />
+    <link rel="canonical" href={canonical} />
+
+    <link rel="alternate" hreflang={idioma} href={canonical} />
+    <link rel="alternate" hreflang={otro} href={urlAlterna} />
+    <link rel="alternate" hreflang="x-default" href={idioma === 'en' ? canonical : urlAlterna} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={titulo} />
+    <meta property="og:description" content={descripcion} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImagen} />
+    <meta property="og:locale" content={idioma === 'en' ? 'en_US' : 'es_GT'} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <meta name="author" content={perfil.nombreCompleto} />
+    <meta name="theme-color" content="#fcfcf7" />
+    <link rel="icon" href="/img/favicon.svg" type="image/svg+xml" />
+
+    <!-- Las fuentes del primer render, para que no haya salto tipográfico. -->
+    <link rel="preload" href="/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/newsreader-latin.woff2" as="font" type="font/woff2" crossorigin />
+
+    <!-- Se quita antes de pintar: sin JS, .revelar nunca se esconde. -->
+    <script is:inline>document.documentElement.classList.remove('sin-js');</script>
+  </head>
+
+  <body>
+    <a class="saltar" href="#contenido">{ui.saltar}</a>
+    <Cabecera idioma={idioma} hrefAlterna={hrefAlterna} />
+    <main id="contenido" class={claseMain}>
+      <slot />
+    </main>
+    <Pie idioma={idioma} />
+
+    <script is:inline>
+      // Revelado al scroll. Si el usuario no quiere movimiento, todo aparece ya.
+      (function () {
+        var quieto = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var objetivos = document.querySelectorAll('.revelar');
+        if (quieto || !('IntersectionObserver' in window)) {
+          objetivos.forEach(function (el) { el.classList.add('visible'); });
+          return;
+        }
+        var observador = new IntersectionObserver(function (entradas) {
+          entradas.forEach(function (entrada) {
+            if (!entrada.isIntersecting) return;
+            entrada.target.classList.add('visible');
+            observador.unobserve(entrada.target);
+          });
+        }, { rootMargin: '0px 0px -12% 0px' });
+        objetivos.forEach(function (el) { observador.observe(el); });
+      })();
+    </script>
+  </body>
+</html>

@@ -9,9 +9,9 @@ const ui = t(idioma);
 const otro: Idioma = idioma === 'en' ? 'es' : 'en';
 const actual = Astro.url.pathname;
 
-// Notas solo aparece cuando hay algo publicado en ese idioma: un menú que
-// lleva a una página vacía es peor que un menú más corto.
-const hayNotas = (await getCollection('notas', (n) => n.data.idioma === idioma)).length > 0;
+// Escritos solo aparece cuando hay algo publicado, en cualquier idioma: un
+// menú que lleva a una página vacía es peor que un menú más corto.
+const hayNotas = (await getCollection('notas')).length > 0;
 
 const enlaces = [
   { href: ruta('cv', idioma), texto: ui.navCv },

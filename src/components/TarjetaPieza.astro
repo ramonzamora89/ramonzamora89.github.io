@@ -5,7 +5,9 @@ interface Props { idioma: Idioma; pieza: any; ancha?: boolean; }
 const { idioma, pieza, ancha = false } = Astro.props;
 const ui = t(idioma);
 const href = `${ruta('trabajo', idioma)}${pieza.slug[idioma]}/`;
-const imagen = `/img/piezas/${pieza.id}.webp`;
+// Una pieza con `capturaPorIdioma` tiene una imagen por idioma (<id>-es.webp,
+// <id>-en.webp): por ejemplo, la carátula de una charla dada en los dos.
+const imagen = `/img/piezas/${pieza.id}${pieza.capturaPorIdioma ? `-${idioma}` : ''}.webp`;
 ---
 <article class:list={['pieza', { ancha }]} data-etiqueta={pieza.etiqueta[idioma]}>
   <div class="pieza__cabeza">

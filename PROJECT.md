@@ -17,7 +17,8 @@ Guía de trabajo. Para la estructura técnica, ver [README.md](README.md).
    versiones del CV dicen «2022–presente». Si se regenera el JSON desde el
    Markdown, hay que volver a corregirlo.
 4. **Ninguna cifra sin respaldo.** Los únicos números duros del sitio son los que
-   están documentados: ~20 medios aliados en CAIMA y el crecimiento de suscripciones de elPeriódico, que se cita
+   están documentados: 11 medios en CAIMA (con la meta de llegar a 20 a
+   finales de 2026, dicha como meta y no como logro) y el crecimiento de suscripciones de elPeriódico, que se cita
    con la misma cautela del CV («un registro profesional reporta…»). No se
    redondean hacia arriba ni se inventan porcentajes.
 5. **Solo se muestra trabajo publicable.** Queda fuera lo que está protegido con
@@ -69,8 +70,10 @@ cada idioma, y las dos deben tener el mismo número de puntos.
 
 - `destacado: true` la saca también en la portada.
 - La primera pieza de `/work/` se dibuja ancha, a dos columnas.
-- `captura: true` significa que existe `public/img/piezas/<id>.webp`. Si es
-  `false`, la tarjeta dibuja un panel oscuro con el periodo en grande, que es
+- `captura: true` significa que existe `public/img/piezas/<id>.webp`. Con
+  `capturaPorIdioma: true` son dos: `<id>-es.webp` y `<id>-en.webp`, para piezas
+  cuya imagen tiene texto, como la carátula de una charla dada en los dos idiomas. Si
+  `captura` es `false`, la tarjeta dibuja un panel oscuro con el periodo en grande, que es
   mejor que una imagen prestada o una caja vacía.
 - `etiqueta` alimenta el desplegable de `/work/`. Una etiqueta nueva aparece sola
   en el filtro.
@@ -137,8 +140,6 @@ una, el sitio compila y el texto sale vacío, que es peor que un error.
 - **La línea de tiempo ya no muestra por separado** la coordinación del
   Laboratorio de Innovación Social (2020–2023): está unificada dentro del puesto
   de UVG, que va de 2017 a hoy, por decisión de Moncho.
-- **Kronika tiene la ficha más floja** del portafolio: solo lleva el resumen de
-  su propio sitio, sin «lo que hice» ni resultado.
-- **CAIMA:** el CV habla de ~20 medios aliados y elarchivo.media dice «11 media
-  outlets» en el archivo. Son dos cosas distintas, pero conviene que la ficha lo
-  aclare.
+- **Kronika no tiene ficha propia**, por decisión de Moncho: es el paraguas
+  institucional de CAIMA y él no es cofundador. Aparece dentro de la ficha y la
+  entrada del CV de CAIMA, donde su rol es fundador y curador de la colección.

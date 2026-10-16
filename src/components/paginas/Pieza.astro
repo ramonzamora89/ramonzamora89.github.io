@@ -7,7 +7,9 @@ const { idioma, pieza, siguiente } = Astro.props;
 const ui = t(idioma);
 const otro: Idioma = idioma === 'en' ? 'es' : 'en';
 const alterna = `${ruta('trabajo', otro)}${pieza.slug[otro]}/`;
-const imagen = `/img/piezas/${pieza.id}.webp`;
+// Una pieza con `capturaPorIdioma` tiene una imagen por idioma (<id>-es.webp,
+// <id>-en.webp): por ejemplo, la carátula de una charla dada en los dos.
+const imagen = `/img/piezas/${pieza.id}${pieza.capturaPorIdioma ? `-${idioma}` : ''}.webp`;
 const hrefSiguiente = `${ruta('trabajo', idioma)}${siguiente.slug[idioma]}/`;
 const trabajo = pieza.trabajo[idioma] as string[];
 ---

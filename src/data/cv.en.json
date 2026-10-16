@@ -3,8 +3,8 @@
   "experiencia": [
     {
       "id": "caima",
-      "organizacion": "Central America Independent Media Archive (CAIMA)",
-      "cargo": "Coordinator / Co-founder",
+      "organizacion": "Central America Independent Media Archive (CAIMA) · Kronika",
+      "cargo": "Founder and collection curator",
       "periodo": "2023–present",
       "tramos": [
         [
@@ -15,10 +15,10 @@
       "enlace": "https://elarchivo.media",
       "pieza": "caima",
       "puntos": [
-        "Coordinates a regional initiative to preserve the archives of Central American independent media and make them securely accessible for research, historical memory and journalistic work.",
-        "Built partnerships with news organizations, universities and digital preservation specialists.",
-        "Exceeded an initial target of 13 partner organizations, bringing around 20 outlets into the project.",
-        "Coordinates digitization, storage, research and newsroom liaison.",
+        "Founded and curates the collection of el_Archivo, Kronika’s archive preserving the work of Central American independent outlets and providing secure access for research, historical memory and journalism.",
+        "Built partnerships with news outlets, universities and digital preservation organizations.",
+        "Now brings together 11 outlets from the region, with the goal of reaching 20 by the end of 2026.",
+        "Oversees digitization, storage, research and newsroom liaison.",
         "The project grew, in part, out of preserving four terabytes of elPeriódico's historical archive."
       ],
       "corto": "CAIMA"

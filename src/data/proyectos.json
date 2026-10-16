@@ -20,15 +20,15 @@
     },
     "periodo": "2023–",
     "rol": {
-      "es": "Coordinador y cofundador",
-      "en": "Coordinator and co-founder"
+      "es": "Fundador y curador de la colección",
+      "en": "Founder and collection curator"
     },
     "organizaciones": [
-      "CAIMA"
+      "Kronika"
     ],
     "resumen": {
-      "es": "Una iniciativa regional para preservar los archivos del periodismo independiente centroamericano y darles acceso seguro para investigación y memoria histórica.",
-      "en": "A regional initiative to preserve the archives of Central American independent journalism and make them securely accessible for research and historical memory."
+      "es": "Un archivo regional, conocido como el_Archivo, que preserva el trabajo del periodismo independiente centroamericano y le da acceso seguro para investigación y memoria histórica. Es uno de los archivos de Kronika.",
+      "en": "A regional archive, known as el_Archivo, that preserves the work of Central American independent journalism and makes it securely accessible for research and historical memory. It is one of Kronika’s archives."
     },
     "problema": {
       "es": "Cuando un medio independiente cierra o es forzado al exilio, su archivo desaparece con él. En Centroamérica eso ha dejado huecos de décadas en el registro público.",
@@ -36,75 +36,26 @@
     },
     "trabajo": {
       "es": [
+        "Fundó el archivo y cura su colección: qué medios entran y cómo se preserva su material.",
         "Construyó alianzas con medios, universidades y organizaciones especializadas en preservación digital.",
-        "Coordina digitalización, almacenamiento, investigación y vinculación con redacciones.",
+        "Se encarga de la digitalización, el almacenamiento, la investigación y la relación con las redacciones.",
         "El proyecto surgió, en parte, de preservar cuatro terabytes del archivo histórico de elPeriódico."
       ],
       "en": [
+        "Founded the archive and curates its collection: which outlets join and how their material is preserved.",
         "Built partnerships with news outlets, universities and digital preservation specialists.",
-        "Coordinates digitization, storage, research and newsroom liaison.",
-        "The project grew, in part, out of preserving four terabytes of elPeriódico's historical archive."
+        "Oversees digitization, storage, research and newsroom liaison.",
+        "The project grew, in part, out of preserving four terabytes of elPeriódico’s historical archive."
       ]
     },
     "resultado": {
-      "es": "La meta inicial era sumar 13 organizaciones aliadas. El proyecto incorporó alrededor de 20 medios.",
-      "en": "The initial target was 13 partner organizations. The project brought in around 20 outlets."
+      "es": "Hoy reúne 11 medios de la región. La meta es llegar a 20 a finales de 2026.",
+      "en": "It now brings together 11 outlets from the region. The goal is to reach 20 by the end of 2026."
     },
     "enlaces": [
       {
         "etiqueta": "elarchivo.media",
         "href": "https://elarchivo.media"
-      }
-    ],
-    "captura": true
-  },
-  {
-    "id": "kronika",
-    "destacado": false,
-    "slug": {
-      "es": "kronika",
-      "en": "kronika"
-    },
-    "titulo": {
-      "es": "Kronika",
-      "en": "Kronika"
-    },
-    "tipo": {
-      "es": "Tecnología cívica",
-      "en": "Civic technology"
-    },
-    "etiqueta": {
-      "es": "Preservación",
-      "en": "Preservation"
-    },
-    "periodo": "2026",
-    "rol": {
-      "es": "Cofundador",
-      "en": "Co-founder"
-    },
-    "organizaciones": [
-      "Kronika"
-    ],
-    "resumen": {
-      "es": "Un proyecto de tecnología cívica dedicado a preservar el periodismo independiente bajo amenaza.",
-      "en": "A civic technology project dedicated to preserving independent journalism under threat."
-    },
-    "problema": {
-      "es": "Preservar un archivo no basta: hay que sostener la infraestructura que lo mantiene accesible cuando la redacción que lo produjo ya no puede hacerlo.",
-      "en": "Preserving an archive is not enough: the infrastructure that keeps it accessible has to outlast the newsroom that produced it."
-    },
-    "trabajo": {
-      "es": [],
-      "en": []
-    },
-    "resultado": {
-      "es": "",
-      "en": ""
-    },
-    "enlaces": [
-      {
-        "etiqueta": "kronika.technology",
-        "href": "https://kronika.technology"
       }
     ],
     "captura": true
@@ -255,8 +206,8 @@
       "en": "Interrogating the Archive"
     },
     "tipo": {
-      "es": "Método",
-      "en": "Method"
+      "es": "Metodología",
+      "en": "Methodology"
     },
     "etiqueta": {
       "es": "Investigación",
@@ -271,28 +222,28 @@
       "19.º Coloquio Iberoamericano de Periodismo"
     ],
     "resumen": {
-      "es": "Una charla sobre cómo se interroga un archivo de prensa de 27 años, presentada como un lienzo con cámara en vez de diapositivas.",
-      "en": "A talk on how to interrogate a 27-year newspaper archive, presented as a camera-driven canvas rather than slides."
+      "es": "Una metodología para revisar con IA un archivo de prensa completo —los 27 años de elPeriódico de Guatemala—, presentada en el 19.º Coloquio Iberoamericano de Periodismo.",
+      "en": "A methodology for using AI to review an entire newspaper archive —27 years of elPeriódico de Guatemala—, presented at the 19th Ibero-American Journalism Colloquium."
     },
     "problema": {
-      "es": "Explicar un método de archivo con diapositivas obliga a hablar de los documentos sin mostrarlos.",
-      "en": "Explaining an archival method with slides forces you to talk about documents without showing them."
+      "es": "Cualquiera podía abrir los PDF de elPeriódico y leer una nota. Compararlas todas, año por año, pedía un equipo de periodistas y programadores, mucho dinero y mucho tiempo.",
+      "en": "Anyone could open elPeriódico’s PDFs and read a story. Comparing all of them, year by year, took a team of journalists and programmers, a lot of money and a lot of time."
     },
     "trabajo": {
       "es": [
-        "Un lienzo único donde la cámara hace zoom sobre los documentos reales, en 21 pasos.",
-        "Funciona sin conexión después de la primera carga.",
-        "Declara explícitamente que no nombra a las personas investigadas."
+        "Volver el archivo medible: OCR para los años en papel, extracción de texto para los digitales y un buscador de punta a punta.",
+        "Herramientas escritas con IA, en Claude Code, para leer, ordenar y contrastar el archivo con registros oficiales. Cada pregunta queda escrita y se puede volver a correr.",
+        "Una persona revisa a mano lo que concluye la máquina, y las reglas del método viven en un archivo de texto público: qué fuente vale más, una escala de evidencia y lo que está prohibido deducir."
       ],
       "en": [
-        "A single canvas where the camera zooms into the actual documents, in 21 steps.",
-        "Works offline after the first load.",
-        "States explicitly that it does not name the people under investigation."
+        "Making the archive measurable: OCR for the years on paper, text extraction for the digital ones, and full-text search end to end.",
+        "Tools written with AI, in Claude Code, to read, sort and cross-check the archive against official records. Every question is written down and can be run again.",
+        "A person checks by hand what the machine concludes, and the method’s rules live in a public text file: which source outweighs which, an evidence scale, and what must never be inferred."
       ]
     },
     "resultado": {
-      "es": "",
-      "en": ""
+      "es": "La meta es empaquetar el método en un toolkit —un plugin de IA— para que periodistas e investigadores exploren el_Archivo de forma eficiente. Todavía está en desarrollo.",
+      "en": "The goal is to package the method as a toolkit —an AI plugin— so journalists and researchers can explore el_Archivo efficiently. It is still in development."
     },
     "enlaces": [
       {
@@ -310,7 +261,8 @@
         "href": "https://github.com/ramonzamora89/interrogar-el-archivo"
       }
     ],
-    "captura": true
+    "captura": true,
+    "capturaPorIdioma": true
   },
   {
     "id": "elperiodico",

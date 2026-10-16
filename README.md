@@ -37,7 +37,7 @@ llaman al componente compartido. Así las dos versiones no se pueden desincroniz
 src/
   data/
     cv.es.json  cv.en.json    Trayectoria, educación, publicaciones
-    proyectos.json            Las 7 piezas del portafolio, con campos es/en
+    proyectos.json            Las 6 piezas del portafolio, con campos es/en
     perfil.json               Contacto, enlaces, titular
   content/notas/{es,en}/      Notas traídas desde Obsidian
   i18n.ts                     Mapa de rutas y todos los textos de interfaz

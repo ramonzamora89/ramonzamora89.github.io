@@ -7,7 +7,10 @@ interface Props { idioma: Idioma; }
 const { idioma } = Astro.props;
 const ui = t(idioma);
 
-const notas = (await getCollection('notas', (n) => n.data.idioma === idioma))
+// Se listan los escritos de los dos idiomas: uno en inglés no tiene por qué
+// desaparecer de la versión en español. Los del otro idioma llevan una marca
+// y enlazan a su propia página, sin traducción.
+const notas = (await getCollection('notas'))
   .sort((a, b) => b.data.fecha.valueOf() - a.data.fecha.valueOf());
 
 const formato = new Intl.DateTimeFormat(idioma === 'es' ? 'es-GT' : 'en-US', {
@@ -33,11 +36,14 @@ const formato = new Intl.DateTimeFormat(idioma === 'es' ? 'es-GT' : 'en-US', {
           <ul class="notas">
             {notas.map((n) => (
               <li class="nota">
-                <p class="micro tenue"><time datetime={n.data.fecha.toISOString().slice(0, 10)}>{formato.format(n.data.fecha)}</time></p>
+                <p class="micro tenue">
+                  <time datetime={n.data.fecha.toISOString().slice(0, 10)}>{formato.format(n.data.fecha)}</time>
+                  {n.data.idioma !== idioma && <span class="pastilla nota__idioma">{ui.escritoEnOtroIdioma}</span>}
+                </p>
                 <h2 class="nota__titulo">
-                  <a class="limpio" href={`${ruta('notas', idioma)}${n.id.replace(/^(es|en)\//, '')}/`}>{n.data.titulo}</a>
+                  <a class="limpio" href={`${ruta('notas', n.data.idioma)}${n.id.replace(/^(es|en)\//, '')}/`} hreflang={n.data.idioma} lang={n.data.idioma}>{n.data.titulo}</a>
                 </h2>
-                {n.data.resumen && <p class="serif tenue">{n.data.resumen}</p>}
+                {n.data.resumen && <p class="serif tenue" lang={n.data.idioma}>{n.data.resumen}</p>}
               </li>
             ))}
           </ul>
@@ -51,4 +57,5 @@ const formato = new Intl.DateTimeFormat(idioma === 'es' ? 'es-GT' : 'en-US', {
   .nota { padding-bottom: var(--e4); margin-bottom: var(--e4); border-bottom: var(--borde-fino) solid var(--linea); }
   .nota:last-child { border-bottom: 0; }
   .nota__titulo { font-size: var(--h3); margin: var(--e1) 0 var(--e2); }
+  .nota__idioma { margin-left: var(--e2); }
 </style>

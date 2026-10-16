@@ -10,6 +10,9 @@ const { Content } = await render(nota);
 
 const formato = new Intl.DateTimeFormat(idioma === 'es' ? 'es-GT' : 'en-US', {
   year: 'numeric', month: 'long', day: 'numeric',
+  // Las fechas del frontmatter son medianoche UTC: sin esto, en Guatemala
+  // (UTC-6) salen un día antes.
+  timeZone: 'UTC',
 });
 ---
 <Base

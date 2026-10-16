@@ -1,8 +1,8 @@
 ---
 titulo: "Privacy Self Management in a Click Happy Society"
-fecha: 2023-09-25
+fecha: 2015-05-10
 idioma: en
-resumen: "Why notice and consent is not enough to protect privacy in the age of Big Data, and what could be built on top of it."
+resumen: "Why notice and consent is not enough to protect privacy in the age of Big Data, and what could be built on top of it. Written in 2015 at Georgetown."
 origen: "substack:https://www.ramonzamora.co/p/privacy-self-management-in-a-click"
 ---
 ![Close-up of a black door sign that reads “Privacy Please”.](/img/notas/privacy-please.webp)

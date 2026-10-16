@@ -134,6 +134,13 @@ una, el sitio compila y el texto sale vacío, que es peor que un error.
 
 ## Pendientes conocidos
 
+- **Revisar a ojo los PDF del CV.** Se regeneraron el 16 de octubre de 2026
+  (cambió CAIMA) con Chrome headless en Windows, pero nadie los abrió. Ver que
+  la tipografía, los saltos de página y la entrada de CAIMA salgan bien.
+- **Revisar el sitio en el navegador a 390 px y a 1440 px**, con y sin
+  JavaScript. Los cambios de octubre de 2026 (Escritos, Tomo la Palabra,
+  carátulas por idioma, botón del CV) solo se verificaron en el HTML generado.
+
 - **La foto de perfil es de 400×400** (`public/img/ramon-zamora.jpg`). Se ve
   suave en pantallas retina. Hay una de 1744×1736 en
   `~/Documents/UNFPA/CVs/Ramón Zamora.jpg`.

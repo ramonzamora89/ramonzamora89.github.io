@@ -9,7 +9,7 @@ export const RUTAS = {
   cv:      { en: '/cv/',    es: '/es/cv/' },
   trabajo: { en: '/work/',  es: '/es/trabajo/' },
   sobre:   { en: '/about/', es: '/es/sobre/' },
-  notas:   { en: '/notes/', es: '/es/notas/' },
+  notas:   { en: '/writings/', es: '/es/escritos/' },
 } as const;
 
 export type ClaveRuta = keyof typeof RUTAS;
@@ -37,7 +37,7 @@ export const UI = {
     navCv: 'CV',
     navTrabajo: 'Work',
     navSobre: 'About',
-    navNotas: 'Notes',
+    navNotas: 'Writings',
     menu: 'Menu',
     cerrar: 'Close',
     saltar: 'Skip to content',
@@ -45,7 +45,6 @@ export const UI = {
     verCv: 'Read the CV',
     verTrabajo: 'See the work',
     descargarCv: 'Download as PDF',
-    imprimirCv: 'Print / save as PDF',
     trayectoria: 'Trajectory',
     trayectoriaPie: 'Overlapping roles, 2010 to today. Each bar links to its entry in the CV.',
     seleccion: 'Selected work',
@@ -83,7 +82,7 @@ export const UI = {
     navCv: 'CV',
     navTrabajo: 'Trabajo',
     navSobre: 'Sobre mí',
-    navNotas: 'Notas',
+    navNotas: 'Escritos',
     menu: 'Menú',
     cerrar: 'Cerrar',
     saltar: 'Ir al contenido',
@@ -91,7 +90,6 @@ export const UI = {
     verCv: 'Ver el CV',
     verTrabajo: 'Ver el trabajo',
     descargarCv: 'Descargar en PDF',
-    imprimirCv: 'Imprimir / guardar en PDF',
     trayectoria: 'Trayectoria',
     trayectoriaPie: 'Puestos solapados, de 2010 a hoy. Cada barra lleva a su entrada en el CV.',
     seleccion: 'Trabajo seleccionado',

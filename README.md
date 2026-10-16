@@ -26,7 +26,7 @@ El inglés vive en la raíz y el español bajo `/es/`.
 | `/work/` | `/es/trabajo/` | `src/components/paginas/Trabajo.astro` |
 | `/work/<slug>/` | `/es/trabajo/<slug>/` | `src/components/paginas/Pieza.astro` |
 | `/about/` | `/es/sobre/` | `src/components/paginas/Sobre.astro` |
-| `/notes/` | `/es/notas/` | `src/components/paginas/Notas.astro` |
+| `/writings/` | `/es/escritos/` | `src/components/paginas/Notas.astro` |
 
 Los archivos dentro de `src/pages/` son de tres líneas: solo eligen el idioma y
 llaman al componente compartido. Así las dos versiones no se pueden desincronizar.
@@ -37,7 +37,7 @@ llaman al componente compartido. Así las dos versiones no se pueden desincroniz
 src/
   data/
     cv.es.json  cv.en.json    Trayectoria, educación, publicaciones
-    proyectos.json            Las 8 piezas del portafolio, con campos es/en
+    proyectos.json            Las 7 piezas del portafolio, con campos es/en
     perfil.json               Contacto, enlaces, titular
   content/notas/{es,en}/      Notas traídas desde Obsidian
   i18n.ts                     Mapa de rutas y todos los textos de interfaz
@@ -85,7 +85,7 @@ Si el destino de un wikilink no está publicado, lo deja como texto plano.
 Si el vault no está en `~/Documents/Obsidian Vault`, se indica con
 `OBSIDIAN_VAULT=/ruta node scripts/sync-notas.mjs`.
 
-La sección «Notas» solo aparece en el menú cuando hay al menos una nota
+La sección «Writings» / «Escritos» solo aparece en el menú cuando hay al menos una nota
 publicada en ese idioma.
 
 ## Mantenimiento

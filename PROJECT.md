@@ -17,8 +17,7 @@ Guía de trabajo. Para la estructura técnica, ver [README.md](README.md).
    versiones del CV dicen «2022–presente». Si se regenera el JSON desde el
    Markdown, hay que volver a corregirlo.
 4. **Ninguna cifra sin respaldo.** Los únicos números duros del sitio son los que
-   están documentados: ~20 medios aliados en CAIMA, 15 organizaciones en el caso
-   de Luis Galeano, y el crecimiento de suscripciones de elPeriódico, que se cita
+   están documentados: ~20 medios aliados en CAIMA y el crecimiento de suscripciones de elPeriódico, que se cita
    con la misma cautela del CV («un registro profesional reporta…»). No se
    redondean hacia arriba ni se inventan porcentajes.
 5. **Solo se muestra trabajo publicable.** Queda fuera lo que está protegido con
@@ -100,8 +99,9 @@ CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 ```
 
 Chrome headless a veces no termina solo: si se queda colgado tras escribir el
-archivo, se corta con Ctrl-C. El botón «Imprimir / guardar en PDF» de la página
-hace lo mismo desde el navegador y no depende de esto.
+archivo, se corta con Ctrl-C. También sirve imprimir `/cv/` desde el navegador
+(Ctrl+P → Guardar como PDF): la página ya no tiene botón para eso, por decisión
+de Moncho, pero los estilos de impresión siguen ahí.
 
 ### Cambiar la tipografía de los títulos
 
@@ -142,5 +142,3 @@ una, el sitio compila y el texto sale vacío, que es peor que un error.
 - **CAIMA:** el CV habla de ~20 medios aliados y elarchivo.media dice «11 media
   outlets» en el archivo. Son dos cosas distintas, pero conviene que la ficha lo
   aclare.
-- **El Feed** redirige a `josezamora.co`. La ficha enlaza la URL de
-  `ramonzamora89.github.io`, que sigue funcionando por redirección.

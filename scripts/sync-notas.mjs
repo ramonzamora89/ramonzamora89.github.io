@@ -18,10 +18,15 @@ import { readdir, readFile, writeFile, mkdir, rm, copyFile, stat } from 'node:fs
 import { existsSync } from 'node:fs';
 import { join, relative, extname, basename, dirname } from 'node:path';
 import { homedir } from 'node:os';
+import { fileURLToPath } from 'node:url';
 
 const VAULT = process.env.OBSIDIAN_VAULT ?? join(homedir(), 'Documents', 'Obsidian Vault');
-const DESTINO = new URL('../src/content/notas/', import.meta.url).pathname;
-const ADJUNTOS = new URL('../public/img/notas/', import.meta.url).pathname;
+// fileURLToPath y no .pathname: en Windows .pathname da «/E:/…», que no existe.
+const DESTINO = fileURLToPath(new URL('../src/content/notas/', import.meta.url));
+const ADJUNTOS = fileURLToPath(new URL('../public/img/notas/', import.meta.url));
+// Marca de las notas que escribe este script. Solo esas se borran al sincronizar:
+// las importadas a mano (de Substack, por ejemplo) llevan otro `origen`.
+const MARCA = 'obsidian:';
 const SECO = process.argv.includes('--seco');
 const IGNORAR = new Set(['.obsidian', '.trash', '.git', 'node_modules', '.DS_Store']);
 
@@ -97,14 +102,23 @@ async function main() {
     return;
   }
 
-  const slugsPublicados = new Set(publicables.map((n) => n.slug));
+  const idiomaDe = new Map(publicables.map((n) => [n.slug, n.idioma]));
   const indiceAdjuntos = new Map();
   await indexarAdjuntos(VAULT, indiceAdjuntos);
 
-  // 2. Escribir. Se vacía el destino primero: lo que ya no lleva `publicar: true`
-  //    tiene que desaparecer del sitio, no quedarse colgado.
+  // 2. Escribir. Primero se borran las notas que vinieron de Obsidian: lo que ya
+  //    no lleva `publicar: true` tiene que desaparecer del sitio, no quedarse
+  //    colgado. Las que tienen otro origen no se tocan.
   if (!SECO) {
-    await rm(DESTINO, { recursive: true, force: true });
+    for (const idioma of ['es', 'en']) {
+      const dir = join(DESTINO, idioma);
+      if (!existsSync(dir)) continue;
+      for (const archivo of await readdir(dir)) {
+        if (extname(archivo) !== '.md') continue;
+        const { datos } = leerFrontmatter(await readFile(join(dir, archivo), 'utf8'));
+        if (String(datos.origen ?? '').startsWith(MARCA)) await rm(join(dir, archivo));
+      }
+    }
     await mkdir(join(DESTINO, 'es'), { recursive: true });
     await mkdir(join(DESTINO, 'en'), { recursive: true });
     await mkdir(ADJUNTOS, { recursive: true });
@@ -128,7 +142,8 @@ async function main() {
     cuerpo = cuerpo.replace(/\[\[([^\]|]+?)(?:\|([^\]]*))?\]\]/g, (_, destino, alias) => {
       const slug = aSlug(destino);
       const texto = alias ?? destino;
-      return slugsPublicados.has(slug) ? `[${texto}](/notes/${slug}/)` : texto;
+      if (!idiomaDe.has(slug)) return texto;
+      return `[${texto}](${idiomaDe.get(slug) === 'en' ? '/writings/' : '/es/escritos/'}${slug}/)`;
     });
 
     const frontmatter = [
@@ -137,7 +152,7 @@ async function main() {
       `fecha: ${nota.datos.fecha ?? (await stat(nota.ruta)).mtime.toISOString().slice(0, 10)}`,
       `idioma: ${nota.idioma}`,
       nota.datos.resumen ? `resumen: ${JSON.stringify(nota.datos.resumen)}` : null,
-      `origen: ${JSON.stringify(relative(VAULT, nota.ruta))}`,
+      `origen: ${JSON.stringify(MARCA + relative(VAULT, nota.ruta).replaceAll('\\', '/'))}`,
       '---',
       '',
     ].filter(Boolean).join('\n');

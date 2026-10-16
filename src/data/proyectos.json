@@ -168,135 +168,77 @@
         "href": "https://zamoralibre.com"
       },
       {
-        "etiqueta": "Código",
+        "etiqueta": {
+          "es": "Código",
+          "en": "Code"
+        },
         "href": "https://github.com/ramonzamora89/zamoralibre"
       }
     ],
     "captura": true
   },
   {
-    "id": "luisgaleano",
-    "destacado": false,
-    "slug": {
-      "es": "libertad-para-luis-galeano",
-      "en": "free-luis-galeano"
-    },
-    "titulo": {
-      "es": "#LibertadParaLuisGaleano",
-      "en": "#FreeLuisGaleano"
-    },
-    "tipo": {
-      "es": "Campaña",
-      "en": "Campaign"
-    },
-    "etiqueta": {
-      "es": "Libertad de prensa",
-      "en": "Press freedom"
-    },
-    "periodo": "2026",
-    "rol": {
-      "es": "Diseño y desarrollo del sitio",
-      "en": "Site design and development"
-    },
-    "organizaciones": [
-      "CPJ",
-      "SIP"
-    ],
-    "resumen": {
-      "es": "Sitio bilingüe de la campaña por la liberación del periodista nicaragüense exiliado Luis Galeano, director de Café con Voz.",
-      "en": "Bilingual campaign site for the release of exiled Nicaraguan journalist Luis Galeano, director of Café con Voz."
-    },
-    "problema": {
-      "es": "Una campaña de detención urgente necesita un sitio que se levante en días, cargue en cualquier conexión y diga exactamente lo mismo en dos idiomas.",
-      "en": "An urgent-detention campaign needs a site that goes up in days, loads on any connection, and says exactly the same thing in two languages."
-    },
-    "trabajo": {
-      "es": [
-        "Doce páginas — seis en español, seis en inglés — sin dependencias ni proceso de compilación.",
-        "Cronología con fuente citada en cada entrada y contador de días de detención.",
-        "Carrusel con los logotipos de las organizaciones aliadas, cada uno con autorización registrada."
-      ],
-      "en": [
-        "Twelve pages — six in Spanish, six in English — with no dependencies and no build step.",
-        "A timeline citing a source for every entry, plus a detention day counter.",
-        "A carousel of partner organization logos, each with its permission on record."
-      ]
-    },
-    "resultado": {
-      "es": "Reúne los pronunciamientos de 15 organizaciones de libertad de prensa.",
-      "en": "Gathers the statements of 15 press freedom organizations."
-    },
-    "enlaces": [
-      {
-        "etiqueta": "libertadparaluisgaleano.com",
-        "href": "https://libertadparaluisgaleano.com"
-      },
-      {
-        "etiqueta": "Código",
-        "href": "https://github.com/ramonzamora89/libertadparaluisgaleano"
-      }
-    ],
-    "captura": true
-  },
-  {
-    "id": "elfeed",
+    "id": "tomolapalabra",
     "destacado": true,
     "slug": {
-      "es": "el-feed",
-      "en": "the-feed"
+      "es": "tomo-la-palabra",
+      "en": "tomo-la-palabra"
     },
     "titulo": {
-      "es": "El Feed: Libertad de Prensa en las Américas",
-      "en": "The Feed: Press Freedom in the Americas"
+      "es": "Tomo la Palabra",
+      "en": "Tomo la Palabra"
     },
     "tipo": {
-      "es": "Herramienta",
-      "en": "Tool"
+      "es": "Plataforma",
+      "en": "Platform"
     },
     "etiqueta": {
-      "es": "Datos",
-      "en": "Data"
+      "es": "Medios",
+      "en": "Media"
     },
     "periodo": "2026",
     "rol": {
-      "es": "Diseño y desarrollo",
-      "en": "Design and development"
+      "es": "Diseño y desarrollo del sitio y del flujo editorial",
+      "en": "Site and editorial workflow design and development"
     },
-    "organizaciones": [],
+    "organizaciones": [
+      "Tomo la Palabra"
+    ],
     "resumen": {
-      "es": "Agregador bilingüe que reúne en un solo lugar lo que se publica sobre libertad de prensa en el continente.",
-      "en": "A bilingual aggregator that brings everything published on press freedom in the Americas into one place."
+      "es": "Sitio de Tomo la Palabra, un medio guatemalteco nacido en redes que hace entrevistas largas en video para darle voz a la gente común.",
+      "en": "Website for Tomo la Palabra, a Guatemalan outlet born on social media that runs long video interviews to give ordinary people a voice."
     },
     "problema": {
-      "es": "Quien sigue la libertad de prensa en la región revisa a diario una docena de fuentes dispersas y aun así se le escapan cosas.",
-      "en": "Anyone tracking press freedom in the region checks a dozen scattered sources daily and still misses things."
+      "es": "Un equipo que trabaja en redes sociales y en Google Drive necesita publicar en su propio sitio sin programar ni entrar a un panel de administración.",
+      "en": "A team that works on social media and in Google Drive needs to publish on its own site without writing code or learning an admin panel."
     },
     "trabajo": {
       "es": [
-        "Combina RSS del CPJ, RSF, Artículo 19, IPYS, Reuters Institute y JSK Stanford con 20 alertas de Google.",
-        "Deduplicación difusa y clasificación temática automática.",
-        "Filtro de doble señal, documentado con su justificación metodológica en el README.",
-        "Publicación estática automatizada con GitHub Actions dos veces al día."
+        "Un flujo editorial que vive en Google Drive: se sube una entrevista en video y el borrador llega transcrito y redactado; mover el documento a la carpeta Publicar lo pone en el sitio.",
+        "Sitio en Next.js con el contenido versionado en Git, sin CMS ni base de datos, y una revisión de accesibilidad contra WCAG 2.1 AA, porque en el equipo hay personas que usan lector de pantalla.",
+        "Correcciones desde el mismo documento: la nota conserva su fecha y, si cambia el titular, la URL vieja redirige a la nueva."
       ],
       "en": [
-        "Combines RSS from CPJ, RSF, Article 19, IPYS, Reuters Institute and JSK Stanford with 20 Google Alerts.",
-        "Fuzzy deduplication and automatic topic classification.",
-        "A double-signal filter, documented with its methodological rationale in the README.",
-        "Static publishing automated with GitHub Actions, twice a day."
+        "An editorial workflow that lives in Google Drive: upload a video interview and the draft comes back transcribed and written; moving the document to the Publish folder puts it on the site.",
+        "A Next.js site with content versioned in Git, no CMS or database, and an accessibility pass against WCAG 2.1 AA, because some of the team use screen readers.",
+        "Corrections from the same document: a story keeps its original date and, if the headline changes, the old URL redirects to the new one."
       ]
     },
     "resultado": {
-      "es": "",
-      "en": ""
+      "es": "El equipo publica y corrige sus notas desde sus propios documentos de Google, sin tocar código.",
+      "en": "The team publishes and corrects its stories from its own Google Docs, without touching code."
     },
     "enlaces": [
       {
-        "etiqueta": "Ver el feed",
-        "href": "https://ramonzamora89.github.io/periodistas-americas-feed/"
+        "etiqueta": "tomolapalabra.com",
+        "href": "https://tomolapalabra.com"
       },
       {
-        "etiqueta": "Código",
-        "href": "https://github.com/ramonzamora89/periodistas-americas-feed"
+        "etiqueta": {
+          "es": "Código",
+          "en": "Code"
+        },
+        "href": "https://github.com/ramonzamora89/tomo-la-palabra"
       }
     ],
     "captura": true
@@ -354,11 +296,17 @@
     },
     "enlaces": [
       {
-        "etiqueta": "Ver la charla",
+        "etiqueta": {
+          "es": "Ver la charla",
+          "en": "View the talk"
+        },
         "href": "https://ramonzamora89.github.io/interrogar-el-archivo/"
       },
       {
-        "etiqueta": "Código",
+        "etiqueta": {
+          "es": "Código",
+          "en": "Code"
+        },
         "href": "https://github.com/ramonzamora89/interrogar-el-archivo"
       }
     ],

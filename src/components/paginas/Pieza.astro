@@ -38,7 +38,7 @@ const trabajo = pieza.trabajo[idioma] as string[];
         {pieza.enlaces.length > 0 && (
           <p class="ficha__enlaces">
             {pieza.enlaces.map((e: any, i: number) => (
-              <a class:list={['boton', { 'boton--lleno': i === 0 }]} href={e.href} target="_blank" rel="noopener">{e.etiqueta}</a>
+              <a class:list={['boton', { 'boton--lleno': i === 0 }]} href={e.href} target="_blank" rel="noopener">{typeof e.etiqueta === 'string' ? e.etiqueta : e.etiqueta[idioma]}</a>
             ))}
           </p>
         )}

@@ -17,7 +17,7 @@ Guía de trabajo. Para la estructura técnica, ver [README.md](README.md).
    versiones del CV dicen «2022–presente». Si se regenera el JSON desde el
    Markdown, hay que volver a corregirlo.
 4. **Ninguna cifra sin respaldo.** Los únicos números duros del sitio son los que
-   están documentados: 11 medios en CAIMA (con la meta de llegar a 20 a
+   están documentados: 11 medios en CAIMA (con la meta de llegar a 17 a
    finales de 2026, dicha como meta y no como logro) y el crecimiento de suscripciones de elPeriódico, que se cita
    con la misma cautela del CV («un registro profesional reporta…»). No se
    redondean hacia arriba ni se inventan porcentajes.
@@ -149,4 +149,4 @@ una, el sitio compila y el texto sale vacío, que es peor que un error.
   de UVG, que va de 2017 a hoy, por decisión de Moncho.
 - **Kronika no tiene ficha propia**, por decisión de Moncho: es el paraguas
   institucional de CAIMA y él no es cofundador. Aparece dentro de la ficha y la
-  entrada del CV de CAIMA, donde su rol es fundador y curador de la colección.
+  entrada del CV de CAIMA, donde su rol es curador y cofundador de el_Archivo (decisión de Moncho, 27-10-2026: el organigrama de Kronika dice «Curator of el_Archivo» y él es cofundador del proyecto).

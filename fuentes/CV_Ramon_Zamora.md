@@ -13,7 +13,7 @@ Periodista, investigador y profesional de producto y operaciones estratégicas c
 - Desarrolló alianzas con medios, universidades y organizaciones especializadas en preservación digital.
 - Superó una meta inicial de 13 organizaciones aliadas al incorporar alrededor de 20 medios al proyecto.
 - Coordina procesos de digitalización, almacenamiento, investigación y vinculación con redacciones.
-- El proyecto surgió, en parte, a partir de la preservación de cuatro terabytes del archivo histórico de *elPeriódico*.
+- El proyecto surgió, en parte, a partir de la preservación de cerca de 500 GB del archivo histórico de *elPeriódico*.
 
 ### LabEtnográfico — Cofundador / Consultor
 **2025–presente**

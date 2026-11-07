@@ -10,44 +10,60 @@
 import { scaleLinear } from 'd3-scale';
 import { formatLocale } from 'd3-format';
 
+type Texto = string | { es: string; en: string };
+type Serie = 'todos' | 'muestra' | 'inicio';
 interface Punto {
   valor: number;
   lo: number;
   hi: number;
   n: number;
-  serie?: string;     // nombre de la serie, para la etiqueta emergente
+  serie?: Serie;      // para la etiqueta emergente
   hueco?: boolean;    // círculo vacío (segunda serie)
 }
 interface Fila {
-  etiqueta: string;
-  detalle?: string;   // segunda línea bajo la etiqueta
+  etiqueta: Texto;
+  periodo?: Texto;    // segunda línea bajo la etiqueta, junto al número de casos
   puntos: Punto[];
-  raya?: number;      // marca vertical (p. ej. periodo completo)
-  rayaNombre?: string;
+  raya?: number;      // marca vertical: el periodo completo
   foco?: boolean;     // se pinta con el acento
 }
-interface Leyenda { texto: string; forma: 'lleno' | 'hueco' | 'raya'; acento?: boolean }
+interface Leyenda { texto: Texto; forma: string; acento?: boolean }
 interface Props {
+  idioma?: 'es' | 'en';
   filas: Fila[];
-  dominio: [number, number];
-  referencia?: { valor: number; texto: string };
+  dominio: number[];
+  referencia?: { valor: number; texto: Texto };
   leyenda?: Leyenda[];
   acentoTodo?: boolean;  // todos los puntos con acento (y la raya en tinta)
   etiquetaAria: string;
   pie: string;
 }
 
-const { filas, dominio, referencia, leyenda = [], acentoTodo = false, etiquetaAria, pie } = Astro.props;
+const { idioma = 'es', filas: filasDatos, dominio, referencia, leyenda = [], acentoTodo = false, etiquetaAria, pie } = Astro.props;
+const tx = (v: Texto | undefined) => (v === undefined ? '' : typeof v === 'string' ? v : v[idioma]);
 
-const es = formatLocale({ decimal: ',', thousands: '.', grouping: [3], currency: ['Q', ''] });
-const pct = (v: number) => es.format('.1f')(v) + '%';
-const miles = es.format(',d');
+const PALABRAS = {
+  es: { casos: 'casos', margen: 'margen', completo: 'periodo completo',
+        serie: { todos: 'todos los casos', muestra: 'muestra', inicio: 'primeros meses' } },
+  en: { casos: 'cases', margen: 'margin of error', completo: 'full term',
+        serie: { todos: 'all cases', muestra: 'sample', inicio: 'first months' } },
+}[idioma];
+const local = idioma === 'es'
+  ? formatLocale({ decimal: ',', thousands: '.', grouping: [3], currency: ['Q', ''] })
+  : formatLocale({ decimal: '.', thousands: ',', grouping: [3], currency: ['$', ''] });
+const pct = (v: number) => local.format('.1f')(v) + '%';
+const miles = local.format(',d');
+const filas = filasDatos.map((f) => ({
+  ...f,
+  etiqueta: tx(f.etiqueta),
+  detalle: f.periodo !== undefined ? `${tx(f.periodo)} · ${miles(f.puntos[0].n)}` : undefined,
+}));
 
 const W = 560, L = 112, R = 120, ARRIBA = leyenda.length ? 40 : 10;
 const altoFila = Math.max(...filas.map((f) => f.puntos.length)) > 1 ? 52 : 42;
 const abajo = ARRIBA + altoFila * filas.length;
 const alto = abajo + (referencia ? 50 : 30);
-const x = scaleLinear().domain(dominio).range([L, W - R]);
+const x = scaleLinear().domain(dominio as [number, number]).range([L, W - R]);
 const ticks = x.ticks(5);
 
 const color = (f: Fila) => (acentoTodo || f.foco ? 'var(--acento)' : 'var(--fg-suave)');
@@ -57,7 +73,7 @@ const filasDibujo = filas.map((f, i) => {
   const puntos = f.puntos.map((p, j) => ({
     ...p,
     y: yc - sep / 2 + j * sep,
-    tip: `${f.etiqueta}${p.serie ? ` · ${p.serie}` : ''}: ${pct(p.valor)} (margen ${pct(p.lo)}–${pct(p.hi)}), ${miles(p.n)} casos`,
+    tip: `${f.etiqueta}${p.serie ? ` · ${PALABRAS.serie[p.serie]}` : ''}: ${pct(p.valor)} (${PALABRAS.margen} ${pct(p.lo)}–${pct(p.hi)}), ${miles(p.n)} ${PALABRAS.casos}`,
   }));
   const fin = Math.max(...f.puntos.map((p) => p.hi), f.raya ?? -Infinity);
   return { ...f, yc, puntos, fin };
@@ -73,7 +89,7 @@ const filasDibujo = filas.map((f, i) => {
           {l.forma === 'raya'
             ? <line x1={lx + 6} x2={lx + 6} y1="3" y2="21" style="stroke:var(--fg);stroke-width:3" />
             : <circle cx={lx + 6} cy="12" r="5.5" style={l.forma === 'hueco' ? `fill:var(--bg);stroke:${c};stroke-width:2` : `fill:${c}`} />}
-          <text x={lx + 18} y="17">{l.texto}</text>
+          <text x={lx + 18} y="17">{tx(l.texto)}</text>
         </g>
       );
     })}
@@ -88,7 +104,7 @@ const filasDibujo = filas.map((f, i) => {
     {referencia && (
       <g>
         <line x1={x(referencia.valor)} x2={x(referencia.valor)} y1={ARRIBA} y2={abajo} class="referencia" />
-        <text x={x(referencia.valor)} y={abajo + 38} text-anchor="middle" class="suave chico">{referencia.texto}: {pct(referencia.valor)}</text>
+        <text x={x(referencia.valor)} y={abajo + 38} text-anchor="middle" class="suave chico">{tx(referencia.texto)}: {pct(referencia.valor)}</text>
       </g>
     )}
 
@@ -98,7 +114,7 @@ const filasDibujo = filas.map((f, i) => {
         {f.detalle && <text x="0" y={f.yc + 13} class="suave mini">{f.detalle}</text>}
         {f.raya !== undefined && (
           <line x1={x(f.raya)} x2={x(f.raya)} y1={f.yc - 12} y2={f.yc + 12} style="stroke:var(--fg);stroke-width:3">
-            <title>{`${f.etiqueta} · ${f.rayaNombre ?? ''}: ${pct(f.raya)}`}</title>
+            <title>{`${f.etiqueta} · ${PALABRAS.completo}: ${pct(f.raya)}`}</title>
           </line>
         )}
         {f.puntos.map((p) => (

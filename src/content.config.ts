@@ -11,6 +11,8 @@ const notas = defineCollection({
     idioma: z.enum(['es', 'en']),
     resumen: z.string().optional(),
     origen: z.string().optional(),
+    /** Slug de la misma nota en el otro idioma, si existe. */
+    par: z.string().optional(),
   }),
 });
 

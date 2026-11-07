@@ -1,0 +1,68 @@
+---
+titulo: "How often does Guatemala's Constitutional Court overturn a judge's decision?"
+fecha: 2026-11-07
+idioma: en
+par: observatorio-corte-de-constitucionalidad
+resumen: "First draft from the Judicial Rulings Observatory: 48,656 amparo appeals decided by Guatemala's Constitutional Court from 1986 to 2026, and the patterns they show."
+origen: "manual:traducción de la nota en español, 7 de noviembre de 2026"
+---
+import GraficaPuntos from '../../../components/GraficaPuntos.astro';
+import datos from '../../../data/observatorio-cc.json';
+
+_Draft. Some figures may still change._
+
+## What the observatory is
+
+The Judicial Rulings Observatory is a project to explore how Guatemala's justice system behaves over time. The idea is simple: instead of looking at one famous case, look at every case and see what patterns appear.
+
+So far it covers only the rulings of the Constitutional Court (Corte de Constitucionalidad, or CC), the court with the final word on the Constitution. The websites of other institutions in the justice system were also checked, but they do not publish the information needed. The next step is to request it directly, through public information requests, to add more courts.
+
+## What was measured
+
+In Guatemala, an *amparo* is a lawsuit that asks a court to protect a constitutional right. When a judge decides an amparo, whoever disagrees can appeal to the CC. The CC then does one of two things:
+
+- it **changes** the decision: it reverses it, annuls it, or sides with the person who appealed, even if only in part;
+- it **upholds** the decision: it leaves it as it was.
+
+The **reversal rate** is the share of cases in which the CC changed the decision. If it decided 100 appeals and changed 24, the rate is 24%.
+
+When the CC upholds the decision and only changes something small, such as the amount of a fine or a deadline, the case was counted as upheld. When it sides with the person who appealed, even in part, it was counted as changed.
+
+## How it was done
+
+1. **Download.** Only the institutions' public websites were used. From the [CC's case-law portal](https://jurisprudencia.cc.gob.gt/ptmp/), every amparo appeal ruling published up to October 9, 2026 was downloaded, a total of **48,656**. No password was used and no access control was bypassed, and the downloads were made slowly so as not to overload the site. Each document keeps its web address and a "digital fingerprint" that shows whether it has changed.
+2. **Read.** Artificial intelligence tools (Claude Code) were used to explore the portal's pages and to write the programs that download the documents, extract their text, and find the final part of each ruling, where the CC states what it decided ("POR TANTO… resuelve").
+3. **Classify.** Whether each case changes or upholds the decision is not decided by artificial intelligence but by a program with fixed rules that looks for phrases such as "se revoca" (it is reversed) or "se confirma" (it is upheld). The same document always gives the same result, and anyone can check why.
+4. **Review.** A person read 388 randomly chosen rulings and compared their reading with the program's. They matched in 387. The one error was used to fix a rule.
+
+Each figure comes with the number of cases behind it and its margin of error, shown in the charts as the lines on either side of each dot. When the margins of two figures overlap, the difference between them may be chance.
+
+**What is not visible.** Only what the CC published: if it stopped publishing certain kinds of cases, it would not show here. 826 documents are left out of the count because they do not rule on a judge's decision (clarifications, for example) or because their decision could not be read clearly, and 69 could not be downloaded. 2025 and 2026 may be incomplete, because the CC takes time to publish. Also:
+
+- Cases are not yet broken down by subject or by who appeals. If the cases that reach the CC change, the figure changes even if the Court decides the same way.
+- The CC decides as a body and does not publish how each justice voted, so no figure belongs to any one person.
+- The rulings of the Supreme Court of Justice and the Courts of Appeals cannot be consulted without a lawyer's credentials.
+
+## Pattern 1: by term
+
+The CC works in five-year terms (*magistraturas*), each with the same group of justices. From term I to term VII, the CC changed between 20.4% and 24.3% of the decisions appealed to it: roughly one in five. In term VIII (2021-2026) it rose to 29.9%, almost three in ten. Its margin of error does not overlap with any other term's.
+
+<GraficaPuntos idioma="en" {...datos.magistraturas} etiquetaAria="Term VIII changed 29.9% of the decisions appealed; terms I to VII, between 20% and 24%" pie="Share of appealed decisions the CC changed, by term. Under each term, its years and number of cases. The lines are the margin of error. Source: CC case-law portal, 47,761 appeals classified on November 7, 2026." />
+
+The rise is gradual from term IV to term VII, followed by a jump in term VIII. Term IX began in April 2026 and has 1,027 cases so far: its 20.7% describes only its first months (see pattern 3).
+
+## Pattern 2: by the year the case was filed
+
+Another way to sort the cases is by the year the case was filed, regardless of which term decided it. Cases filed from 2020 to 2023 were changed 31.0% of the time; those from earlier years, between 20.8% and 23.8%. It is the same jump seen from another angle.
+
+<GraficaPuntos idioma="en" {...datos.periodos} etiquetaAria="Cases filed from 2020 to 2023 were changed 31.0% of the time; earlier ones, between 21% and 24%" pie="Share of decisions changed, by the year the case was filed. The sample of 2,000 only covers cases filed from 2003 to 2023. “2024 onward” includes only cases already decided and published." />
+
+The chart compares two counts: all published cases, and a random sample of 2,000 cases that was reviewed first. In each period they give almost the same result. Cases filed in 2024 or later that have already been decided (26.5%) are the ones that moved fastest, and that can push this figure up or down.
+
+## Pattern 3: how each term begins
+
+How is term IX doing? The only way to tell is to compare it with the same stretch of the others: April 14 to July 31 of their first year. In those three and a half months, terms IV through IX all changed between 15.2% and 21.4% of decisions. Term IX, at 21.1%, begins like the ones before it.
+
+<GraficaPuntos idioma="en" {...datos.arranque} etiquetaAria="In their first months, terms IV to IX all changed between 15% and 22% of decisions" pie="Share of decisions changed from April 14 to July 31 of each term's first year (dot), and over its full term (bar). Under each term, the year and the number of cases in those first months. Term IX does not have a full term yet." />
+
+Term VIII began at 21.4%, like terms VII and IX, and ended at 29.9%.

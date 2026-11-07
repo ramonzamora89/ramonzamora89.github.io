@@ -19,7 +19,7 @@ const formato = new Intl.DateTimeFormat(idioma === 'es' ? 'es-GT' : 'en-US', {
   idioma={idioma}
   titulo={`${nota.data.titulo} — Ramón Zamora`}
   descripcion={nota.data.resumen ?? nota.data.titulo}
-  alterna={ruta('notas', idioma === 'en' ? 'es' : 'en')}
+  alterna={`${ruta('notas', idioma === 'en' ? 'es' : 'en')}${nota.data.par ? `${nota.data.par}/` : ''}`}
 >
   <article class="banda">
     <div class="envoltura">

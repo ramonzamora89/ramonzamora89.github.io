@@ -1,0 +1,68 @@
+---
+titulo: "¿Cuántas veces la Corte de Constitucionalidad cambia lo que decidió un juez?"
+fecha: 2026-11-07
+idioma: es
+resumen: "Primer borrador del Observatorio de Resoluciones Judiciales: 48.656 apelaciones de amparo resueltas por la Corte de Constitucionalidad, de 1986 a 2026, y los patrones que dejan ver."
+origen: "manual:borrador del Observatorio CC en Claude Docs, 7 de noviembre de 2026"
+---
+import GraficaPuntos from '../../../components/GraficaPuntos.astro';
+import datos from '../../../data/observatorio-cc.json';
+
+_Borrador. Algunas cifras todavía pueden cambiar._
+
+## Qué es el observatorio
+
+El Observatorio de Resoluciones Judiciales es un proyecto para explorar cómo se comporta el sistema de justicia de Guatemala a lo largo del tiempo. La idea es sencilla: en vez de mirar un caso famoso, mirar todos los casos y ver qué patrones aparecen.
+
+Por ahora solo se han revisado las resoluciones de la Corte de Constitucionalidad (CC), el tribunal que tiene la última palabra sobre la Constitución. También se consultaron los portales de otras instituciones del sistema de justicia, pero no publican la información que hacía falta. El siguiente paso es pedírsela directamente, con solicitudes de información pública, para sumar más tribunales.
+
+## Qué se midió
+
+Cuando un juez resuelve un amparo, quien no está de acuerdo puede apelar ante la CC. La CC entonces hace una de dos cosas:
+
+- **cambia** la decisión: la revoca, la anula o le da la razón, aunque sea en parte, a quien apeló;
+- **mantiene** la decisión: la deja como estaba.
+
+La **tasa de alteración** es el porcentaje de casos en que la CC cambió la decisión. Si resolvió 100 apelaciones y cambió 24, la tasa es 24%.
+
+Cuando la CC confirma la decisión y solo cambia algo pequeño, como el monto de una multa o un plazo, el caso se contó como que la mantiene. Si le da la razón a quien apeló, aunque sea en parte, se contó como que la cambia.
+
+## Cómo se hizo
+
+1. **Descargar.** Solo se usaron los portales públicos de las instituciones. Del [Portal de Jurisprudencia de la CC](https://jurisprudencia.cc.gob.gt/ptmp/) se descargaron todas las sentencias de apelación de amparo publicadas hasta el 9 de octubre de 2026, un total de **48.656**. No se usó ninguna contraseña ni se saltó ningún control, y las descargas se hicieron despacio para no saturar el portal. Cada documento guarda su dirección web y una «huella digital» que permite comprobar que no ha cambiado.
+2. **Leer.** Con herramientas de inteligencia artificial (Claude Code) se exploraron las páginas del portal y se escribieron los programas que descargan los documentos, sacan su texto y encuentran la parte final de cada sentencia, donde la CC dice qué decidió («POR TANTO… resuelve»).
+3. **Clasificar.** Quien decide si cada caso cambia o mantiene la decisión no es la inteligencia artificial, sino un programa de reglas fijas que busca frases como «se revoca» o «se confirma». Así, el mismo documento siempre da el mismo resultado, y cualquiera puede revisar por qué.
+4. **Revisar.** Una persona leyó 388 sentencias elegidas al azar y comparó su lectura con la del programa. Coincidieron en 387. El único error sirvió para corregir una regla.
+
+Cada cifra va con el número de casos que la sostienen y con su margen de error, que en las gráficas son las líneas a cada lado del punto. Cuando los márgenes de dos cifras se tocan, la diferencia entre ellas puede ser casualidad.
+
+**Lo que no se ve.** Solo lo que la CC publicó: si dejara de publicar cierto tipo de casos, aquí no se notaría. 826 documentos quedan fuera de la cuenta porque no deciden sobre la sentencia de un juez (por ejemplo, aclaraciones) o porque su decisión no se pudo leer con claridad, y 69 no se pudieron descargar. Los años 2025 y 2026 pueden estar incompletos, porque la CC tarda en publicar. Además:
+
+- Los casos todavía no se separan por tema ni por quién apela. Si cambian los casos que llegan a la CC, la cifra cambia aunque la Corte decida igual.
+- La CC decide en grupo y no publica cómo votó cada magistrado, así que ninguna cifra corresponde a una persona.
+- Las resoluciones de la Corte Suprema de Justicia y de las Salas de Apelaciones no se pueden consultar sin credencial de abogado.
+
+## Patrón 1: por magistratura
+
+Una magistratura es un periodo de cinco años con el mismo grupo de magistrados. De la I a la VII, la CC cambió entre el 20,4% y el 24,3% de las decisiones apeladas: más o menos una de cada cinco. En la VIII (2021-2026) subió a 29,9%, casi tres de cada diez. Su margen de error no toca el de ninguna otra.
+
+<GraficaPuntos {...datos.magistraturas} etiquetaAria="La VIII cambió el 29,9% de las decisiones apeladas; de la I a la VII, entre 20% y 24%" pie="Porcentaje de decisiones apeladas que la CC cambió, por magistratura. Debajo de cada una, sus años y el número de casos. Las líneas son el margen de error. Fuente: Portal de Jurisprudencia de la CC, 47.761 apelaciones clasificadas el 07-11-2026." />
+
+La subida es poco a poco de la IV a la VII, y luego hay un salto en la VIII. La IX empezó en abril de 2026 y lleva 1.027 casos: su 20,7% describe solo sus primeros meses (ver el patrón 3).
+
+## Patrón 2: por año del expediente
+
+Otra forma de ordenar los casos es por el año en que se abrió el expediente, sin importar qué magistratura lo resolvió. Los abiertos de 2020 a 2023 se cambiaron en el 31,0%; los de años anteriores, entre el 20,8% y el 23,8%. Es el mismo salto visto desde otro ángulo.
+
+<GraficaPuntos {...datos.periodos} leyenda={[{ texto: "todos los casos publicados", forma: "lleno" }, { texto: "muestra de 2.000 al azar", forma: "hueco" }]} etiquetaAria="Los expedientes abiertos de 2020 a 2023 se cambiaron en el 31,0%; los anteriores, entre 21% y 24%" pie="Porcentaje de decisiones cambiadas según el año en que se abrió el expediente. La muestra de 2.000 solo cubre expedientes de 2003 a 2023. «2024 en adelante» incluye solo los casos ya resueltos y publicados." />
+
+La gráfica compara dos cuentas: todos los casos publicados y una muestra de 2.000 casos elegidos al azar que se revisó primero. En cada periodo dan casi lo mismo. Los expedientes de 2024 en adelante que ya se resolvieron (26,5%) son los que avanzaron más rápido, y eso puede mover esa cifra hacia arriba o hacia abajo.
+
+## Patrón 3: cómo empieza cada magistratura
+
+¿Cómo va la IX? Solo se puede saber comparándola con el mismo tramo de las demás: del 14 de abril al 31 de julio de su primer año. En esos tres meses y medio, de la IV a la IX todas cambiaron entre el 15,2% y el 21,4% de las decisiones. La IX, con 21,1%, empieza como las anteriores.
+
+<GraficaPuntos {...datos.arranque} acentoTodo leyenda={[{ texto: "primeros meses", forma: "lleno", acento: true }, { texto: "periodo completo", forma: "raya" }]} etiquetaAria="En sus primeros meses, de la IV a la IX, todas cambiaron entre 15% y 22% de las decisiones" pie="Porcentaje de decisiones cambiadas del 14 de abril al 31 de julio del primer año de cada magistratura (punto), y en su periodo completo (raya). Debajo, el año y los casos de esos primeros meses. La IX todavía no tiene periodo completo." />
+
+La VIII empezó en 21,4%, igual que la VII y la IX, y terminó en 29,9%.
+

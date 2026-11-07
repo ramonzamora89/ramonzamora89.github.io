@@ -4,7 +4,7 @@ import { glob } from 'astro/loaders';
 /** Notas traídas desde Obsidian por scripts/sync-notas.mjs.
  *  La colección puede estar vacía: el sitio se construye igual. */
 const notas = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/notas' }),
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/notas' }),
   schema: z.object({
     titulo: z.string(),
     fecha: z.coerce.date(),

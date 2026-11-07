@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
+import mdx from '@astrojs/mdx';
 
 // Sitio de usuario de GitHub Pages con dominio propio. ramonzamora89.github.io
 // y ramonzamora.co (sin www) redirigen aquí desde GitHub.
@@ -18,6 +19,7 @@ export default defineConfig({
     },
   },
   integrations: [
+    mdx(),
     sitemap({
       i18n: { defaultLocale: 'en', locales: { en: 'en-US', es: 'es-GT' } },
     }),

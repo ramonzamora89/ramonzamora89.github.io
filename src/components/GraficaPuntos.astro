@@ -1,0 +1,172 @@
+---
+/**
+ * Gráfica de puntos con margen de error, horizontal: una fila por categoría.
+ *
+ * D3 corre al compilar (d3-scale, d3-format): la página recibe un SVG fijo
+ * que se lee sin JavaScript (regla 7 de PROJECT.md). El script de abajo solo
+ * añade una etiqueta al pasar el mouse o el dedo; sin él quedan los <title>.
+ * Colores solo como variables de tokens.css.
+ */
+import { scaleLinear } from 'd3-scale';
+import { formatLocale } from 'd3-format';
+
+interface Punto {
+  valor: number;
+  lo: number;
+  hi: number;
+  n: number;
+  serie?: string;     // nombre de la serie, para la etiqueta emergente
+  hueco?: boolean;    // círculo vacío (segunda serie)
+}
+interface Fila {
+  etiqueta: string;
+  detalle?: string;   // segunda línea bajo la etiqueta
+  puntos: Punto[];
+  raya?: number;      // marca vertical (p. ej. periodo completo)
+  rayaNombre?: string;
+  foco?: boolean;     // se pinta con el acento
+}
+interface Leyenda { texto: string; forma: 'lleno' | 'hueco' | 'raya'; acento?: boolean }
+interface Props {
+  filas: Fila[];
+  dominio: [number, number];
+  referencia?: { valor: number; texto: string };
+  leyenda?: Leyenda[];
+  acentoTodo?: boolean;  // todos los puntos con acento (y la raya en tinta)
+  etiquetaAria: string;
+  pie: string;
+}
+
+const { filas, dominio, referencia, leyenda = [], acentoTodo = false, etiquetaAria, pie } = Astro.props;
+
+const es = formatLocale({ decimal: ',', thousands: '.', grouping: [3], currency: ['Q', ''] });
+const pct = (v: number) => es.format('.1f')(v) + '%';
+const miles = es.format(',d');
+
+const W = 560, L = 112, R = 120, ARRIBA = leyenda.length ? 40 : 10;
+const altoFila = Math.max(...filas.map((f) => f.puntos.length)) > 1 ? 52 : 42;
+const abajo = ARRIBA + altoFila * filas.length;
+const alto = abajo + (referencia ? 50 : 30);
+const x = scaleLinear().domain(dominio).range([L, W - R]);
+const ticks = x.ticks(5);
+
+const color = (f: Fila) => (acentoTodo || f.foco ? 'var(--acento)' : 'var(--fg-suave)');
+const filasDibujo = filas.map((f, i) => {
+  const yc = ARRIBA + altoFila * i + altoFila / 2;
+  const sep = f.puntos.length > 1 ? 18 : 0;
+  const puntos = f.puntos.map((p, j) => ({
+    ...p,
+    y: yc - sep / 2 + j * sep,
+    tip: `${f.etiqueta}${p.serie ? ` · ${p.serie}` : ''}: ${pct(p.valor)} (margen ${pct(p.lo)}–${pct(p.hi)}), ${miles(p.n)} casos`,
+  }));
+  const fin = Math.max(...f.puntos.map((p) => p.hi), f.raya ?? -Infinity);
+  return { ...f, yc, puntos, fin };
+});
+---
+<figure class="grafica">
+  <svg viewBox={`0 0 ${W} ${alto}`} role="img" aria-label={etiquetaAria}>
+    {leyenda.map((l, i) => {
+      const lx = i * 230;
+      const c = l.acento ? 'var(--acento)' : 'var(--fg-suave)';
+      return (
+        <g class="leyenda">
+          {l.forma === 'raya'
+            ? <line x1={lx + 6} x2={lx + 6} y1="3" y2="21" style="stroke:var(--fg);stroke-width:3" />
+            : <circle cx={lx + 6} cy="12" r="5.5" style={l.forma === 'hueco' ? `fill:var(--bg);stroke:${c};stroke-width:2` : `fill:${c}`} />}
+          <text x={lx + 18} y="17">{l.texto}</text>
+        </g>
+      );
+    })}
+
+    {ticks.map((t) => (
+      <g>
+        <line x1={x(t)} x2={x(t)} y1={ARRIBA} y2={abajo} class="rejilla" />
+        <text x={x(t)} y={abajo + 18} text-anchor="middle" class="suave">{t}%</text>
+      </g>
+    ))}
+
+    {referencia && (
+      <g>
+        <line x1={x(referencia.valor)} x2={x(referencia.valor)} y1={ARRIBA} y2={abajo} class="referencia" />
+        <text x={x(referencia.valor)} y={abajo + 38} text-anchor="middle" class="suave chico">{referencia.texto}: {pct(referencia.valor)}</text>
+      </g>
+    )}
+
+    {filasDibujo.map((f) => (
+      <g>
+        <text x="0" y={f.detalle ? f.yc - 3 : f.yc + 5} class={f.foco || f.detalle ? 'fuerte' : 'chico'}>{f.etiqueta}</text>
+        {f.detalle && <text x="0" y={f.yc + 13} class="suave mini">{f.detalle}</text>}
+        {f.raya !== undefined && (
+          <line x1={x(f.raya)} x2={x(f.raya)} y1={f.yc - 12} y2={f.yc + 12} style="stroke:var(--fg);stroke-width:3">
+            <title>{`${f.etiqueta} · ${f.rayaNombre ?? ''}: ${pct(f.raya)}`}</title>
+          </line>
+        )}
+        {f.puntos.map((p) => (
+          <g class="punto" tabindex="0" data-tip={p.tip}>
+            <title>{p.tip}</title>
+            <line x1={x(p.lo)} x2={x(p.hi)} y1={p.y} y2={p.y} style={`stroke:${color(f)};stroke-width:2.5`} />
+            <circle cx={x(p.valor)} cy={p.y} r={p.hueco ? 5.5 : 6}
+              style={p.hueco ? `fill:var(--bg);stroke:${color(f)};stroke-width:2` : `fill:${color(f)}`} />
+            <rect x={x(p.lo)} y={p.y - 10} width={Math.max(x(p.hi) - x(p.lo), 20)} height="20" class="zona" />
+          </g>
+        ))}
+        {f.puntos.map((p, j) => (
+          <text x={x(f.fin) + 8} y={p.y + 5} class={`valor ${f.foco ? 'fuerte' : ''} ${p.hueco ? 'suave chico' : ''}`}>
+            {pct(p.valor)}{j === 0 && f.raya !== undefined ? ` → ${pct(f.raya)}` : ''}
+          </text>
+        ))}
+      </g>
+    ))}
+  </svg>
+  <div class="grafica__tip" hidden></div>
+  <figcaption>{pie}</figcaption>
+</figure>
+
+<style>
+  .grafica { margin: var(--e4) 0; position: relative; }
+  svg { width: 100%; height: auto; font-family: var(--sans); font-size: 15px; overflow: visible; }
+  text { fill: var(--fg); }
+  .suave { fill: var(--fg-suave); }
+  .chico { font-size: 13px; }
+  .mini { font-size: 12px; }
+  .fuerte { font-weight: 700; }
+  .leyenda text { fill: var(--fg-suave); font-size: 13px; }
+  .rejilla { stroke: var(--linea); }
+  .referencia { stroke: var(--fg-suave); stroke-dasharray: 4 4; }
+  /* El halo del color de fondo evita que la rejilla o la referencia tapen las cifras. */
+  .valor { paint-order: stroke; stroke: var(--bg); stroke-width: 4px; stroke-linejoin: round; }
+  .zona { fill: transparent; }
+  .punto { cursor: default; outline: none; }
+  .punto:hover circle, .punto:focus-visible circle { stroke: var(--fg); stroke-width: 2; }
+  figcaption { font-size: 0.9rem; color: var(--fg-suave); margin-top: var(--e2); }
+  .grafica__tip {
+    position: absolute; pointer-events: none; max-width: 16rem;
+    background: var(--fg); color: var(--bg); font-size: 0.85rem; line-height: 1.35;
+    padding: var(--e1) var(--e2); border-radius: var(--radio);
+  }
+</style>
+
+<script>
+  // Extra opcional: la cifra completa junto al punto. Sin JS quedan los <title>.
+  for (const fig of document.querySelectorAll<HTMLElement>('.grafica')) {
+    const tip = fig.querySelector<HTMLElement>('.grafica__tip');
+    if (!tip) continue;
+    const mostrar = (el: SVGGElement) => {
+      tip.textContent = el.dataset.tip ?? '';
+      tip.hidden = false;
+      const caja = fig.getBoundingClientRect();
+      const p = el.getBoundingClientRect();
+      const izq = Math.min(p.left - caja.left, caja.width - tip.offsetWidth);
+      tip.style.left = `${Math.max(0, izq)}px`;
+      tip.style.top = `${p.top - caja.top - tip.offsetHeight - 6}px`;
+    };
+    const ocultar = () => { tip.hidden = true; };
+    for (const el of fig.querySelectorAll<SVGGElement>('.punto')) {
+      el.querySelector('title')?.remove(); // con JS, la etiqueta propia reemplaza la nativa
+      el.addEventListener('pointerenter', () => mostrar(el));
+      el.addEventListener('pointerleave', ocultar);
+      el.addEventListener('focus', () => mostrar(el));
+      el.addEventListener('blur', ocultar);
+    }
+  }
+</script>

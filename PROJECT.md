@@ -22,7 +22,12 @@ Guía de trabajo. Para la estructura técnica, ver [README.md](README.md).
    con la misma cautela del CV («un registro profesional reporta…»). No se
    redondean hacia arriba ni se inventan porcentajes.
 5. **Solo se muestra trabajo publicable.** Queda fuera lo que está protegido con
-   contraseña o cifrado, y los análisis de redes sobre personas identificables.
+   contraseña o cifrado. En los análisis de redes se nombra por su handle solo a
+   figuras públicas (funcionarios, abogados, organizaciones, medios) y a cuentas
+   anónimas que no están vinculadas a una persona real; los usuarios comunes
+   identificables van agregados y sin nombre, también en los JSON de `src/data/`.
+   Cada handle publicado se revisa a mano antes de subir. (Criterio fijado el
+   14-11-2026 con la nota sobre la red de cuentas tras el asesinato de Foppa.)
 6. **Colores y medidas solo como variables** en `src/styles/tokens.css`. Ningún
    hex fuera de ese archivo. `--acento` (#d1452a) es gráfico: para texto chico
    sobre fondo claro se usa `--acento-texto`, y sobre fondo oscuro

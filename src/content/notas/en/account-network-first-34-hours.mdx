@@ -1,0 +1,182 @@
+---
+titulo: "The first 34 hours: what a network of accounts did after Foppa's murder"
+fecha: 2026-11-14
+idioma: en
+par: red-de-cuentas-difusion
+resumen: "The murder of lawyer Juan Francisco Solórzano Foppa opened a window to watch, almost in real time, how a network of X accounts tied to the ecosystem of the Foundation Against Terrorism behaves. It did not invent the narratives: it picked them."
+origen: "manual:traducción de la nota en español, 14 de noviembre de 2026"
+---
+import GraficaIndice from '../../../components/GraficaIndice.astro';
+import GraficaRed from '../../../components/GraficaRed.astro';
+import GraficaIntervalos from '../../../components/GraficaIntervalos.astro';
+import d from '../../../data/difusion-red.json';
+
+export const corto = {
+  N1: 'A critical voice silenced', N2: 'The government had him killed', N3: 'Government and insecurity',
+  N4: 'Demand for justice', N5: 'Pact of the corrupt', N6: 'Double standards', N7: 'Dubious arrests',
+  N8: 'Police framed suspects', todas: 'All narratives',
+};
+export const momentosEn = [
+  'First media report', 'Arrests reported', 'Arévalo condemns the crime', 'A detainee is a former soldier',
+  'VP Herrera: “a critical voice silenced”', "Arévalo's address to the nation",
+];
+export const miles = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+export const num = (v, k = 1) => v.toFixed(k);
+export const ph = d.ph;
+export const c = ph.cifras;
+export const general = ph.por_hora.valores.resto.map((v, i) => v + ph.por_hora.valores.medio[i]).slice(0, -1);
+export const redH = ph.por_hora.valores.red.slice(0, -1);
+export const momentos = ph.momentos.map((m, i) => ({ ...m, texto: momentosEn[i] ?? m.texto }));
+export const hTodasCompleto = d.hawkes.filas.find((f) => f.id === 'todas');
+export const hN2 = ph.hawkes.find((f) => f.id === 'N2');
+
+_Draft. Some figures may still change._
+
+On October 17, 2026, at 9:53 a.m., the media reported that lawyer and former prosecutor Juan Francisco Solórzano Foppa had been murdered in Guatemala City. Thirty-six minutes later, at 10:29, a Telegram channel that calls itself “DarkSide” posted: “Claudia Palencia shows up, and the next day they send Foppa to La Playita. #OnFire.”
+
+On that channel, “La Playita” (“the little beach”) is how death is talked about. The hashtag #OnFire is its signature. And the channel mirrors one of the most active X accounts in the attacks on prosecutors, judges and journalists in Guatemala: @&#95;&#95;vadergt.
+
+This piece reconstructs what that account, and the network it belongs to, did during the first 34 hours after the crime. It is not a story about the murder. It is about a question that can rarely be answered with data: **how does a network of accounts showing signs of coordination move when something serious happens?**
+
+## The network and its ecosystem
+
+In Guatemala, the CIACS (Illegal Clandestine Security Apparatuses) are networks born from military intelligence during the armed conflict that, according to InSight Crime, have long held influence inside the state. In its investigations into the 2023 elections, InSight Crime placed the **Foundation Against Terrorism (FCT)**, led by Ricardo Méndez Ruiz, inside the political bloc of the Valor party, which it describes as heir to those networks. It describes the FCT as a paralegal entity that files complaints against prosecutors, judges, activists and journalists who worked against impunity, many of whom ended up in exile. And it notes that the FCT backs its complaints with social media campaigns.
+
+Méndez Ruiz and the FCT's lawyer, Raúl Falla, are on the U.S. State Department's Engel List of corrupt and undemocratic actors in Central America. In June 2025, the European Union sanctioned the FCT, Méndez Ruiz and Falla for undermining the rule of law in Guatemala, with asset freezes and travel bans.
+
+On X, those campaigns are not run by the FCT alone. Harald Waxenecker's analysis (2026) of the online attacks on journalist José Rubén Zamora identified a network of accounts that set the agenda for those attacks:
+- those of Falla (@raulfalla31) and Méndez Ruiz (@rmendezruiz);
+- @cedeguate, which carries the name of lawyer Omar Barrios Osorio, linked to the FCT and a private complainant in the case against former prosecutor Virginia Laparra. The U.S. added him to the Engel List in 2023 for intimidating an anti-corruption prosecutor;
+- a group of anonymous accounts that, together with @cedeguate, is known as **“La Bendición”** (“The Blessing”): @&#95;&#95;vadergt, @eriol&#95;gt, @crticaconstru20, @mipais100 and others.
+
+For this piece, 15 of those accounts were taken as the **core**. Any account that retweeted the core at least once is called an **amplifier**. A retweet shows affinity, not membership: retweeting someone does not make anyone part of a network. None of this proves that the accounts answer to the CIACS or to a central command. What it does show is how they act, and what they push, within the same ecosystem as the FCT.
+
+## The data
+
+From the morning of October 17, every half hour, posts mentioning Foppa were downloaded through X's official API. In the first {num(c.horas, 0)} hours, until 8 p.m. on October 18, **{miles(c.textos)} posts from {miles(c.cuentas)} accounts** were collected.
+
+The full export of the Telegram channel was also used: {miles(ph.telegram.mensajes_total)} messages since April 2021.
+
+This data does not look like survey data, and that matters for reading what follows. Sociologist Matthew Salganik explains it in *Bit by Bit* (2018): digital platforms were not designed for research but for the business of the companies that run them. They decide what gets stored and the rules for extracting it. So the tools have to be adapted to what the platform allows. One example: X's API does not return the time of the original tweet with each retweet, but that time can be recovered from the tweet's ID number.
+
+Nor is it a sample in the survey sense, drawn at random to represent a population. The idea here is different: capture as much as possible of what circulates. The sample represents what X lets us see of the conversation, with the platform's own biases: who uses X in Guatemala, what its algorithm shows and what its API returns. That is why this piece makes no claims about “what Guatemalans think.” It compares groups of accounts observed the same way, within the same data.
+
+During those hours, the network posted {miles(c.red_textos)} of the collected posts. {c.red_nucleo_activas} core accounts and {c.red_amplificadoras_activas} amplifiers took part.
+
+<GraficaIndice idioma="en" inicio={ph.por_hora.inicio} pasoH={1}
+  series={[
+    { etiqueta: 'General conversation', color: 'var(--dato-resto)', valores: general, ancho: 3 },
+    { etiqueta: 'The network', color: 'var(--dato-amp)', valores: redH },
+  ]}
+  momentos={momentos}
+  etiquetaAria="Hourly activity index: the network follows the noon peak of October 17 but has peaks of its own on the night of the 17th and the morning of the 18th"
+  pie="Own posts (posts, quotes and replies) per hour, Guatemala time. Each line is an index: 100 is the hour with the most posts in that series. This compares when each one rises and falls, not how much it posts. The general conversation includes the media. Dotted lines are the events numbered in the list." />
+
+Both curves reach their highest point at the same hour, noon on the 17th, and generally rise and fall together. But the network has two peaks of its own. The first comes on the night of the 17th, when the general conversation was already fading: at midnight, the network stood at 73% of its maximum and the general conversation at 17%. That is the hour of “Foppa, a state murder.” The second comes at 7 and 8 a.m. on the 18th, with posts about the hitmen's rifle and the “flagrante delicto” of the arrests.
+
+## Hour by hour
+
+These are some of the core accounts' posts during those hours, translated from Spanish. In parentheses, the retweets each one received in the sample.
+
+<ol class="crono">
+  <li><time>Oct 17, 10:29</time> <b>Vader's Telegram channel:</b> “Claudia Palencia shows up, and the next day they send Foppa to La Playita. #OnFire.”</li>
+  <li><time>11:46</time> <b>@raulfalla31</b>, the FCT's lawyer: “Foppa had state security and enjoyed protection measures from @mingobguate and @PNCdeGuatemala. Nahualá, Huité and now this. They promised security and a new spring” (4).</li>
+  <li><time>15:31</time> <b>@&#95;&#95;vadergt</b>, on the first detainees: “That arrest is a real stretch, things don't add up” (16).</li>
+  <li><time>15:49</time> <b>@panchovillai</b> calls the president “the jerk who is usurping the presidential house” (10).</li>
+  <li><time>16:14</time> <b>@crticaconstru20</b>: “Under Bernardo Arévalo's government, hundreds of Guatemalans have been murdered. How many of those crimes have drawn a presidential reaction with the same force…?” (5).</li>
+  <li><time>20:22</time> <b>@&#95;&#95;vadergt</b>: “Foppa, a state murder” (10). The same text appears on his Telegram channel.</li>
+  <li><time>22:17</time> <b>@&#95;&#95;vadergt</b>, replying to another user: “Foppa was a criminal.”</li>
+  <li><time>Oct 18, 08:00</time> <b>@la&#95;revoluzzion</b> claims the hitmen's rifle “belongs to the security forces” of the government (22).</li>
+  <li><time>11:32</time> <b>@eriol&#95;gt</b>, after a judge dismissed the case against the detained brothers: “Their cover-up of Foppa's murder fell apart” (24).</li>
+  <li><time>15:47</time> <b>@rmendezruiz</b>: “Arévalo's government needs just one more for citizen pressure to bring it down.”</li>
+</ol>
+
+In one afternoon, the network went through four different frames: the government failed to protect him, the arrests are fake, it was a state crime, and Foppa was a criminal. They all have one thing in common: **the government is to blame**.
+
+## It did not invent the narratives: it picked them
+
+A language model classified each post into one of eight narratives, defined from a reading of the conversation. The first finding is that **the network originated none of them**. In all eight, some account outside the network posted it first, between 8 minutes and three hours earlier. Partly that is because the rest of the conversation is much larger, but even so the network was never first.
+
+What the network did was choose. The chart compares how much weight each narrative carries in the network and in the rest of the conversation over those 34 hours. A value of 2 means it appears twice as often in the network.
+
+<GraficaIntervalos idioma="en"
+  filas={[...ph.composicion].sort((a, b) => b.razon - a.razon).map((n) => ({
+    etiqueta: corto[n.id], detalle: `${num(n.pct_red)}% in the network · ${num(n.pct_resto)}% in the rest`,
+    valor: n.razon, lo: n.ic95[0], hi: n.ic95[1], foco: n.ic95[0] > 1,
+  }))}
+  dominio={[0, 3.5]} referencia={{ valor: 1, texto: 'equal weight' }} formato=".2f" sufijo="×"
+  etiquetaAria="In the first hours, the network posted 2.6 times more than the rest that the government had Foppa killed"
+  pie={`Ratio between each narrative's share in the network and in the rest, from Oct 17, 9:53 a.m. to Oct 18, 8 p.m. Lines are 95% intervals (resampling by account). Posts with a narrative: ${miles(ph.composicion_n.red)} from the network and ${miles(ph.composicion_n.resto)} from the rest.`} />
+
+From day one, the network talked **2.6 times more** than the rest about Arévalo's government having Foppa killed, and more than twice as much about the government being responsible for insecurity. It barely talked about what dominated the general conversation: the demand for justice and the idea that Foppa was silenced for exposing mafias.
+
+The network does not care whether a frame turns out to be true or false. It does care whom it blames. The narrative that police framed suspects, which the network posted almost twice as much as the rest from October 18 on, found support five days later, when seven police officers were arrested for planting the weapon. For the network, that frame was useful because it pointed at the Interior Ministry.
+
+## Two accounts carry the amplification
+
+During those hours, amplifiers gave the core {c.rt_al_nucleo} retweets. **{c.rt_top2} went to just two accounts: @eriol&#95;gt and @&#95;&#95;vadergt.** The rest of the core was barely amplified. In the chart, each small dot is an amplifier, unnamed.
+
+<GraficaRed idioma="en" nodos={ph.red.nodos} aristas={ph.red.aristas}
+  etiquetaAria="Amplification network in the first hours: most amplifiers retweet @eriol_gt or @__vadergt"
+  pie={`Retweets from amplifiers (small dots, unnamed) to core accounts, Oct 17, 9:53 a.m. to Oct 18, 8 p.m. Solid dots retweeted two or more core accounts (${ph.red.multi_nucleo}). Core account size: retweets received.`} />
+
+The FCT barely showed up in this network. Méndez Ruiz posted little, and Raúl Falla, who in Waxenecker's analysis was the most central account in the attacks on Zamora, mostly just retweeted here, including @&#95;&#95;vadergt several times. In this episode, “La Bendición” did the talking.
+
+## What was not found
+
+Coordinated operations tend to leave traces: they retweet very fast, act at the same time and repeat the same texts. In these 34 hours, the network did not clearly leave them.
+
+- **Speed.** Comparing the same tweets, network accounts retweeted a median of {num(ph.velocidad_pareada.dif_mediana_min, 0)} minutes **later** than the rest (interval from {num(ph.velocidad_pareada.ic95[0])} to {num(ph.velocidad_pareada.ic95[1], 0)} minutes). They were not faster.
+- **Synchrony.** Some accounts retweet the same thing seconds apart, but that pattern does not exceed what chance would produce once you account for the fact that they choose the same tweets.
+- **Copies.** There are almost no identical texts posted by different network accounts.
+- **Contagion.** A model was used to estimate how many general-conversation posts each network post “triggers,” discounting the attention generated by the media. It is the same idea as an epidemic's R number. The result was compared with groups of ordinary accounts picked at random, the same size as the network.
+
+<GraficaIntervalos idioma="en"
+  filas={ph.hawkes.map((f) => ({
+    etiqueta: corto[f.id], detalle: `${miles(f.n_red)} network posts · ${miles(f.n_resto)} from the rest`,
+    valor: f.a, lo: f.ic95[0], hi: f.ic95[1], franja: [0, f.placebo_p90], marca: f.placebo_med, foco: f.id === 'todas',
+  }))}
+  dominio={[0, 3]} formato=".2f"
+  leyenda={{ punto: 'the network', franja: 'random groups (median and 90%)' }}
+  etiquetaAria="Only in the narrative that the government had Foppa killed does the network beat almost all random groups, with a very wide margin"
+  pie="Posts from the rest triggered, on average, by each network post (bivariate Hawkes process, own posts, first 34 hours). Lines are 95% intervals. The gray band runs from zero to the 90th percentile of 30 groups of randomly chosen accounts; the tick is their median. Lines that reach the edge continue beyond it." />
+
+Across all narratives, the network does not trigger more than a group of ordinary accounts. There is one weak exception: in the narrative that the government had Foppa killed, the network triggered more than {Math.round(100 - hN2.pct_placebo_mayor)}% of the random groups. But the margin is huge and it is one of six tests, so it may be chance.
+
+That these traces do not appear does not rule out coordination. A network can coordinate through other channels, such as messaging groups, and look organic on X. Or it can work more like an affinity community, sharing enemies and vocabulary, than like an operation on a schedule.
+
+## The mirror on Telegram
+
+Vader's Telegram channel links to 17 X accounts using variants of the same name, such as @lordvadertg, @lord&#95;vadertg, @&#95;&#95;dvader, @&#95;&#95;vadergt and @vadergt&#95;&#95;. @&#95;&#95;dvader is the one that appears in the examples in Waxenecker's report. It suggests the account has changed its name or account over time, which is common when X suspends accounts.
+
+Between October 17 and November 1, **{ph.telegram.pares_x_tg} of the {ph.telegram.vader_propios} own posts by @&#95;&#95;vadergt** collected on X also appear on the channel, with the same text. In almost every case, X comes first and Telegram follows 20 to 55 seconds later. The channel works as an archive and loudspeaker for the X account, not as the place where the messages are prepared.
+
+## After the first hours
+
+Downloads continued until November 5. In total, {miles(d.cifras.textos)} posts were collected; {miles(d.cifras.textos_red)} are from the network, with {d.cifras.amplificadoras} amplifiers taking part. With more time, two things appear that cannot be seen in the first hours.
+
+- **The network persists.** The general conversation faded within a few days, but the network declined more slowly. From October 17 to 19 it made up 4.9% of the own posts collected; from October 25 to 31, 8.0%. When general attention moves on, the network stays.
+- **The agenda shifts.** In the first hours, the “double standards” of those outraged over Foppa but not over other deaths weighed about the same in the network as in the rest. Over the full two weeks it weighed 1.7 times more. The narrative that the government had Foppa killed held at 2.6 times.
+
+The rest holds. Two accounts, @&#95;&#95;vadergt and @eriol&#95;gt, received {d.cifras.rt_al_nucleo_top2} of the {d.cifras.rt_al_nucleo} retweets amplifiers gave the core. The network was not faster than the rest, there were no copies, and it did not trigger more posts than a group of randomly chosen ordinary accounts ({num(hTodasCompleto.a, 2)} versus {num(hTodasCompleto.placebo_med, 2)}).
+
+## What we cannot see
+
+- **It is not the whole conversation.** X returned part of the posts. With partial data, synchrony and contagion are underestimated. That is why everything is compared between groups measured the same way.
+- **Retweets were captured in short windows.** Each download brought the retweets from the preceding minutes. They work for measuring speed, because the original tweet's time is recovered from its ID, but not for following a full cascade.
+- **X does not say how a retweet arrived.** Every retweet is attributed to the original author, even if it was seen on another account.
+- **The contagion model has wide margins.** With few network posts per narrative, its figures serve to compare against the random groups, not as exact values.
+- **The narrative classification was done by a language model** and can be wrong. It classifies what a post is about, not always whether it is for or against.
+- **Telegram times** were recalculated, because the export labels the computer's time with a tag that fails during daylight saving time.
+- **The channel's photos and videos** were not reviewed.
+
+## Sources
+
+- InSight Crime (2023). “Valor and the Ghost of the CIACS” and “Perpetuating Corruption: Undermining Guatemala's 2023 Elections,” from the series *Power and Impunity: The 2023 Guatemala Elections*. [insightcrime.org](https://insightcrime.org/investigations/power-impunity-2023-guatemala-elections/)
+- U.S. Department of State (2023). [*Section 353 Corrupt and Undemocratic Actors Report*](https://www.state.gov/reports/section-353-corrupt-and-undemocratic-actors-report-2023/) (Engel List).
+- Council of the European Union. Restrictive measures in view of the situation in Guatemala, listing of June 12, 2025, renewed in [Regulation (EU) 2026/87](https://eur-lex.europa.eu/eli/reg/2026/87/oj/eng).
+- RICIG (2025). [“¿Quién es Omar Barrios?”](https://ricig.org/quien-es-omar-barrios/) (in Spanish).
+- Waxenecker, Harald (2026). *José Rubén Zamora: ataques en línea. Informe de análisis de contenido, discurso y redes sociales* (Spanish translation).
+- Hatcher, Rachel (2025). “From Aldana to Zamora and Everyone In-Between: Exploring the Guatemalan Far Right's Social Media Campaigns against Non-Allies.” *Journal of Politics in Latin America*, 17(2), 211–234. [doi:10.1177/1866802X241312234](https://doi.org/10.1177/1866802X241312234)
+- Salganik, Matthew J. (2018). *Bit by Bit: Social Research in the Digital Age*. Princeton University Press.
+- Data: posts on X mentioning Foppa, downloaded through the official API from October 17 to November 5, 2026, and the export of Vader's Telegram channel from November 8, 2026.

@@ -19,6 +19,7 @@ interface Fila {
   foco?: boolean;
 }
 interface Props {
+  idioma?: 'es' | 'en';
   filas: Fila[];
   dominio: [number, number];
   referencia?: { valor: number; texto: string };
@@ -28,8 +29,11 @@ interface Props {
   etiquetaAria: string;
   pie: string;
 }
-const { filas, dominio, referencia, formato = '.2f', sufijo = '', leyenda, etiquetaAria, pie } = Astro.props;
-const local = formatLocale({ decimal: ',', thousands: '.', grouping: [3], currency: ['Q', ''] });
+const { idioma = 'es', filas, dominio, referencia, formato = '.2f', sufijo = '', leyenda, etiquetaAria, pie } = Astro.props;
+const local = idioma === 'es'
+  ? formatLocale({ decimal: ',', thousands: '.', grouping: [3], currency: ['Q', ''] })
+  : formatLocale({ decimal: '.', thousands: ',', grouping: [3], currency: ['$', ''] });
+const P = idioma === 'es' ? { intervalo: 'intervalo', a: 'a', comp: 'comparación' } : { intervalo: 'interval', a: 'to', comp: 'comparison' };
 const f = (v: number) => local.format(formato)(v) + sufijo;
 
 const W = 600, L = 215, R = 70, ARRIBA = leyenda ? 36 : 10, altoFila = 46;
@@ -64,8 +68,8 @@ const ticks = x.ticks(5);
     {filas.map((r, i) => {
       const y = ARRIBA + altoFila * i + altoFila / 2;
       const c = r.foco ? 'var(--dato-nucleo)' : 'var(--fg-suave)';
-      const tip = `${r.etiqueta}: ${f(r.valor)} (intervalo ${f(r.lo)} a ${f(r.hi)})` +
-        (r.franja ? `; comparación ${f(r.franja[0])} a ${f(r.franja[1])}` : '');
+      const tip = `${r.etiqueta}: ${f(r.valor)} (${P.intervalo} ${f(r.lo)} ${P.a} ${f(r.hi)})` +
+        (r.franja ? `; ${P.comp} ${f(r.franja[0])} ${P.a} ${f(r.franja[1])}` : '');
       return (
         <g>
           <text x="0" y={r.detalle ? y - 3 : y + 5} class={r.foco ? 'fuerte' : ''}>{r.etiqueta}</text>

@@ -10,6 +10,7 @@ import { line, curveMonotoneX } from 'd3-shape';
 interface Serie { etiqueta: string; color: string; valores: number[]; ancho?: number }
 interface Momento { hora: string; texto: string }
 interface Props {
+  idioma?: 'es' | 'en';
   inicio: string;
   pasoH: number;
   series: Serie[];
@@ -18,7 +19,7 @@ interface Props {
   etiquetaAria: string;
   pie: string;
 }
-const { inicio, pasoH, series, unidad = 'textos', momentos = [], etiquetaAria, pie } = Astro.props;
+const { idioma = 'es', inicio, pasoH, series, unidad = idioma === 'es' ? 'textos' : 'posts', momentos = [], etiquetaAria, pie } = Astro.props;
 const n = series[0].valores.length;
 const t0 = new Date(inicio).getTime();
 const fechas = Array.from({ length: n }, (_, i) => new Date(t0 + i * pasoH * 3600e3));
@@ -30,8 +31,8 @@ const idx = series.map((s) => {
   const v = s.valores.map((c) => (100 * c) / m);
   return { ...s, idx: v, d: line<number>().x((_, i) => x(fechas[i])).y((u) => y(u)).curve(curveMonotoneX)(v) ?? '' };
 });
-const hora = (d: Date) => new Intl.DateTimeFormat('es-GT', { day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit', timeZone: 'America/Guatemala' }).format(d);
-const diaTxt = (d: Date) => new Intl.DateTimeFormat('es-GT', { day: 'numeric', month: 'short', timeZone: 'America/Guatemala' }).format(d);
+const hora = (d: Date) => new Intl.DateTimeFormat(idioma === 'es' ? 'es-GT' : 'en-US', { day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit', timeZone: 'America/Guatemala' }).format(d);
+const diaTxt = (d: Date) => new Intl.DateTimeFormat(idioma === 'es' ? 'es-GT' : 'en-US', { day: 'numeric', month: 'short', timeZone: 'America/Guatemala' }).format(d);
 // marcas cada 6 h; la medianoche (06:00 UTC) lleva la fecha
 const marcas = fechas.filter((d) => d.getUTCHours() % 6 === 0);
 const ms = momentos
@@ -50,7 +51,7 @@ const paso = n > 1 ? x(fechas[1]) - x(fechas[0]) : 10;
     {idx.map((s, i) => (
       <g class="leyenda" transform={`translate(${L}, ${4 + i * 20})`}>
         <line x1="0" x2="18" y1="9" y2="9" style={`stroke:${s.color};stroke-width:3`} />
-        <text x="24" y="14">{s.etiqueta} (pico: {Math.max(...s.valores)} {unidad}/hora)</text>
+        <text x="24" y="14">{s.etiqueta} ({idioma === 'es' ? 'pico' : 'peak'}: {Math.max(...s.valores)} {unidad}/{idioma === 'es' ? 'hora' : 'hour'})</text>
       </g>
     ))}
     {[0, 25, 50, 75, 100].map((v) => (
@@ -69,12 +70,12 @@ const paso = n > 1 ? x(fechas[1]) - x(fechas[0]) : 10;
     {idx.map((s) => <path d={s.d} style={`fill:none;stroke:${s.color};stroke-width:${s.ancho ?? 2.5};stroke-linejoin:round`} />)}
     {fechas.map((f, i) => (
       <rect x={x(f) - paso / 2} y={T} width={paso} height={H - B - T} class="zona">
-        <title>{`${hora(f)} · ` + idx.map((s) => `${s.etiqueta}: ${s.valores[i]} ${unidad} (índice ${Math.round(s.idx[i])})`).join(' · ')}</title>
+        <title>{`${hora(f)} · ` + idx.map((s) => `${s.etiqueta}: ${s.valores[i]} ${unidad} (${idioma === 'es' ? 'índice' : 'index'} ${Math.round(s.idx[i])})`).join(' · ')}</title>
       </rect>
     ))}
     {marcas.map((d) => {
       const h = (d.getUTCHours() + 18) % 24;
-      return <text x={x(d)} y={H - B + 18} text-anchor="middle" class={h === 0 ? 'chico' : 'suave chico'}>{h === 0 ? diaTxt(d) : `${h}:00`}</text>;
+      return <text x={x(d)} y={H - B + 18} text-anchor="middle" class={h === 0 ? 'chico' : 'suave chico'}>{h === 0 ? diaTxt(d) : idioma === 'es' ? `${h}:00` : `${h % 12 || 12} ${h < 12 ? 'am' : 'pm'}`}</text>;
     })}
   </svg>
   {ms.length > 0 && (

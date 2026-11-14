@@ -10,8 +10,15 @@ import { extent } from 'd3-array';
 
 interface Nodo { id: string; tipo: 'nucleo' | 'amplificadora'; red?: string; recibidos?: number; propios?: number; enviados?: number; multi?: number }
 interface Arista { s: string; t: string; n: number }
-interface Props { nodos: Nodo[]; aristas: Arista[]; etiquetaAria: string; pie: string }
-const { nodos: entrada, aristas, etiquetaAria, pie } = Astro.props;
+interface Props { idioma?: 'es' | 'en'; nodos: Nodo[]; aristas: Arista[]; etiquetaAria: string; pie: string }
+const { idioma = 'es', nodos: entrada, aristas, etiquetaAria, pie } = Astro.props;
+const T = idioma === 'es'
+  ? { amp: 'Amplificadora', rt: (n: number) => `${n} retuit${n === 1 ? '' : 's'} al núcleo`, multi: (n: number) => `, a ${n} cuentas distintas`,
+      nuc: (r: number, p: number) => `${r} retuits recibidos de amplificadoras; ${p} textos propios`,
+      lb: 'núcleo «La Bendición» (tamaño: retuits recibidos)', lf: 'núcleo FCT', la: 'amplificadora', xf: 350, xa: 455 }
+  : { amp: 'Amplifier', rt: (n: number) => `${n} retweet${n === 1 ? '' : 's'} of the core`, multi: (n: number) => `, of ${n} different accounts`,
+      nuc: (r: number, p: number) => `${r} retweets received from amplifiers; ${p} own posts`,
+      lb: '“La Bendición” core (size: retweets received)', lf: 'FCT core', la: 'amplifier', xf: 330, xa: 435 };
 
 const W = 600, H = 520, M = 24;
 const r = scaleSqrt().domain([0, Math.max(...entrada.map((d) => d.recibidos ?? 0))]).range([4, 30]);
@@ -68,13 +75,13 @@ const etiquetas = [...nucleo].sort((a, b) => b.rad - a.rad).map((d) => {
     </g>
     {amps.map((d) => (
       <circle cx={px(d.x)} cy={py(d.y)} r={d.rad} class={d.multi >= 2 ? 'amp multi' : 'amp'}>
-        <title>{`Amplificadora: ${d.enviados} retuit${d.enviados === 1 ? '' : 's'} al núcleo${d.multi >= 2 ? `, a ${d.multi} cuentas distintas` : ''}`}</title>
+        <title>{`${T.amp}: ${T.rt(d.enviados)}${d.multi >= 2 ? T.multi(d.multi) : ''}`}</title>
       </circle>
     ))}
     {nucleo.map((d) => (
       <g>
         <circle cx={px(d.x)} cy={py(d.y)} r={d.rad} class={d.red === 'fct' ? 'nuc fct' : 'nuc'}>
-          <title>{`@${d.id}: ${d.recibidos} retuits recibidos de amplificadoras; ${d.propios} textos propios`}</title>
+          <title>{`@${d.id}: ${T.nuc(d.recibidos, d.propios)}`}</title>
         </circle>
       </g>
     ))}
@@ -82,9 +89,9 @@ const etiquetas = [...nucleo].sort((a, b) => b.rad - a.rad).map((d) => {
       {etiquetas.map((e) => <text x={e.x} y={e.y} text-anchor={e.ancla} class="etiqueta">@{e.id}</text>)}
     </g>
     <g class="leyenda" transform={`translate(${M}, ${H - 8})`}>
-      <circle cx="5" cy="-5" r="6" class="nuc" /><text x="16" y="0">núcleo «La Bendición» (tamaño: retuits recibidos)</text>
-      <circle cx="350" cy="-5" r="6" class="nuc fct" /><text x="361" y="0">núcleo FCT</text>
-      <circle cx="455" cy="-5" r="3.5" class="amp" /><text x="464" y="0">amplificadora</text>
+      <circle cx="5" cy="-5" r="6" class="nuc" /><text x="16" y="0">{T.lb}</text>
+      <circle cx={T.xf} cy="-5" r="6" class="nuc fct" /><text x={T.xf + 11} y="0">{T.lf}</text>
+      <circle cx={T.xa} cy="-5" r="3.5" class="amp" /><text x={T.xa + 9} y="0">{T.la}</text>
     </g>
   </svg>
   <figcaption>{pie}</figcaption>

@@ -1,0 +1,179 @@
+---
+titulo: "Las primeras 34 horas: qué hizo una red de cuentas tras el asesinato de Foppa"
+fecha: 2026-11-14
+idioma: es
+resumen: "El asesinato del abogado Juan Francisco Solórzano Foppa abrió una ventana para observar, casi en tiempo real, cómo actúa en X una red de cuentas ligada al ecosistema de la Fundación contra el Terrorismo. No inventó las narrativas: las escogió."
+origen: "manual:análisis en E:/DIfusionNarrativas, 14 de noviembre de 2026"
+---
+import GraficaIndice from '../../../components/GraficaIndice.astro';
+import GraficaRed from '../../../components/GraficaRed.astro';
+import GraficaIntervalos from '../../../components/GraficaIntervalos.astro';
+import d from '../../../data/difusion-red.json';
+
+export const corto = {
+  N1: 'Voz crítica silenciada', N2: 'El gobierno lo mandó matar', N3: 'Gobierno e inseguridad',
+  N4: 'Exigencia de justicia', N5: 'Pacto de corruptos', N6: 'Doble moral', N7: 'Capturas dudosas',
+  N8: 'La PNC fabricó culpables', todas: 'Todas las narrativas',
+};
+export const miles = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+export const coma = (v, k = 1) => v.toFixed(k).replace('.', ',');
+export const ph = d.ph;
+export const c = ph.cifras;
+export const general = ph.por_hora.valores.resto.map((v, i) => v + ph.por_hora.valores.medio[i]).slice(0, -1);
+export const redH = ph.por_hora.valores.red.slice(0, -1);
+export const horaIni = ph.por_hora.inicio;
+export const hTodasCompleto = d.hawkes.filas.find((f) => f.id === 'todas');
+export const hN2 = ph.hawkes.find((f) => f.id === 'N2');
+export const hTodas = ph.hawkes.find((f) => f.id === 'todas');
+
+_Borrador. Algunas cifras todavía pueden cambiar._
+
+El 17 de octubre de 2026, a las 9:53 de la mañana, los medios reportaron que el abogado y exfiscal Juan Francisco Solórzano Foppa había sido asesinado en la Ciudad de Guatemala. Treinta y seis minutos después, a las 10:29, un canal de Telegram que se presenta como «DarkSide» publicó: «Aparece Claudia Palencia, y al otro día envían a Foppa a La Playita. #OnFire».
+
+En ese canal, «La Playita» es la forma de hablar de la muerte. La etiqueta #OnFire es su firma. Y el canal es el espejo de una de las cuentas más activas de X en los ataques contra fiscales, jueces y periodistas en Guatemala: @__vadergt.
+
+Esta nota reconstruye lo que hizo esa cuenta, y la red de la que forma parte, durante las primeras 34 horas después del crimen. No es una nota sobre el asesinato. Es sobre una pregunta que pocas veces se puede responder con datos: **¿cómo se mueve una red de cuentas con indicios de coordinación cuando ocurre algo grave?**
+
+## La red y su ecosistema
+
+En Guatemala, los CIACS (Cuerpos Ilegales y Aparatos Clandestinos de Seguridad) son redes que nacieron de la inteligencia militar durante el conflicto armado y que, según InSight Crime, mantienen una larga influencia dentro del Estado. En sus investigaciones sobre las elecciones de 2023, InSight Crime ubicó a la **Fundación contra el Terrorismo (FCT)**, que dirige Ricardo Méndez Ruiz, dentro del bloque político de Valor, al que describe como heredero de esas redes. La describe como una entidad paralegal que presenta denuncias contra fiscales, jueces, activistas y periodistas que trabajaron contra la impunidad, muchos de los cuales terminaron en el exilio. Y señala que la FCT acompaña sus denuncias con campañas en redes sociales.
+
+Méndez Ruiz y el abogado de la FCT, Raúl Falla, están en la Lista Engel del Departamento de Estado de EE. UU., que señala a actores corruptos y antidemocráticos en Centroamérica. En junio de 2025, la Unión Europea sancionó a la FCT, a Méndez Ruiz y a Falla por socavar el Estado de derecho en Guatemala, con congelación de bienes y prohibición de viajar.
+
+En X, esas campañas no las hace solo la FCT. El análisis de Harald Waxenecker (2026) sobre los ataques en línea contra el periodista José Rubén Zamora identificó una red de cuentas que fijan la agenda de esos ataques:
+- las de Falla (@raulfalla31) y Méndez Ruiz (@rmendezruiz);
+- @cedeguate, que lleva el nombre del abogado Omar Barrios Osorio, vinculado a la FCT y querellante en el caso contra la exfiscal Virginia Laparra. EE. UU. lo incluyó en la Lista Engel en 2023 por intimidar a una fiscal anticorrupción;
+- un grupo de cuentas anónimas que, junto con @cedeguate, se conoce como **«La Bendición»**: @&#95;&#95;vadergt, @eriol&#95;gt, @crticaconstru20, @mipais100 y otras.
+
+Para esta nota se tomaron 15 de esas cuentas como **núcleo**. A cualquier cuenta que retuiteó al núcleo al menos una vez se le llama **amplificadora**. Un retuit muestra afinidad, no pertenencia: retuitear a alguien no hace a nadie parte de una red. Nada de esto prueba que las cuentas respondan a los CIACS ni a una orden central. Lo que sí muestra es cómo actúan, y qué empujan, en el mismo ecosistema que la FCT.
+
+## Los datos
+
+Desde la mañana del 17 de octubre, cada media hora, se descargaron por la API oficial de X las publicaciones que mencionaban a Foppa. En las primeras {coma(c.horas, 0)} horas, hasta las 8 de la noche del 18 de octubre, se reunieron **{miles(c.textos)} publicaciones de {miles(c.cuentas)} cuentas**.
+
+Además, se usó la exportación completa del canal de Telegram: {miles(ph.telegram.mensajes_total)} mensajes desde abril de 2021.
+
+Estos datos no se parecen a los de una encuesta, y eso importa para leer lo que sigue. El sociólogo Matthew Salganik lo explica en *Bit by Bit* (2018): las plataformas digitales no fueron diseñadas para investigar, sino para el negocio de las empresas que las administran. Son ellas las que deciden qué se guarda y con qué reglas se puede extraer. Por eso hay que adaptar las herramientas a lo que la plataforma permite. Un ejemplo: la API de X no entrega la hora del tuit original en cada retuit, pero esa hora se puede recuperar del número de identificación del tuit.
+
+Tampoco es una muestra en el sentido de una encuesta, elegida al azar para representar a una población. Aquí la idea es otra: captar la mayor cantidad posible de lo que circula. La muestra representa lo que X deja ver de la conversación, con los sesgos de la propia plataforma: quién usa X en Guatemala, qué muestra su algoritmo y qué entrega su API. Por eso esta nota no hace afirmaciones sobre «lo que piensan los guatemaltecos». Compara grupos de cuentas observados de la misma manera, dentro de los mismos datos.
+
+En esas horas, la red publicó {miles(c.red_textos)} de los textos recogidos. Participaron {c.red_nucleo_activas} cuentas del núcleo y {c.red_amplificadoras_activas} amplificadoras.
+
+<GraficaIndice inicio={horaIni} pasoH={1}
+  series={[
+    { etiqueta: 'Conversación general', color: 'var(--dato-resto)', valores: general, ancho: 3 },
+    { etiqueta: 'La red', color: 'var(--dato-amp)', valores: redH },
+  ]}
+  momentos={ph.momentos}
+  etiquetaAria="Índice de actividad por hora: la red sigue el pico de mediodía del 17 de octubre, pero tiene picos propios en la noche del 17 y la mañana del 18"
+  pie="Textos propios (publicaciones, citas y respuestas) por hora, hora de Guatemala. Cada línea es un índice: 100 es la hora con más textos de esa serie. Así se compara cuándo sube y baja cada una, no cuánto publica. La conversación general incluye a los medios. Las líneas punteadas son los hechos numerados en la lista." />
+
+Las dos curvas tocan su punto más alto a la misma hora, el mediodía del 17, y en general suben y bajan juntas. Pero la red tiene dos picos propios. El primero llega la noche del 17, cuando la conversación general ya se apagaba: a medianoche, la red estaba en 73 % de su máximo y la conversación general en 17 %. Es la hora de «Foppa un asesinato de Estado». El segundo llega a las 7 y 8 de la mañana del 18, con los mensajes sobre el fusil de los sicarios y la «flagrancia» de las capturas.
+
+## Hora por hora
+
+Estas son algunas de las publicaciones de las cuentas del núcleo en esas horas. Entre paréntesis, los retuits que recibió cada una en la muestra.
+
+<ol class="crono">
+  <li><time>17 oct, 10:29</time> <b>Canal de Telegram de Vader:</b> «Aparece Claudia Palencia, y al otro día envían a Foppa a La Playita. #OnFire».</li>
+  <li><time>11:46</time> <b>@raulfalla31</b>, abogado de la FCT: «Foppa contaba con seguridad estatal y gozaba de medidas de protección del @mingobguate y la @PNCdeGuatemala. Nahulá, Huité y ahora esto. Ofrecieron seguridad y una nueva primavera» (4).</li>
+  <li><time>15:31</time> <b>@__vadergt</b>, sobre los primeros detenidos: «Muy jalada esa captura, hay cosas que no cuadran» (16).</li>
+  <li><time>15:49</time> <b>@panchovillai</b> llama al presidente «el tipejo que está usurpando casa presidencial» (10).</li>
+  <li><time>16:14</time> <b>@crticaconstru20</b>: «Durante el gobierno de Bernardo Arévalo han sido asesinados cientos de guatemaltecos. ¿Cuántos de esos crímenes han provocado una reacción presidencial con la misma contundencia…?» (5).</li>
+  <li><time>20:22</time> <b>@__vadergt</b>: «Foppa un asesinato de Estado» (10). El mismo texto aparece en su canal de Telegram.</li>
+  <li><time>22:17</time> <b>@__vadergt</b>, en respuesta a otro usuario: «Foppa era un delincuente».</li>
+  <li><time>18 oct, 08:00</time> <b>@la_revoluzzion</b> afirma que el fusil de los sicarios «pertenece a las fuerzas de seguridad» del gobierno (22).</li>
+  <li><time>11:32</time> <b>@eriol_gt</b>, tras la falta de mérito a los hermanos detenidos: «Se les cayó el encubrimiento del asesin4t0 de Foppa» (24).</li>
+  <li><time>15:47</time> <b>@rmendezruiz</b>: «Una más le falta al gobierno de Arévalo para que la presión ciudadana lo haga caer».</li>
+</ol>
+
+En una tarde, la red pasó por cuatro encuadres distintos: el gobierno no lo protegió, las capturas son falsas, fue un crimen de Estado y Foppa era un delincuente. Todos tienen algo en común: **la responsabilidad es del gobierno**.
+
+## No inventó las narrativas: las escogió
+
+Un modelo de lenguaje clasificó cada texto en una de ocho narrativas, definidas a partir de una lectura de la conversación. El primer hallazgo es que **la red no originó ninguna**. En las ocho, alguna cuenta fuera de la red la publicó antes, entre 8 minutos y tres horas antes. En parte es porque el resto de la conversación es mucho más grande, pero aun así la red nunca llegó primero.
+
+Lo que hizo la red fue elegir. La gráfica compara cuánto pesa cada narrativa en la red y en el resto de la conversación durante esas 34 horas. Un valor de 2 significa que aparece el doble en la red.
+
+<GraficaIntervalos
+  filas={[...ph.composicion].sort((a, b) => b.razon - a.razon).map((n) => ({
+    etiqueta: corto[n.id], detalle: `${coma(n.pct_red)} % en la red · ${coma(n.pct_resto)} % en el resto`,
+    valor: n.razon, lo: n.ic95[0], hi: n.ic95[1], foco: n.ic95[0] > 1,
+  }))}
+  dominio={[0, 3.5]} referencia={{ valor: 1, texto: 'igual peso' }} formato=".2f" sufijo="×"
+  etiquetaAria="En las primeras horas, la red publicó 2,6 veces más que el resto que el gobierno mandó matar a Foppa"
+  pie={`Razón entre el porcentaje de cada narrativa en la red y en el resto, del 17-oct 9:53 al 18-oct 20:00. Las líneas son intervalos al 95 % (remuestreo por cuenta). Textos con narrativa: ${miles(ph.composicion_n.red)} de la red y ${miles(ph.composicion_n.resto)} del resto.`} />
+
+Desde el primer día, la red habló **2,6 veces más** que el resto de que el gobierno de Arévalo mandó matar a Foppa, y más del doble de que el gobierno es responsable por la inseguridad. Casi no habló de lo que dominó la conversación general: la exigencia de justicia y la idea de que Foppa fue silenciado por denunciar mafias.
+
+La red no se ocupa de si un encuadre resulta cierto o falso. Sí se ocupa de a quién culpa. La narrativa de que la policía fabricó culpables, que la red publicó casi al doble que el resto desde el 18 de octubre, encontró respaldo cinco días después, cuando fueron capturados siete policías por implantar el arma. Para la red, ese encuadre servía porque apuntaba al Ministerio de Gobernación.
+
+## Dos cuentas cargan con la amplificación
+
+En esas horas, las amplificadoras le dieron {c.rt_al_nucleo} retuits al núcleo. **{c.rt_top2} fueron para solo dos cuentas: @eriol_gt y @__vadergt.** El resto del núcleo casi no fue amplificado. En la gráfica, cada punto chico es una amplificadora, sin nombre.
+
+<GraficaRed nodos={ph.red.nodos} aristas={ph.red.aristas}
+  etiquetaAria="Red de amplificación de las primeras horas: la mayoría de las amplificadoras retuitea a @eriol_gt o a @__vadergt"
+  pie={`Retuits de amplificadoras (puntos chicos, sin nombre) a las cuentas del núcleo, del 17-oct 9:53 al 18-oct 20:00. Los puntos más intensos retuitearon a dos o más cuentas del núcleo (${ph.red.multi_nucleo}). Tamaño de las cuentas del núcleo: retuits recibidos.`} />
+
+La FCT casi no apareció en esta red. Méndez Ruiz publicó poco, y Raúl Falla, que en el análisis de Waxenecker era la cuenta más central de los ataques contra Zamora, aquí casi solo retuiteó, varias veces a @__vadergt. En este episodio, la voz la llevó «La Bendición».
+
+## Lo que no se encontró
+
+Las operaciones coordinadas suelen dejar huellas: retuitean muy rápido, actúan al mismo tiempo y repiten los mismos textos. En estas 34 horas, la red no las dejó de forma clara.
+
+- **Velocidad.** Comparando los mismos tuits, las cuentas de la red retuitearon en una mediana de {coma(ph.velocidad_pareada.dif_mediana_min, 0)} minutos **más tarde** que el resto (intervalo de {coma(ph.velocidad_pareada.ic95[0])} a {coma(ph.velocidad_pareada.ic95[1], 0)} minutos). No fueron más rápidas.
+- **Sincronía.** Hay cuentas que retuitean lo mismo con segundos de diferencia, pero ese patrón no supera lo que se espera por azar una vez que se toma en cuenta que eligen los mismos tuits.
+- **Copias.** Casi no hay textos idénticos publicados por cuentas distintas de la red.
+- **Contagio.** Se usó un modelo que estima cuántas publicaciones de la conversación general «dispara» cada publicación de la red, descontando la atención que generan los medios. Es la misma idea del número R de una epidemia. El resultado se comparó con grupos de cuentas comunes elegidos al azar, del mismo tamaño que la red.
+
+<GraficaIntervalos
+  filas={ph.hawkes.map((f) => ({
+    etiqueta: corto[f.id], detalle: `${miles(f.n_red)} textos de la red · ${miles(f.n_resto)} del resto`,
+    valor: f.a, lo: f.ic95[0], hi: f.ic95[1], franja: [0, f.placebo_p90], marca: f.placebo_med, foco: f.id === 'todas',
+  }))}
+  dominio={[0, 3]} formato=".2f"
+  leyenda={{ punto: 'la red', franja: 'grupos al azar (mediana y 90 %)' }}
+  etiquetaAria="Solo en la narrativa de que el gobierno mandó matar a Foppa la red supera a casi todos los grupos al azar, con un margen muy amplio"
+  pie="Publicaciones del resto que dispara, en promedio, cada publicación de la red (proceso de Hawkes bivariado, textos propios, primeras 34 horas). Las líneas son intervalos al 95 %. La franja gris va de cero al percentil 90 de 30 grupos de cuentas elegidas al azar; la raya es su mediana. Las líneas que llegan al borde siguen más allá." />
+
+Para el conjunto de narrativas, la red no dispara más que un grupo de cuentas comunes. Hay una excepción, débil: en la narrativa de que el gobierno mandó matar a Foppa, la red disparó más que {miles(Math.round(100 - hN2.pct_placebo_mayor))} % de los grupos al azar. Pero el margen es enorme y es una de seis pruebas, así que puede ser casualidad.
+
+Que no aparezcan estas huellas no descarta la coordinación. Una red puede coordinarse por otros canales, como grupos de mensajería, y verse orgánica en X. O puede funcionar más como una comunidad de afinidad, que comparte enemigos y vocabulario, que como una operación con horario.
+
+## El espejo en Telegram
+
+El canal de Telegram de Vader enlaza 17 cuentas de X que usan variantes del mismo nombre, como @lordvadertg, @lord&#95;vadertg, @&#95;&#95;dvader, @&#95;&#95;vadergt y @vadergt&#95;&#95;. @&#95;&#95;dvader es la que aparece en los ejemplos del informe de Waxenecker. Es un indicio de que la cuenta ha cambiado de nombre o de cuenta con el tiempo, algo común cuando X suspende cuentas.
+
+Entre el 17 de octubre y el 1 de noviembre, **{ph.telegram.pares_x_tg} de los {ph.telegram.vader_propios} textos propios de @__vadergt** que se recogieron en X aparecen también en el canal, con el mismo texto. En casi todos los casos, X va primero y Telegram sigue entre 20 y 55 segundos después. El canal funciona como un archivo y un altavoz de la cuenta de X, no como el lugar donde se preparan los mensajes.
+
+
+## Después de las primeras horas
+
+Las descargas siguieron hasta el 5 de noviembre. En total se reunieron {miles(d.cifras.textos)} publicaciones; {miles(d.cifras.textos_red)} son de la red, en la que participaron {d.cifras.amplificadoras} amplificadoras. Con más tiempo aparecen dos cosas que no se ven en las primeras horas.
+
+- **La red persiste.** La conversación general se apagó en pocos días, pero la red bajó más despacio. Del 17 al 19 de octubre fue el 4,9 % de los textos propios recogidos; del 25 al 31, el 8,0 %. Cuando la atención general se va, la red se queda.
+- **La agenda se mueve.** En las primeras horas, la «doble moral» de quienes se indignan por Foppa y no por otras muertes pesaba casi igual en la red que en el resto. En las dos semanas completas pesó 1,7 veces más. La narrativa de que el gobierno mandó matar a Foppa se mantuvo en 2,6 veces.
+
+Lo demás se sostiene. Dos cuentas, @&#95;&#95;vadergt y @eriol&#95;gt, recibieron {d.cifras.rt_al_nucleo_top2} de los {d.cifras.rt_al_nucleo} retuits que las amplificadoras le dieron al núcleo. La red no fue más rápida que el resto, no hubo copias, y no disparó más publicaciones que un grupo de cuentas comunes elegidas al azar ({coma(hTodasCompleto.a, 2)} contra {coma(hTodasCompleto.placebo_med, 2)}).
+
+## Lo que no se ve
+
+- **No es toda la conversación.** X entregó una parte de las publicaciones. Con datos parciales, la sincronía y el contagio se subestiman. Por eso todo se compara entre grupos medidos de la misma manera.
+- **Los retuits se captaron en ventanas cortas.** Cada descarga traía los retuits de los minutos previos. Sirven para medir velocidad, porque la hora del tuit original se obtiene de su identificador, pero no para seguir una cascada completa.
+- **X no dice por quién llegó un retuit.** Todo retuit se atribuye al autor original, aunque se haya visto en otra cuenta.
+- **El modelo de contagio tiene márgenes amplios.** Con pocas publicaciones de la red por narrativa, sus cifras sirven para comparar con los grupos al azar, no como valores exactos.
+- **La clasificación de narrativas la hizo un modelo de lenguaje** y puede equivocarse. Clasifica de qué habla un texto, no siempre si está a favor o en contra.
+- **Las horas de Telegram** se recalcularon, porque la exportación marca la hora del equipo con una etiqueta que falla en horario de verano.
+- **No se revisaron** las fotos ni los videos del canal.
+
+## Fuentes
+
+- InSight Crime (2023). «Valor and the Ghost of the CIACS» y «Perpetuating Corruption: Undermining Guatemala's 2023 Elections», de la serie *Power and Impunity: The 2023 Guatemala Elections*. [insightcrime.org](https://insightcrime.org/investigations/power-impunity-2023-guatemala-elections/)
+- Departamento de Estado de EE. UU. (2023). [*Section 353 Corrupt and Undemocratic Actors Report*](https://www.state.gov/reports/section-353-corrupt-and-undemocratic-actors-report-2023/) (Lista Engel).
+- Consejo de la Unión Europea. Medidas restrictivas por la situación en Guatemala, listado del 12 de junio de 2025, renovado en el [Reglamento (UE) 2026/87](https://eur-lex.europa.eu/eli/reg/2026/87/oj/eng).
+- RICIG (2025). [«¿Quién es Omar Barrios?»](https://ricig.org/quien-es-omar-barrios/)
+- Waxenecker, Harald (2026). *José Rubén Zamora: ataques en línea. Informe de análisis de contenido, discurso y redes sociales* (traducción al español).
+- Hatcher, Rachel (2025). «From Aldana to Zamora and Everyone In-Between: Exploring the Guatemalan Far Right's Social Media Campaigns against Non-Allies». *Journal of Politics in Latin America*, 17(2), 211–234. [doi:10.1177/1866802X241312234](https://doi.org/10.1177/1866802X241312234)
+- Salganik, Matthew J. (2018). *Bit by Bit: Social Research in the Digital Age*. Princeton University Press.
+- Datos: publicaciones en X que mencionan a Foppa, descargadas por la API oficial del 17 de octubre al 5 de noviembre de 2026, y la exportación del canal de Telegram de Vader del 8 de noviembre de 2026.

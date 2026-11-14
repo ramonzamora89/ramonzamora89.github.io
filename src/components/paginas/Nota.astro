@@ -48,5 +48,14 @@ const formato = new Intl.DateTimeFormat(idioma === 'es' ? 'es-GT' : 'en-US', {
     background: var(--crema-calido); padding: var(--e3);
     border-radius: var(--radio); overflow-x: auto; font-size: 0.9rem;
   }
+  .prosa :global(.crono) { list-style: none; padding: 0; margin: var(--e4) 0; border-left: 2px solid var(--acento); }
+  .prosa :global(.crono li) { padding: 0 0 var(--e3) var(--e3); position: relative; }
+  .prosa :global(.crono time) { display: block; font-family: var(--sans); font-size: var(--micro); letter-spacing: var(--tracking-micro); text-transform: uppercase; color: var(--fg-suave); }
+  .prosa :global(.tabla) { overflow-x: auto; margin: var(--e4) 0; }
+  .prosa :global(table) { border-collapse: collapse; width: 100%; font-family: var(--sans); font-size: 0.9rem; }
+  .prosa :global(caption) { text-align: left; color: var(--fg-suave); font-size: 0.9rem; margin-bottom: var(--e2); }
+  .prosa :global(th) { text-align: left; font-weight: 700; border-bottom: 2px solid var(--fg); padding: var(--e1) var(--e2); vertical-align: bottom; }
+  .prosa :global(td) { border-bottom: var(--borde-fino) solid var(--linea); padding: var(--e1) var(--e2); }
+  .prosa :global(td:nth-child(n+3)), .prosa :global(th:nth-child(n+3)) { text-align: right; font-variant-numeric: tabular-nums; }
   .prosa :global(hr) { border: 0; border-top: var(--borde-fino) solid var(--linea); margin: var(--e5) 0; }
 </style>

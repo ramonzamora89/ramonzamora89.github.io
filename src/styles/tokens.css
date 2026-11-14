@@ -17,6 +17,13 @@
   --gris-tenue: #b8b5a0;    /* texto secundario sobre oscuro */
   --linea: #dedbcc;         /* filetes y bordes decorativos */
 
+  /* --- Datos: grupos de cuentas en gráficas (contraste ≥3:1 sobre crema) --- */
+  --dato-nucleo: #9c2c16;   /* núcleo de la red: 7.33 */
+  --dato-amp: var(--acento); /* amplificadoras: 4.44 */
+  --dato-medio: #2f6f86;    /* medios: 5.46 */
+  --dato-resto: #8f8c78;    /* resto de la conversación: 3.30 */
+  --dato-banda: #ebe7d8;    /* franjas de referencia (decorativo) */
+
   /* --- Variables de tema (las remapea [data-theme]) --------------------- */
   --bg: var(--crema);
   --fg: var(--tinta);

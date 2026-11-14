@@ -1,0 +1,104 @@
+---
+/**
+ * Red de amplificación: cuentas que retuitean (sin nombre) → cuentas del núcleo (con handle).
+ * La posición se calcula al compilar con d3-force (determinista: d3-force usa su propio
+ * generador con semilla fija), así que la página recibe un SVG fijo. Colores de tokens.css.
+ */
+import { forceSimulation, forceLink, forceManyBody, forceCollide, forceX, forceY } from 'd3-force';
+import { scaleSqrt } from 'd3-scale';
+import { extent } from 'd3-array';
+
+interface Nodo { id: string; tipo: 'nucleo' | 'amplificadora'; red?: string; recibidos?: number; propios?: number; enviados?: number; multi?: number }
+interface Arista { s: string; t: string; n: number }
+interface Props { nodos: Nodo[]; aristas: Arista[]; etiquetaAria: string; pie: string }
+const { nodos: entrada, aristas, etiquetaAria, pie } = Astro.props;
+
+const W = 600, H = 520, M = 24;
+const r = scaleSqrt().domain([0, Math.max(...entrada.map((d) => d.recibidos ?? 0))]).range([4, 30]);
+const radio = (d: Nodo) => (d.tipo === 'nucleo' ? r(d.recibidos ?? 0) : 2.2 + Math.min(4, (d.enviados ?? 1) * 0.5));
+const nodos = entrada.map((d) => ({ ...d, rad: radio(d) })) as any[];
+const links = aristas.map((a) => ({ source: a.s, target: a.t, n: a.n }));
+const sim = forceSimulation(nodos)
+  .force('link', forceLink(links).id((d: any) => d.id).distance(40).strength(0.4))
+  .force('carga', forceManyBody().strength((d: any) => (d.tipo === 'nucleo' ? -260 : -14)))
+  .force('choque', forceCollide().radius((d: any) => d.rad + 1.2))
+  .force('x', forceX(0).strength((d: any) => (d.tipo === 'nucleo' ? 0.25 : 0.05)))
+  .force('y', forceY(0).strength((d: any) => (d.tipo === 'nucleo' ? 0.25 : 0.07)))
+  .stop();
+for (let i = 0; i < 400; i++) sim.tick();
+const [x0, x1] = extent(nodos, (d: any) => d.x) as [number, number];
+const [y0, y1] = extent(nodos, (d: any) => d.y) as [number, number];
+const k = Math.min((W - 2 * M - 60) / (x1 - x0), (H - 2 * M) / (y1 - y0));
+const px = (v: number) => M + 30 + (v - x0) * k;
+const py = (v: number) => M + (v - y0) * k;
+const nucleo = nodos.filter((d) => d.tipo === 'nucleo').sort((a, b) => a.rad - b.rad);
+const amps = nodos.filter((d) => d.tipo === 'amplificadora');
+// Etiquetas: capa propia, encima de todo. Cada una prueba posiciones (arriba, abajo, derecha, izquierda,
+// y luego más lejos) hasta no chocar con otra etiqueta ni con otro nodo del núcleo.
+type Caja = { x0: number; y0: number; x1: number; y1: number };
+const choca = (a: Caja, b: Caja) => a.x0 < b.x1 && b.x0 < a.x1 && a.y0 < b.y1 && b.y0 < a.y1;
+const puestas: Caja[] = [];
+const circulos = nucleo.map((d) => ({ id: d.id, x0: px(d.x) - d.rad, y0: py(d.y) - d.rad, x1: px(d.x) + d.rad, y1: py(d.y) + d.rad }));
+const etiquetas = [...nucleo].sort((a, b) => b.rad - a.rad).map((d) => {
+  const cx = px(d.x), cy = py(d.y), w = (d.id.length + 1) * 7.6, h = 15;
+  const opciones: [number, number, string][] = [];
+  for (const k of [0, 10, 22, 36]) {
+    opciones.push([cx, cy - d.rad - 5 - k, 'middle'], [cx, cy + d.rad + 15 + k, 'middle'],
+      [cx + d.rad + 5 + k, cy + 5, 'start'], [cx - d.rad - 5 - k, cy + 5, 'end']);
+  }
+  const caja = ([x, y, a]: [number, number, string]): Caja => {
+    const x0 = a === 'middle' ? x - w / 2 : a === 'start' ? x : x - w;
+    return { x0, y0: y - h + 3, x1: x0 + w, y1: y + 3 };
+  };
+  const libre = opciones.find((o) => {
+    const c = caja(o);
+    return !puestas.some((q) => choca(c, q)) && !circulos.some((q) => q.id !== d.id && choca(c, q));
+  }) ?? opciones[0];
+  puestas.push(caja(libre));
+  return { id: d.id, x: libre[0], y: libre[1], ancla: libre[2] };
+});
+---
+<figure class="gr">
+  <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={etiquetaAria}>
+    <g class="aristas">
+      {links.map((l: any) => (
+        <line x1={px(l.source.x)} y1={py(l.source.y)} x2={px(l.target.x)} y2={py(l.target.y)}
+          style={`stroke-width:${Math.min(3, 0.6 + l.n * 0.35)}`} />
+      ))}
+    </g>
+    {amps.map((d) => (
+      <circle cx={px(d.x)} cy={py(d.y)} r={d.rad} class={d.multi >= 2 ? 'amp multi' : 'amp'}>
+        <title>{`Amplificadora: ${d.enviados} retuit${d.enviados === 1 ? '' : 's'} al núcleo${d.multi >= 2 ? `, a ${d.multi} cuentas distintas` : ''}`}</title>
+      </circle>
+    ))}
+    {nucleo.map((d) => (
+      <g>
+        <circle cx={px(d.x)} cy={py(d.y)} r={d.rad} class={d.red === 'fct' ? 'nuc fct' : 'nuc'}>
+          <title>{`@${d.id}: ${d.recibidos} retuits recibidos de amplificadoras; ${d.propios} textos propios`}</title>
+        </circle>
+      </g>
+    ))}
+    <g class="etiquetas">
+      {etiquetas.map((e) => <text x={e.x} y={e.y} text-anchor={e.ancla} class="etiqueta">@{e.id}</text>)}
+    </g>
+    <g class="leyenda" transform={`translate(${M}, ${H - 8})`}>
+      <circle cx="5" cy="-5" r="6" class="nuc" /><text x="16" y="0">núcleo «La Bendición» (tamaño: retuits recibidos)</text>
+      <circle cx="350" cy="-5" r="6" class="nuc fct" /><text x="361" y="0">núcleo FCT</text>
+      <circle cx="455" cy="-5" r="3.5" class="amp" /><text x="464" y="0">amplificadora</text>
+    </g>
+  </svg>
+  <figcaption>{pie}</figcaption>
+</figure>
+
+<style>
+  .gr { margin: var(--e4) 0; }
+  svg { width: 100%; height: auto; font-family: var(--sans); font-size: 13px; overflow: visible; }
+  .aristas line { stroke: var(--linea); }
+  .amp { fill: var(--dato-amp); fill-opacity: 0.55; }
+  .amp.multi { fill-opacity: 1; }
+  .nuc { fill: var(--dato-nucleo); stroke: var(--bg); stroke-width: 1.5; }
+  .nuc.fct { fill: var(--bg); stroke: var(--dato-nucleo); stroke-width: 2.5; }
+  .etiqueta { fill: var(--fg); font-weight: 700; paint-order: stroke; stroke: var(--bg); stroke-width: 4px; stroke-linejoin: round; }
+  .leyenda text { fill: var(--fg-suave); font-size: 12px; }
+  figcaption { font-size: 0.9rem; color: var(--fg-suave); margin-top: var(--e2); }
+</style>

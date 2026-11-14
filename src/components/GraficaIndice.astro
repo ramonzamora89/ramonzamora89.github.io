@@ -1,0 +1,102 @@
+---
+/**
+ * Series de tiempo como índice 0–100 (cada una respecto a su propio pico, como Google Trends),
+ * en un mismo eje: compara la forma, no el volumen. Los conteos reales van en el <title> de cada hora.
+ * Momentos clave numerados (lista debajo). D3 al compilar; SVG fijo, sin JavaScript. Colores de tokens.css.
+ */
+import { scaleLinear, scaleTime } from 'd3-scale';
+import { line, curveMonotoneX } from 'd3-shape';
+
+interface Serie { etiqueta: string; color: string; valores: number[]; ancho?: number }
+interface Momento { hora: string; texto: string }
+interface Props {
+  inicio: string;
+  pasoH: number;
+  series: Serie[];
+  unidad?: string;          // para el <title>: «textos»
+  momentos?: Momento[];
+  etiquetaAria: string;
+  pie: string;
+}
+const { inicio, pasoH, series, unidad = 'textos', momentos = [], etiquetaAria, pie } = Astro.props;
+const n = series[0].valores.length;
+const t0 = new Date(inicio).getTime();
+const fechas = Array.from({ length: n }, (_, i) => new Date(t0 + i * pasoH * 3600e3));
+const W = 600, H = 350, L = 40, R = 14, T = 78, B = 34;
+const x = scaleTime().domain([fechas[0], fechas[n - 1]]).range([L, W - R]);
+const y = scaleLinear().domain([0, 100]).range([H - B, T]);
+const idx = series.map((s) => {
+  const m = Math.max(...s.valores) || 1;
+  const v = s.valores.map((c) => (100 * c) / m);
+  return { ...s, idx: v, d: line<number>().x((_, i) => x(fechas[i])).y((u) => y(u)).curve(curveMonotoneX)(v) ?? '' };
+});
+const hora = (d: Date) => new Intl.DateTimeFormat('es-GT', { day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit', timeZone: 'America/Guatemala' }).format(d);
+const diaTxt = (d: Date) => new Intl.DateTimeFormat('es-GT', { day: 'numeric', month: 'short', timeZone: 'America/Guatemala' }).format(d);
+// marcas cada 6 h; la medianoche (06:00 UTC) lleva la fecha
+const marcas = fechas.filter((d) => d.getUTCHours() % 6 === 0);
+const ms = momentos
+  .map((m, i) => ({ ...m, num: i + 1, t: new Date(`${m.hora}:00-06:00`) }))
+  .filter((m) => m.t >= fechas[0] && m.t <= fechas[n - 1]);
+const grupos: { x: number; nums: number[]; textos: string[] }[] = [];
+for (const m of ms) {
+  const g = grupos[grupos.length - 1];
+  if (g && x(m.t) - g.x < 24) { g.nums.push(m.num); g.textos.push(`${m.num}. ${m.texto}`); }
+  else grupos.push({ x: x(m.t), nums: [m.num], textos: [`${m.num}. ${m.texto}`] });
+}
+const paso = n > 1 ? x(fechas[1]) - x(fechas[0]) : 10;
+---
+<figure class="gx">
+  <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={etiquetaAria}>
+    {idx.map((s, i) => (
+      <g class="leyenda" transform={`translate(${L}, ${4 + i * 20})`}>
+        <line x1="0" x2="18" y1="9" y2="9" style={`stroke:${s.color};stroke-width:3`} />
+        <text x="24" y="14">{s.etiqueta} (pico: {Math.max(...s.valores)} {unidad}/hora)</text>
+      </g>
+    ))}
+    {[0, 25, 50, 75, 100].map((v) => (
+      <g>
+        <line x1={L} x2={W - R} y1={y(v)} y2={y(v)} class="rejilla" />
+        <text x={L - 6} y={y(v) + 4} text-anchor="end" class="suave chico">{v}</text>
+      </g>
+    ))}
+    {ms.map((m) => <line x1={x(m.t)} x2={x(m.t)} y1={T} y2={H - B} class="momento" />)}
+    {grupos.map((g) => (
+      <g>
+        <title>{g.textos.join(' · ')}</title>
+        <text x={g.x} y={T - 8} text-anchor="middle" class="num">{g.nums.length > 1 ? `${g.nums[0]}–${g.nums[g.nums.length - 1]}` : g.nums[0]}</text>
+      </g>
+    ))}
+    {idx.map((s) => <path d={s.d} style={`fill:none;stroke:${s.color};stroke-width:${s.ancho ?? 2.5};stroke-linejoin:round`} />)}
+    {fechas.map((f, i) => (
+      <rect x={x(f) - paso / 2} y={T} width={paso} height={H - B - T} class="zona">
+        <title>{`${hora(f)} · ` + idx.map((s) => `${s.etiqueta}: ${s.valores[i]} ${unidad} (índice ${Math.round(s.idx[i])})`).join(' · ')}</title>
+      </rect>
+    ))}
+    {marcas.map((d) => {
+      const h = (d.getUTCHours() + 18) % 24;
+      return <text x={x(d)} y={H - B + 18} text-anchor="middle" class={h === 0 ? 'chico' : 'suave chico'}>{h === 0 ? diaTxt(d) : `${h}:00`}</text>;
+    })}
+  </svg>
+  {ms.length > 0 && (
+    <ol class="momentos">
+      {ms.map((m) => <li value={m.num}>{m.texto}</li>)}
+    </ol>
+  )}
+  <figcaption>{pie}</figcaption>
+</figure>
+
+<style>
+  .gx { margin: var(--e4) 0; }
+  svg { width: 100%; height: auto; font-family: var(--sans); font-size: 15px; overflow: visible; }
+  text { fill: var(--fg); }
+  .suave { fill: var(--fg-suave); }
+  .chico { font-size: 12px; }
+  .num { font-size: 11px; fill: var(--fg-suave); font-weight: 700; }
+  .leyenda text { fill: var(--fg-suave); font-size: 13px; }
+  .rejilla { stroke: var(--linea); }
+  .momento { stroke: var(--fg-suave); stroke-dasharray: 2 3; stroke-width: 1; }
+  .zona { fill: transparent; }
+  .zona:hover { fill: var(--fg); fill-opacity: 0.05; }
+  .momentos { font-size: 0.85rem; color: var(--fg-suave); columns: 2 16rem; margin: var(--e2) 0 0; padding-left: 1.4rem; }
+  figcaption { font-size: 0.9rem; color: var(--fg-suave); margin-top: var(--e2); }
+</style>

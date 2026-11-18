@@ -8,3 +8,6 @@ dist/
 
 # Metadatos que deja macOS en discos externos
 ._*
+
+# Secretos que no deben subirse nunca
+github-recovery-codes.txt

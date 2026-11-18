@@ -50,7 +50,7 @@ const etiquetas = [...new Set(proyectos.map((p) => p.etiqueta[idioma]))].sort();
 </Base>
 
 <script>
-  // Filtro: sin JS se ven las ocho piezas, que es el estado correcto.
+  // Filtro: sin JS se ven todas las piezas, que es el estado correcto.
   const raiz = document.querySelector<HTMLElement>('[data-filtro]');
   const boton = document.querySelector<HTMLButtonElement>('[data-filtro-boton]');
   const lista = document.querySelector<HTMLElement>('[data-filtro-lista]');

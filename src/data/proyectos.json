@@ -129,67 +129,62 @@
     "captura": true
   },
   {
-    "id": "tomolapalabra",
-    "destacado": true,
+    "id": "elchivo",
+    "destacado": false,
     "slug": {
-      "es": "tomo-la-palabra",
-      "en": "tomo-la-palabra"
+      "es": "elchivo",
+      "en": "elchivo"
     },
     "titulo": {
-      "es": "Tomo la Palabra",
-      "en": "Tomo la Palabra"
+      "es": "elChivo",
+      "en": "elChivo"
     },
     "tipo": {
-      "es": "Plataforma",
-      "en": "Platform"
+      "es": "Experimento",
+      "en": "Experiment"
     },
     "etiqueta": {
       "es": "Medios",
       "en": "Media"
     },
-    "periodo": "2026",
+    "periodo": "2026–",
     "rol": {
-      "es": "Diseño y desarrollo del sitio y del flujo editorial",
-      "en": "Site and editorial workflow design and development"
+      "es": "Fundador y editor",
+      "en": "Founder and editor"
     },
     "organizaciones": [
-      "Tomo la Palabra"
+      "elChivo"
     ],
     "resumen": {
-      "es": "Sitio de Tomo la Palabra, un medio guatemalteco nacido en redes que hace entrevistas largas en video para darle voz a la gente común.",
-      "en": "Website for Tomo la Palabra, a Guatemalan outlet born on social media that runs long video interviews to give ordinary people a voice."
+      "es": "Un medio digital independiente de Guatemala que sale los lunes y los jueves: cinco notas cortas, con enlace a sus fuentes, que se leen en unos cinco minutos en el sitio o en el correo.",
+      "en": "An independent Guatemalan digital outlet that comes out on Mondays and Thursdays: five short stories, each linked to its sources, that take about five minutes to read on the site or by email."
     },
     "problema": {
-      "es": "Un equipo que trabaja en redes sociales y en Google Drive necesita publicar en su propio sitio sin programar ni entrar a un panel de administración.",
-      "en": "A team that works on social media and in Google Drive needs to publish on its own site without writing code or learning an admin panel."
+      "es": "La gente se informa en el celular y en visitas cortas. Un portal no se termina de leer; un apunte breve, que diga de dónde sale cada dato, sí.",
+      "en": "People get their news on their phones, in short visits. Nobody finishes reading a portal; a brief digest that says where every fact comes from, they do."
     },
     "trabajo": {
       "es": [
-        "Un flujo editorial que vive en Google Drive: se sube una entrevista en video y el borrador llega transcrito y redactado; mover el documento a la carpeta Publicar lo pone en el sitio.",
-        "Sitio en Next.js con el contenido versionado en Git, sin CMS ni base de datos, y una revisión de accesibilidad contra WCAG 2.1 AA, porque en el equipo hay personas que usan lector de pantalla.",
-        "Correcciones desde el mismo documento: la nota conserva su fecha y, si cambia el titular, la URL vieja redirige a la nueva."
+        "El concepto y el formato de la edición: «Ponele atención», notas de Guatemala y del mundo con su «Por qué importa», el dato público, la gráfica de la semana y un cierre con la agenda o el plan del finde.",
+        "Un agente de software que lee medios guatemaltecos y portales de datos abiertos (Banguat, Guatecompras) y propone con IA un borrador; las fuentes se citan por id y el enlace lo pone el script, así que el modelo no puede inventar uno.",
+        "Una persona editora elige las notas, verifica cada dato y firma. Nada se publica sin esa revisión, y la política de IA es pública en el sitio.",
+        "Sitio estático en Astro, publicado en Cloudflare, con el borrador abierto como pull request en GitHub y suscripción por correo con Buttondown."
       ],
       "en": [
-        "An editorial workflow that lives in Google Drive: upload a video interview and the draft comes back transcribed and written; moving the document to the Publish folder puts it on the site.",
-        "A Next.js site with content versioned in Git, no CMS or database, and an accessibility pass against WCAG 2.1 AA, because some of the team use screen readers.",
-        "Corrections from the same document: a story keeps its original date and, if the headline changes, the old URL redirects to the new one."
+        "The concept and the edition format: a story to watch, Guatemala and world stories with a “Why it matters” line, a public-data figure, the chart of the week, and a closing agenda or weekend guide.",
+        "A software agent that reads Guatemalan outlets and open-data portals (Banguat, Guatecompras) and drafts an edition with AI; sources are cited by id and the script inserts the real link, so the model cannot make one up.",
+        "A human editor picks the stories, checks every fact and signs off. Nothing is published without that review, and the AI policy is public on the site.",
+        "A static Astro site on Cloudflare, with each draft opened as a pull request on GitHub and email subscriptions through Buttondown."
       ]
     },
     "resultado": {
-      "es": "El equipo publica y corrige sus notas desde sus propios documentos de Google, sin tocar código.",
-      "en": "The team publishes and corrects its stories from its own Google Docs, without touching code."
+      "es": "La primera edición sale el jueves 19 de noviembre de 2026.",
+      "en": "The first edition comes out on Thursday, November 19, 2026."
     },
     "enlaces": [
       {
-        "etiqueta": "tomolapalabra.com",
-        "href": "https://tomolapalabra.com"
-      },
-      {
-        "etiqueta": {
-          "es": "Código",
-          "en": "Code"
-        },
-        "href": "https://github.com/ramonzamora89/tomo-la-palabra"
+        "etiqueta": "elchivo.media",
+        "href": "https://elchivo.media"
       }
     ],
     "captura": true
@@ -263,6 +258,72 @@
     ],
     "captura": true,
     "capturaPorIdioma": true
+  },
+  {
+    "id": "tomolapalabra",
+    "destacado": true,
+    "slug": {
+      "es": "tomo-la-palabra",
+      "en": "tomo-la-palabra"
+    },
+    "titulo": {
+      "es": "Tomo la Palabra",
+      "en": "Tomo la Palabra"
+    },
+    "tipo": {
+      "es": "Plataforma",
+      "en": "Platform"
+    },
+    "etiqueta": {
+      "es": "Medios",
+      "en": "Media"
+    },
+    "periodo": "2026",
+    "rol": {
+      "es": "Diseño y desarrollo del sitio y del flujo editorial",
+      "en": "Site and editorial workflow design and development"
+    },
+    "organizaciones": [
+      "Tomo la Palabra"
+    ],
+    "resumen": {
+      "es": "Sitio de Tomo la Palabra, un medio guatemalteco nacido en redes que hace entrevistas largas en video para darle voz a la gente común.",
+      "en": "Website for Tomo la Palabra, a Guatemalan outlet born on social media that runs long video interviews to give ordinary people a voice."
+    },
+    "problema": {
+      "es": "Un equipo que trabaja en redes sociales y en Google Drive necesita publicar en su propio sitio sin programar ni entrar a un panel de administración.",
+      "en": "A team that works on social media and in Google Drive needs to publish on its own site without writing code or learning an admin panel."
+    },
+    "trabajo": {
+      "es": [
+        "Un flujo editorial que vive en Google Drive: se sube una entrevista en video y el borrador llega transcrito y redactado; mover el documento a la carpeta Publicar lo pone en el sitio.",
+        "Sitio en Next.js con el contenido versionado en Git, sin CMS ni base de datos, y una revisión de accesibilidad contra WCAG 2.1 AA, porque en el equipo hay personas que usan lector de pantalla.",
+        "Correcciones desde el mismo documento: la nota conserva su fecha y, si cambia el titular, la URL vieja redirige a la nueva."
+      ],
+      "en": [
+        "An editorial workflow that lives in Google Drive: upload a video interview and the draft comes back transcribed and written; moving the document to the Publish folder puts it on the site.",
+        "A Next.js site with content versioned in Git, no CMS or database, and an accessibility pass against WCAG 2.1 AA, because some of the team use screen readers.",
+        "Corrections from the same document: a story keeps its original date and, if the headline changes, the old URL redirects to the new one."
+      ]
+    },
+    "resultado": {
+      "es": "El equipo publica y corrige sus notas desde sus propios documentos de Google, sin tocar código.",
+      "en": "The team publishes and corrects its stories from its own Google Docs, without touching code."
+    },
+    "enlaces": [
+      {
+        "etiqueta": "tomolapalabra.com",
+        "href": "https://tomolapalabra.com"
+      },
+      {
+        "etiqueta": {
+          "es": "Código",
+          "en": "Code"
+        },
+        "href": "https://github.com/ramonzamora89/tomo-la-palabra"
+      }
+    ],
+    "captura": true
   },
   {
     "id": "elperiodico",
